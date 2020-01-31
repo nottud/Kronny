@@ -83,8 +83,6 @@ public class PaintWaterColourTool implements EditorTool {
             }
          }
       }
-      
-      overlayViewCreator.getOverlayView().requestRedraw();
    }
    
    private void handleStopPaint() {

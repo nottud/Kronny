@@ -94,6 +94,14 @@ public class OverlayView {
       }
    }
    
+   public boolean isVertices() {
+      return vertices;
+   }
+   
+   public int getPixelsPerTile() {
+      return pixelsPerTile;
+   }
+   
    public WritableImage getImage() {
       return image;
    }
