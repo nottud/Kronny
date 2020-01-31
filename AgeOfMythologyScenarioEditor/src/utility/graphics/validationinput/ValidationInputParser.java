@@ -1,3 +1,4 @@
+
 package utility.graphics.validationinput;
 
 import java.util.Optional;
@@ -7,7 +8,7 @@ import java.util.Optional;
  * converting from a {@link String} it is allowed to reject if the {@link String} is seen as invalid.
  * @param <T> The type of the external object type the parser is trying to create from a {@link String}.
  */
-public interface ValidationInputParser <T> {
+public interface ValidationInputParser<T> {
    
    /**
     * Attempts to turn the entered text into the object it represents. If the {@link String} is invalid then the returned {@link Optional} will be

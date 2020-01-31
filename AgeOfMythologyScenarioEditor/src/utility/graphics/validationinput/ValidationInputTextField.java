@@ -1,3 +1,4 @@
+
 package utility.graphics.validationinput;
 
 import java.util.Objects;
@@ -16,7 +17,7 @@ import utility.observable.ObserverType;
  * invalid.
  * @param <T> The type of value the input is creating.
  */
-public class ValidationInputTextField <T> implements Observable {
+public class ValidationInputTextField<T> implements Observable {
    
    protected static final String NO_INPUT_STRING = "";
    protected static final String INVALID_INPUT_STYLE = "-fx-background-color: rgb(255, 150, 150);";
@@ -59,8 +60,8 @@ public class ValidationInputTextField <T> implements Observable {
          Optional<T> conversionAttempt = parser.parse(textField.getText());
          if (conversionAttempt.isPresent() || (textField.getText().equals(NO_INPUT_STRING))) {
             textField.setStyle(VALID_INPUT_STYLE);
-            if(!Objects.equals(conversionAttempt.get(), lastValidValue)) {
-            	updateValueAndNotify(conversionAttempt.orElse(null));
+            if (!Objects.equals(conversionAttempt.get(), lastValidValue)) {
+               updateValueAndNotify(conversionAttempt.orElse(null));
             }
          } else {
             if (!textField.getStyle().equals(INVALID_INPUT_STYLE)) {

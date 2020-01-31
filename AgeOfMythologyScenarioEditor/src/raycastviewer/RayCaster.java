@@ -1,7 +1,8 @@
+
 package raycastviewer;
 
 public interface RayCaster {
-	
-	public int cast(double worldX, double worldZ);
-
+   
+   public int cast(double worldX, double worldZ);
+   
 }

@@ -1,3 +1,4 @@
+
 package editor.tool.paintterrain;
 
 import java.util.LinkedHashSet;
@@ -27,125 +28,125 @@ import terrain.TerrainEntry;
 import utility.observable.Observer;
 
 public class TerrainTool implements EditorTool {
-	
-	public static final EditorToolType TOOL_TYPE = new EditorToolType();
-	
-	private EditorContext editorContext;
-	
-	private BrushModelHolder brushModelHolder;
-	private TerrainPreviewColourCache terrainPreviewColourCache;
-	private Set<int[]> paintCoverage;
-	
-	private TerrainSelectionModel terrainSelectionModel;
-	private TerrainViewer terrainViewer;
-	
-	private Observer<Object> paintTerrainObserver;
-	private Observer<Object> stopPaintTerrainObserver;
-	
-	private OverlayView overlayView;
-	private BrushView brushView;
-
-	public TerrainTool(EditorContext editorContext) {
-		this.editorContext = editorContext;
-		
-		brushModelHolder = new BrushModelHolder();
-		terrainPreviewColourCache = new TerrainPreviewColourCache();
-		paintCoverage = new LinkedHashSet<>();
-		
-		terrainSelectionModel = new TerrainSelectionModel();
-		terrainViewer = new TerrainViewer(terrainSelectionModel);
-		
-		paintTerrainObserver = value -> handleTerrainPaint();
-		brushModelHolder.getBrushMouseStateModel().getObservableManager().addObserver(BrushMouseStateModel.BRUSH_DOWN, paintTerrainObserver);
-		brushModelHolder.getBrushMouseStateModel().getObservableManager().addObserver(BrushMouseStateModel.BRUSH_DRAGGED, paintTerrainObserver);
-		stopPaintTerrainObserver = value -> handleStopPaint();
-		brushModelHolder.getBrushMouseStateModel().getObservableManager().addObserver(BrushMouseStateModel.BRUSH_UP, stopPaintTerrainObserver);
-		
-		overlayView = OverlayView.tileOverlayView(editorContext, editorContext.getMainView().getCameraConverter(), 2);
-		editorContext.getMainView().getStackPane().getChildren().add(overlayView.getNode());
-		
-		brushView = BrushView.tilesBrushView(editorContext.getMainView(), brushModelHolder);
-		editorContext.getMainView().getStackPane().getChildren().add(brushView.getNode());
-	}
-	
-	@Override
-	public Node getLeftGraphics() {
-		return terrainViewer.getTableView();
-	}
-	
-	private void handleTerrainPaint() {
-		TerrainEntry terrainEntry = terrainSelectionModel.getSelectedTerrainEntry();
-		if(terrainEntry == null) {
-			return;
-		}
-		
-		MapSizeModel mapSizeModel = editorContext.getRootModel().getMapSizeModel();
-		
-		int mapWidth = mapSizeModel.getMapSizeX().getValue();
-		int mapHeight = mapSizeModel.getMapSizeZ().getValue();
-		BrushModel brushModel = brushModelHolder.getBrushModel();
-		PixelWriter pixelWriter = overlayView.getImage().getPixelWriter();
-		Color previewColour = terrainPreviewColourCache.getColour(terrainEntry);
-		for(int z = brushModel.getPosZ(); z < brushModel.getPosZ() + brushModel.getHeight(); z++) {
-			for(int x = brushModel.getPosX(); x < brushModel.getPosX() + brushModel.getWidth(); x++) {
-				if(x >= 0 && z >= 0 && x < mapWidth && z < mapHeight) {
-					paintCoverage.add(new int[] {x, z});
-					int dx = x * 2;
-					int dz = z * 2;
-					pixelWriter.setColor(dx, dz, previewColour);
-					pixelWriter.setColor(dx + 1, dz, previewColour);
-					pixelWriter.setColor(dx, dz + 1, previewColour);
-					pixelWriter.setColor(dx + 1, dz + 1, previewColour);
-				}
-			}
-		}
-		
-		overlayView.requestRedraw();
-	}
-	
-	private void handleStopPaint() {
-		TerrainEntry terrainEntry = terrainSelectionModel.getSelectedTerrainEntry();
-		if(terrainEntry == null) {
-			return;
-		}
-		
-		Byte groupValue = (byte) terrainEntry.getGroupIndex();
-		Byte indexValue = (byte) terrainEntry.getIndex();
-		
-		MapSizeModel mapSizeModel = editorContext.getRootModel().getMapSizeModel();
-		
-		List<DataModel<Byte>> groupModels = mapSizeModel.getTerrainGroup().getChildModels();
-		List<DataModel<Byte>> terrainModels = mapSizeModel.getTerrainData().getChildModels();
-		
-		CommandExecutor commandExecutor = editorContext.getCommandExecutor();
-		int mapHeight = mapSizeModel.getMapSizeZ().getValue();
-		for(int[] location : paintCoverage) {
-			int index = mapHeight * location[0] + location[1];
-			commandExecutor.addPart(new SetValueCommand<>(groupModels.get(index), groupValue));
-			commandExecutor.addPart(new SetValueCommand<>(terrainModels.get(index), indexValue));
-		}
-		paintCoverage.clear();
-		
-		commandExecutor.addPart(new RedrawTerrainCommand());
-		editorContext.getCommandExecutor().done();
-		
-		Platform.runLater(this::clearOverlay);
-	}
-	
-	private void clearOverlay() {
-		overlayView.clear();
-		overlayView.requestRedraw();
-	}
-
-	@Override
-	public void destroy() {
-		handleStopPaint();
-		
-		brushView.destroy();
-		editorContext.getMainView().getStackPane().getChildren().remove(brushView.getNode());
-		
-		overlayView.destroy();
-		editorContext.getMainView().getStackPane().getChildren().remove(overlayView.getNode());
-	}
-
+   
+   public static final EditorToolType TOOL_TYPE = new EditorToolType();
+   
+   private EditorContext editorContext;
+   
+   private BrushModelHolder brushModelHolder;
+   private TerrainPreviewColourCache terrainPreviewColourCache;
+   private Set<int[]> paintCoverage;
+   
+   private TerrainSelectionModel terrainSelectionModel;
+   private TerrainViewer terrainViewer;
+   
+   private Observer<Object> paintTerrainObserver;
+   private Observer<Object> stopPaintTerrainObserver;
+   
+   private OverlayView overlayView;
+   private BrushView brushView;
+   
+   public TerrainTool(EditorContext editorContext) {
+      this.editorContext = editorContext;
+      
+      brushModelHolder = new BrushModelHolder();
+      terrainPreviewColourCache = new TerrainPreviewColourCache();
+      paintCoverage = new LinkedHashSet<>();
+      
+      terrainSelectionModel = new TerrainSelectionModel();
+      terrainViewer = new TerrainViewer(terrainSelectionModel);
+      
+      paintTerrainObserver = value -> handleTerrainPaint();
+      brushModelHolder.getBrushMouseStateModel().getObservableManager().addObserver(BrushMouseStateModel.BRUSH_DOWN, paintTerrainObserver);
+      brushModelHolder.getBrushMouseStateModel().getObservableManager().addObserver(BrushMouseStateModel.BRUSH_DRAGGED, paintTerrainObserver);
+      stopPaintTerrainObserver = value -> handleStopPaint();
+      brushModelHolder.getBrushMouseStateModel().getObservableManager().addObserver(BrushMouseStateModel.BRUSH_UP, stopPaintTerrainObserver);
+      
+      overlayView = OverlayView.tileOverlayView(editorContext, editorContext.getMainView().getCameraConverter(), 2);
+      editorContext.getMainView().getStackPane().getChildren().add(overlayView.getNode());
+      
+      brushView = BrushView.tilesBrushView(editorContext.getMainView(), brushModelHolder);
+      editorContext.getMainView().getStackPane().getChildren().add(brushView.getNode());
+   }
+   
+   @Override
+   public Node getLeftGraphics() {
+      return terrainViewer.getTableView();
+   }
+   
+   private void handleTerrainPaint() {
+      TerrainEntry terrainEntry = terrainSelectionModel.getSelectedTerrainEntry();
+      if (terrainEntry == null) {
+         return;
+      }
+      
+      MapSizeModel mapSizeModel = editorContext.getRootModel().getMapSizeModel();
+      
+      int mapWidth = mapSizeModel.getMapSizeX().getValue();
+      int mapHeight = mapSizeModel.getMapSizeZ().getValue();
+      BrushModel brushModel = brushModelHolder.getBrushModel();
+      PixelWriter pixelWriter = overlayView.getImage().getPixelWriter();
+      Color previewColour = terrainPreviewColourCache.getColour(terrainEntry);
+      for (int z = brushModel.getPosZ(); z < brushModel.getPosZ() + brushModel.getHeight(); z++) {
+         for (int x = brushModel.getPosX(); x < brushModel.getPosX() + brushModel.getWidth(); x++) {
+            if (x >= 0 && z >= 0 && x < mapWidth && z < mapHeight) {
+               paintCoverage.add(new int[] {x, z});
+               int dx = x * 2;
+               int dz = z * 2;
+               pixelWriter.setColor(dx, dz, previewColour);
+               pixelWriter.setColor(dx + 1, dz, previewColour);
+               pixelWriter.setColor(dx, dz + 1, previewColour);
+               pixelWriter.setColor(dx + 1, dz + 1, previewColour);
+            }
+         }
+      }
+      
+      overlayView.requestRedraw();
+   }
+   
+   private void handleStopPaint() {
+      TerrainEntry terrainEntry = terrainSelectionModel.getSelectedTerrainEntry();
+      if (terrainEntry == null) {
+         return;
+      }
+      
+      Byte groupValue = (byte) terrainEntry.getGroupIndex();
+      Byte indexValue = (byte) terrainEntry.getIndex();
+      
+      MapSizeModel mapSizeModel = editorContext.getRootModel().getMapSizeModel();
+      
+      List<DataModel<Byte>> groupModels = mapSizeModel.getTerrainGroup().getChildModels();
+      List<DataModel<Byte>> terrainModels = mapSizeModel.getTerrainData().getChildModels();
+      
+      CommandExecutor commandExecutor = editorContext.getCommandExecutor();
+      int mapHeight = mapSizeModel.getMapSizeZ().getValue();
+      for (int[] location : paintCoverage) {
+         int index = mapHeight * location[0] + location[1];
+         commandExecutor.addPart(new SetValueCommand<>(groupModels.get(index), groupValue));
+         commandExecutor.addPart(new SetValueCommand<>(terrainModels.get(index), indexValue));
+      }
+      paintCoverage.clear();
+      
+      commandExecutor.addPart(new RedrawTerrainCommand());
+      editorContext.getCommandExecutor().done();
+      
+      Platform.runLater(this::clearOverlay);
+   }
+   
+   private void clearOverlay() {
+      overlayView.clear();
+      overlayView.requestRedraw();
+   }
+   
+   @Override
+   public void destroy() {
+      handleStopPaint();
+      
+      brushView.destroy();
+      editorContext.getMainView().getStackPane().getChildren().remove(brushView.getNode());
+      
+      overlayView.destroy();
+      editorContext.getMainView().getStackPane().getChildren().remove(overlayView.getNode());
+   }
+   
 }
