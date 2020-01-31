@@ -17,6 +17,7 @@ public class ColourSelectionModel implements Observable {
    
    public ColourSelectionModel() {
       observableManager = new ObservableManagerImpl();
+      colour = Color.BLACK;
    }
    
    public Color getColour() {

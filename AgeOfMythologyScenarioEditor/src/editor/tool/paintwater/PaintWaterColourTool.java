@@ -1,15 +1,9 @@
 
 package editor.tool.paintwater;
 
-import java.util.List;
-
-import command.CommandExecutor;
-import command.SetValueCommand;
-import datahandler.DataModel;
 import editor.EditorContext;
-import editor.brush.BrushModel;
 import editor.brush.BrushModelHolder;
-import editor.brush.BrushMouseStateModel;
+import editor.brush.handler.GeneralBrushHandler;
 import editor.brush.view.BrushView;
 import editor.colourchooser.ColourSelectionModel;
 import editor.colourchooser.ColourSelectionView;
@@ -17,8 +11,6 @@ import editor.tool.EditorTool;
 import editor.tool.EditorToolType;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
-import mapmodel.map.MapSizeModel;
-import utility.observable.Observer;
 
 public class PaintWaterColourTool implements EditorTool {
    
@@ -34,8 +26,7 @@ public class PaintWaterColourTool implements EditorTool {
    private ColourSelectionModel colourSelectionModel;
    private ColourSelectionView colourSelectionView;
    
-   private Observer<Object> paintWaterObserver;
-   private Observer<Object> stopPaintWaterObserver;
+   private GeneralBrushHandler<Color> generalBrushHandler;
    
    public PaintWaterColourTool(EditorContext editorContext) {
       this.editorContext = editorContext;
@@ -50,43 +41,13 @@ public class PaintWaterColourTool implements EditorTool {
       colourSelectionModel = new ColourSelectionModel();
       colourSelectionView = new ColourSelectionView(colourSelectionModel);
       
-      paintWaterObserver = value -> handlePaint();
-      brushModelHolder.getBrushMouseStateModel().getObservableManager().addObserver(BrushMouseStateModel.BRUSH_DOWN, paintWaterObserver);
-      brushModelHolder.getBrushMouseStateModel().getObservableManager().addObserver(BrushMouseStateModel.BRUSH_DRAGGED, paintWaterObserver);
-      stopPaintWaterObserver = value -> handleStopPaint();
-      brushModelHolder.getBrushMouseStateModel().getObservableManager().addObserver(BrushMouseStateModel.BRUSH_UP, stopPaintWaterObserver);
+      generalBrushHandler = new GeneralBrushHandler<>(editorContext, brushModelHolder,
+            editorContext.getRootModel().getMapSizeModel().getWaterColour().getChildModels(), value -> colourSelectionModel.getColour(), true);
    }
    
    @Override
    public Node getLeftGraphics() {
       return colourSelectionView.getNode();
-   }
-   
-   private void handlePaint() {
-      Color colour = colourSelectionModel.getColour();
-      if (colour == null) {
-         return;
-      }
-      
-      MapSizeModel mapSizeModel = editorContext.getRootModel().getMapSizeModel();
-      List<DataModel<Color>> waterColourModels = mapSizeModel.getWaterColour().getChildModels();
-      
-      CommandExecutor commandExecutor = editorContext.getCommandExecutor();
-      int mapWidth = mapSizeModel.getMapSizeX().getValue();
-      int mapHeight = mapSizeModel.getMapSizeZ().getValue();
-      BrushModel brushModel = brushModelHolder.getBrushModel();
-      for (int z = brushModel.getPosZ(); z < brushModel.getPosZ() + brushModel.getHeight(); z++) {
-         for (int x = brushModel.getPosX(); x < brushModel.getPosX() + brushModel.getWidth(); x++) {
-            if (x >= 0 && z >= 0 && x <= mapWidth && z <= mapHeight) {
-               int index = (mapHeight + 1) * x + z;
-               commandExecutor.addPart(new SetValueCommand<>(waterColourModels.get(index), colour));
-            }
-         }
-      }
-   }
-   
-   private void handleStopPaint() {
-      editorContext.getCommandExecutor().done();
    }
    
    @Override
@@ -97,6 +58,8 @@ public class PaintWaterColourTool implements EditorTool {
       overlayViewCreator.destroy();
       
       colourSelectionView.destroy();
+      
+      generalBrushHandler.destroy();
    }
    
 }

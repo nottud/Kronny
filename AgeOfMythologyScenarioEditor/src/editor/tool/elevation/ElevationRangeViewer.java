@@ -8,9 +8,6 @@ import utility.graphics.validationinput.ValidationInputTextField;
 
 public class ElevationRangeViewer {
    
-   private ElevationRangeModel rangeModel;
-   private ElevationHeightModel heightModel;
-   
    private ValidationInputTextField<Float> topRangeTextField;
    private ValidationInputTextField<Float> bottomRangeTextField;
    private Slider opacitySlider;
@@ -19,9 +16,6 @@ public class ElevationRangeViewer {
    private VBox vBox;
    
    public ElevationRangeViewer(ElevationRangeModel rangeModel, ElevationHeightModel heightModel) {
-      this.rangeModel = rangeModel;
-      this.heightModel = heightModel;
-      
       topRangeTextField = new ValidationInputTextField<>(rangeModel.getTopRange(), new ValidationInputParserFloat());
       topRangeTextField.getObservableManager().addObserver(topRangeTextField.getValueChangedObserverType(), rangeModel::setTopRange);
       
