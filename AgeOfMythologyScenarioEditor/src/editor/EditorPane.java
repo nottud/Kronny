@@ -2,6 +2,7 @@
 package editor;
 
 import camera.CameraConverter;
+import editor.shortcut.GlobalShortcuts;
 import editor.tool.EditorTool;
 import editor.tool.EditorToolManager;
 import io.ConversionHandler;
@@ -9,6 +10,7 @@ import io.IoHandler;
 import javafx.geometry.Orientation;
 import javafx.scene.Node;
 import javafx.scene.control.SplitPane;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import raycastviewer.RayCastViewer;
 import raycastviewer.terrain.ShowMapOnLoad;
@@ -19,7 +21,8 @@ public class EditorPane {
    
    private MainView mainView;
    
-   private BorderPane borderPane;
+   private BorderPane outerBorderPane;
+   private BorderPane innerBorderPane;
    
    private TerrainRayCaster terrainRayCaster;
    private RayCastViewer terrainRayCastViewer;
@@ -27,8 +30,16 @@ public class EditorPane {
    public EditorPane(EditorContext editorContext) {
       mainView = editorContext.getMainView();
       
-      borderPane = new BorderPane();
-      borderPane.setTop(new EditorMenuBar(editorContext, new IoHandler(editorContext), new ConversionHandler(editorContext)).getMenuBar());
+      IoHandler ioHandler = new IoHandler(editorContext);
+      
+      outerBorderPane = new BorderPane();
+      outerBorderPane.setFocusTraversable(true);
+      outerBorderPane.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> innerBorderPane.requestFocus());
+      outerBorderPane.setTop(new EditorMenuBar(editorContext, ioHandler, new ConversionHandler(editorContext)).getMenuBar());
+      
+      innerBorderPane = new BorderPane();
+      outerBorderPane.setCenter(innerBorderPane);
+      innerBorderPane.setTop(new EditorIconBar(editorContext, ioHandler).getNode());
       
       terrainRayCaster = new TerrainRayCaster(editorContext.getRootModel().getMapSizeModel());
       CameraConverter cameraConverter = editorContext.getMainView().getCameraConverter();
@@ -41,6 +52,8 @@ public class EditorPane {
       
       editorContext.getEditorToolManager().getObservableManager().addObserver(EditorToolManager.TOOL_STARTED, this::handleToolStarted);
       handleToolStarted(editorContext.getEditorToolManager().getActiveTool());
+      
+      new GlobalShortcuts(editorContext, outerBorderPane);
    }
    
    private void updateTerrainRayCastViewerImageType(CameraConverter cameraConverter) {
@@ -68,16 +81,16 @@ public class EditorPane {
       }
       
       if (bottomNode == null) {
-         borderPane.setCenter(topNode);
+         innerBorderPane.setCenter(topNode);
       } else {
          SplitPane verticalSplitPane = new SplitPane(topNode, bottomNode);
          verticalSplitPane.setOrientation(Orientation.VERTICAL);
-         borderPane.setCenter(verticalSplitPane);
+         innerBorderPane.setCenter(verticalSplitPane);
       }
    }
    
    public BorderPane getNode() {
-      return borderPane;
+      return outerBorderPane;
    }
    
 }

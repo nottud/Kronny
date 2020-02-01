@@ -62,6 +62,9 @@ public class CommandExecutor implements Observable {
    }
    
    public void undo() {
+      if (!canUndo()) {
+         return;
+      }
       done();
       LinkedList<Command> commands = undoStack.pop();
       Iterator<Command> iterator = commands.iterator();
@@ -82,6 +85,9 @@ public class CommandExecutor implements Observable {
    }
    
    public void redo() {
+      if (!canRedo()) {
+         return;
+      }
       done();
       LinkedList<Command> commands = redoStack.pop();
       Iterator<Command> iterator = commands.descendingIterator();

@@ -13,6 +13,7 @@ public class MainView {
    public MainView() {
       cameraConverter = new CameraConverter();
       stackPane = new StackPane();
+      
       stackPane.setFocusTraversable(true);
       stackPane.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> stackPane.requestFocus());
    }

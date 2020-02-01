@@ -10,9 +10,10 @@ public class WaterEntry {
    private int index;
    private String name;
    private String file;
-   private Image image;
    private Color colour;
    private double depth;
+   
+   private Image image;
    
    public WaterEntry(int index, String name, String file, Color colour, double depth) {
       this.index = index;
