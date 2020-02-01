@@ -2,6 +2,7 @@
 package water;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javafx.scene.paint.Color;
@@ -43,6 +44,7 @@ public class WaterType {
       
       index = 255;
       addEntry("Remove Water", "icon building farm 64.bmp", Color.BLACK, 0.0);
+      waters = Collections.unmodifiableList(waters);
    }
    
    private void addEntry(String name, String file, Color colour, double depth) {
