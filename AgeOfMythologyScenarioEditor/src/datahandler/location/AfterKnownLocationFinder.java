@@ -16,7 +16,7 @@ public class AfterKnownLocationFinder implements DataLocationFinder {
    }
    
    @Override
-   public int findLocation(List<Byte> bytes, int offsetHint) {
+   public int findLocation(List<Byte> bytes, int offsetHint) throws LocationNotFoundException {
       int location = dataModel.getDataLocationFinder().findLocation(bytes, offsetHint);
       return offset + location + dataModel.getDataConverter().getStorageLength(bytes, location);
    }

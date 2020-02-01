@@ -6,6 +6,7 @@ import java.util.List;
 
 import datahandler.DataModel;
 import datahandler.converter.IntegerConverter;
+import datahandler.location.LocationNotFoundException;
 import datahandler.location.NextSequenceLocationFinder;
 import mapmodel.BranchModel;
 import mapmodel.ListModel;
@@ -39,7 +40,7 @@ public class AllPlayersModel extends BranchModel {
    }
    
    @Override
-   public void readAllModels(List<Byte> data, int offsetHint) {
+   public void readAllModels(List<Byte> data, int offsetHint) throws LocationNotFoundException {
       playerNumber.readAllModels(data, offsetHint);
       playerModels.getChildModels().clear();
       int playerCount = playerNumber.getValue();
@@ -50,7 +51,7 @@ public class AllPlayersModel extends BranchModel {
    }
    
    @Override
-   public void writeAllModels(List<Byte> data, int offsetHint) {
+   public void writeAllModels(List<Byte> data, int offsetHint) throws LocationNotFoundException {
       playerModels.writeAllModels(data, playerNumber.getDataLocationFinder().findLocation(data, offsetHint));
       playerNumber.writeAllModels(data, offsetHint);
    }

@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import datahandler.location.LocationNotFoundException;
 import editor.EditorContext;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
@@ -72,12 +73,15 @@ public class IoHandler {
    
    private void saveWithFile(File file) {
       List<Byte> data = editorContext.getFileModel().getData();
-      editorContext.getRootModel().writeAllModels(data, 0);
+      
       if (data != null) {
          try {
+            editorContext.getRootModel().writeAllModels(data, 0);
             compressor.write(file, data);
-         } catch (IOException e) {
-            editorContext.getMessageDisplay().showError(e, "Writing out failed.");
+         } catch (LocationNotFoundException ex) {
+            editorContext.getMessageDisplay().showError(ex, "Failed to update scenario file data with editor model. Write failed.");
+         } catch (IOException ex) {
+            editorContext.getMessageDisplay().showError(ex, "Error writing data to file.");
          }
       }
    }

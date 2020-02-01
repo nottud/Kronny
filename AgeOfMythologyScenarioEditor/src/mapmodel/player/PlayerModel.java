@@ -7,6 +7,7 @@ import datahandler.DataModel;
 import datahandler.converter.FullStringConverter;
 import datahandler.converter.IntegerConverter;
 import datahandler.location.AfterKnownLocationFinder;
+import datahandler.location.LocationNotFoundException;
 import datahandler.location.RelativeLocationFinder;
 import mapmodel.BranchModel;
 import mapmodel.ParentModel;
@@ -67,7 +68,7 @@ public class PlayerModel extends BranchModel {
    }
    
    @Override
-   public void readAllModels(List<Byte> data, int offsetHint) {
+   public void readAllModels(List<Byte> data, int offsetHint) throws LocationNotFoundException {
       unknown1.readAllModels(data, offsetHint);
       unknown2.readAllModels(data, offsetHint);
       playerId.readAllModels(data, offsetHint);
@@ -79,7 +80,7 @@ public class PlayerModel extends BranchModel {
    }
    
    @Override
-   public void writeAllModels(List<Byte> data, int offsetHint) {
+   public void writeAllModels(List<Byte> data, int offsetHint) throws LocationNotFoundException {
       unknown6.writeAllModels(data, offsetHint);
       unknown5.writeAllModels(data, offsetHint);
       unknown4.writeAllModels(data, offsetHint);

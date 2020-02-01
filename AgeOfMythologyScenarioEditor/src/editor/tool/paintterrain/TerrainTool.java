@@ -3,6 +3,7 @@ package editor.tool.paintterrain;
 
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.OptionalInt;
 import java.util.Set;
 
 import command.CommandExecutor;
@@ -15,16 +16,21 @@ import editor.brush.BrushModelHolder;
 import editor.brush.BrushMouseStateModel;
 import editor.brush.view.BrushView;
 import editor.overlay.OverlayView;
+import editor.sample.SampleFinder;
 import editor.terrainchooser.TerrainSelectionModel;
 import editor.terrainchooser.TerrainViewer;
 import editor.tool.EditorTool;
 import editor.tool.EditorToolType;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.image.PixelWriter;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import mapmodel.map.MapSizeModel;
 import terrain.TerrainEntry;
+import terrain.TerrainType;
 import utility.observable.Observer;
 
 public class TerrainTool implements EditorTool {
@@ -46,14 +52,17 @@ public class TerrainTool implements EditorTool {
    private OverlayView overlayView;
    private BrushView brushView;
    
+   private SampleFinder sampleFinder;
+   private EventHandler<MouseEvent> mouseClickedHandler;
+   
    public TerrainTool(EditorContext editorContext) {
       this.editorContext = editorContext;
       
-      brushModelHolder = new BrushModelHolder();
+      brushModelHolder = editorContext.getToolModels().getBrushModelHolder();
       terrainPreviewColourCache = new TerrainPreviewColourCache();
       paintCoverage = new LinkedHashSet<>();
       
-      terrainSelectionModel = new TerrainSelectionModel();
+      terrainSelectionModel = editorContext.getToolModels().getTerrainModels().getTerrainSelectionModel();
       terrainViewer = new TerrainViewer(terrainSelectionModel);
       
       paintTerrainObserver = value -> handleTerrainPaint();
@@ -67,6 +76,28 @@ public class TerrainTool implements EditorTool {
       
       brushView = BrushView.tilesBrushView(editorContext.getMainView(), brushModelHolder);
       editorContext.getMainView().getStackPane().getChildren().add(brushView.getNode());
+      
+      sampleFinder = new SampleFinder(editorContext);
+      mouseClickedHandler = this::handleMouseClicked;
+      editorContext.getMainView().getStackPane().addEventFilter(MouseEvent.MOUSE_CLICKED, mouseClickedHandler);
+   }
+   
+   private void handleMouseClicked(MouseEvent mouseEvent) {
+      if (MouseButton.SECONDARY.equals(mouseEvent.getButton())) {
+         OptionalInt index = sampleFinder.findValue(mouseEvent.getX(), mouseEvent.getY(), false);
+         if (!index.isPresent()) {
+            return;
+         }
+         
+         MapSizeModel mapSizeModel = editorContext.getRootModel().getMapSizeModel();
+         List<DataModel<Byte>> groupModels = mapSizeModel.getTerrainGroup().getChildModels();
+         List<DataModel<Byte>> terrainModels = mapSizeModel.getTerrainData().getChildModels();
+         
+         TerrainEntry terrainEntry = TerrainType.getInstance()
+               .getTerrainGroups().get(Byte.toUnsignedInt(groupModels.get(index.getAsInt()).getValue()))
+               .getTerrainEntries().get(Byte.toUnsignedInt(terrainModels.get(index.getAsInt()).getValue()));
+         terrainSelectionModel.setSelectedTerrainType(terrainEntry);
+      }
    }
    
    @Override
@@ -140,13 +171,17 @@ public class TerrainTool implements EditorTool {
    
    @Override
    public void destroy() {
-      handleStopPaint();
-      
       brushView.destroy();
       editorContext.getMainView().getStackPane().getChildren().remove(brushView.getNode());
       
       overlayView.destroy();
       editorContext.getMainView().getStackPane().getChildren().remove(overlayView.getNode());
+      
+      brushModelHolder.getBrushMouseStateModel().getObservableManager().removeObserver(BrushMouseStateModel.BRUSH_DOWN, paintTerrainObserver);
+      brushModelHolder.getBrushMouseStateModel().getObservableManager().removeObserver(BrushMouseStateModel.BRUSH_DRAGGED, paintTerrainObserver);
+      brushModelHolder.getBrushMouseStateModel().getObservableManager().removeObserver(BrushMouseStateModel.BRUSH_UP, stopPaintTerrainObserver);
+      
+      editorContext.getMainView().getStackPane().removeEventFilter(MouseEvent.MOUSE_CLICKED, mouseClickedHandler);
    }
    
 }

@@ -27,6 +27,12 @@ public class EditorPane {
    private TerrainRayCaster terrainRayCaster;
    private RayCastViewer terrainRayCastViewer;
    
+   private double horizontalSplitFraction;
+   private double verticalSplitFraction;
+   
+   private SplitPane horizontalSplitPane;
+   private SplitPane verticalSplitPane;
+   
    public EditorPane(EditorContext editorContext) {
       mainView = editorContext.getMainView();
       
@@ -54,6 +60,9 @@ public class EditorPane {
       handleToolStarted(editorContext.getEditorToolManager().getActiveTool());
       
       new GlobalShortcuts(editorContext, outerBorderPane);
+      
+      horizontalSplitFraction = 0.5;
+      verticalSplitFraction = 0.5;
    }
    
    private void updateTerrainRayCastViewerImageType(CameraConverter cameraConverter) {
@@ -69,6 +78,9 @@ public class EditorPane {
    }
    
    private void handleToolStarted(EditorTool editorTool) {
+      horizontalSplitPane = null;
+      verticalSplitPane = null;
+      
       Node leftNode = editorTool.getLeftGraphics();
       Node bottomNode = editorTool.getBottomGraphics();
       
@@ -76,16 +88,27 @@ public class EditorPane {
       if (leftNode == null) {
          topNode = mainView.getStackPane();
       } else {
-         SplitPane horizontalSplitPane = new SplitPane(leftNode, mainView.getStackPane());
+         horizontalSplitPane = new SplitPane(leftNode, mainView.getStackPane());
          topNode = horizontalSplitPane;
       }
       
       if (bottomNode == null) {
          innerBorderPane.setCenter(topNode);
       } else {
-         SplitPane verticalSplitPane = new SplitPane(topNode, bottomNode);
+         verticalSplitPane = new SplitPane(topNode, bottomNode);
          verticalSplitPane.setOrientation(Orientation.VERTICAL);
          innerBorderPane.setCenter(verticalSplitPane);
+      }
+      
+      if (horizontalSplitPane != null) {
+         horizontalSplitPane.getDividers().get(0).setPosition(horizontalSplitFraction);
+         horizontalSplitPane.getDividers().get(0).positionProperty()
+               .addListener((source, oldValue, newValue) -> horizontalSplitFraction = newValue.doubleValue());
+      }
+      if (verticalSplitPane != null) {
+         verticalSplitPane.getDividers().get(0).setPosition(verticalSplitFraction);
+         verticalSplitPane.getDividers().get(0).positionProperty()
+               .addListener((source, oldValue, newValue) -> verticalSplitFraction = newValue.doubleValue());
       }
    }
    

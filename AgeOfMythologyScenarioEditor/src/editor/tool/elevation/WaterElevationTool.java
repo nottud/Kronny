@@ -9,7 +9,9 @@ public class WaterElevationTool extends BaseElevationTool {
    public static final EditorToolType TOOL_TYPE = new EditorToolType();
    
    public WaterElevationTool(EditorContext editorContext) {
-      super(editorContext, editorContext.getRootModel().getMapSizeModel().getWaterHeight().getChildModels());
+      super(editorContext, editorContext.getRootModel().getMapSizeModel().getWaterHeight().getChildModels(),
+            editorContext.getToolModels().getWaterModels().getElevationRangeModel(),
+            editorContext.getToolModels().getWaterModels().getElevationHeightModel());
    }
    
 }

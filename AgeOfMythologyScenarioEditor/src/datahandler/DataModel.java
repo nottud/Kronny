@@ -5,6 +5,7 @@ import java.util.List;
 
 import datahandler.converter.DataConverter;
 import datahandler.location.DataLocationFinder;
+import datahandler.location.LocationNotFoundException;
 import mapmodel.ChildModel;
 import mapmodel.ParentModel;
 import utility.observable.Observable;
@@ -34,13 +35,13 @@ public class DataModel<T> implements Observable, ChildModel {
    }
    
    @Override
-   public void readAllModels(List<Byte> data, int offsetHint) {
+   public void readAllModels(List<Byte> data, int offsetHint) throws LocationNotFoundException {
       value = dataHandler.readValue(data, offsetHint);
       observableManager.notifyObservers(valueChangedObserverType, value);
    }
    
    @Override
-   public void writeAllModels(List<Byte> data, int offsetHint) {
+   public void writeAllModels(List<Byte> data, int offsetHint) throws LocationNotFoundException {
       dataHandler.writeValue(data, offsetHint, value);
    }
    

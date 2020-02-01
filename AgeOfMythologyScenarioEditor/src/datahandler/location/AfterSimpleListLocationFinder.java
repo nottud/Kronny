@@ -18,7 +18,7 @@ public class AfterSimpleListLocationFinder implements DataLocationFinder {
    }
    
    @Override
-   public int findLocation(List<Byte> bytes, int offsetHint) {
+   public int findLocation(List<Byte> bytes, int offsetHint) throws LocationNotFoundException {
       int currentOffset = listModel.getBaseLocationFinder().findLocation(bytes, offsetHint);
       Iterator<? extends DataModel<?>> iterator = listModel.getChildModels().iterator();
       while (iterator.hasNext()) {

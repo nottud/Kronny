@@ -8,6 +8,7 @@ import editor.EditorContext;
 import editor.overlay.GeneralOverlayHandler;
 import editor.overlay.OverlayView;
 import javafx.scene.paint.Color;
+import utility.observable.Observer;
 
 public class ElevationOverlayCreator {
    
@@ -16,6 +17,8 @@ public class ElevationOverlayCreator {
    
    private ElevationRangeColourCoverter colourCoverter;
    private GeneralOverlayHandler<Float> generalOverlayHandler;
+   
+   private Observer<Object> observer;
    
    private OverlayView overlayView;
    
@@ -29,9 +32,10 @@ public class ElevationOverlayCreator {
       
       editorContext.getMainView().getStackPane().getChildren().add(overlayView.getNode());
       
-      model.getObservableManager().addObserver(ElevationRangeModel.BOTTOM_RANGE_CHANGE, value -> generalOverlayHandler.updateEntirePreview());
-      model.getObservableManager().addObserver(ElevationRangeModel.TOP_RANGE_CHANGE, value -> generalOverlayHandler.updateEntirePreview());
-      model.getObservableManager().addObserver(ElevationRangeModel.OPACITY_CHANGE, value -> generalOverlayHandler.updateEntirePreview());
+      observer = value -> generalOverlayHandler.updateEntirePreview();
+      model.getObservableManager().addObserver(ElevationRangeModel.BOTTOM_RANGE_CHANGE, observer);
+      model.getObservableManager().addObserver(ElevationRangeModel.TOP_RANGE_CHANGE, observer);
+      model.getObservableManager().addObserver(ElevationRangeModel.OPACITY_CHANGE, observer);
    }
    
    private Color calculateColour(Float value) {
@@ -42,6 +46,10 @@ public class ElevationOverlayCreator {
    public void destroy() {
       generalOverlayHandler.destroy();
       editorContext.getMainView().getStackPane().getChildren().remove(overlayView.getNode());
+      
+      model.getObservableManager().removeObserver(ElevationRangeModel.BOTTOM_RANGE_CHANGE, observer);
+      model.getObservableManager().removeObserver(ElevationRangeModel.TOP_RANGE_CHANGE, observer);
+      model.getObservableManager().removeObserver(ElevationRangeModel.OPACITY_CHANGE, observer);
    }
    
 }

@@ -9,7 +9,9 @@ public class TerrainElevationTool extends BaseElevationTool {
    public static final EditorToolType TOOL_TYPE = new EditorToolType();
    
    public TerrainElevationTool(EditorContext editorContext) {
-      super(editorContext, editorContext.getRootModel().getMapSizeModel().getTerrainHeight().getChildModels());
+      super(editorContext, editorContext.getRootModel().getMapSizeModel().getTerrainHeight().getChildModels(),
+            editorContext.getToolModels().getTerrainModels().getElevationRangeModel(),
+            editorContext.getToolModels().getTerrainModels().getElevationHeightModel());
    }
    
 }

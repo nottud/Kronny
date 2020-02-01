@@ -1,6 +1,9 @@
 
 package launcher;
 
+import java.util.List;
+
+import datahandler.location.LocationNotFoundException;
 import editor.EditorContext;
 import editor.EditorPane;
 import editor.FileModel;
@@ -17,13 +20,23 @@ public class Launcher extends Application {
       
       new StageTitleProvider(editorContext);
       editorContext.getFileModel().getObservableManager().addObserver(FileModel.DATA_CHANGED,
-            value -> editorContext.getRootModel().readAllModels(value, 0));
+            value -> readInData(editorContext, value));
       
       EditorPane editorPane = new EditorPane(editorContext);
       
       Scene scene = new Scene(editorPane.getNode(), 1024, 768);
       stage.setScene(scene);
       stage.show();
+   }
+   
+   private void readInData(EditorContext editorContext, List<Byte> bytesList) {
+      try {
+         editorContext.getRootModel().readAllModels(bytesList, 0);
+      } catch (LocationNotFoundException ex) {
+         editorContext.getMessageDisplay().showError(ex,
+               "Failed to read in scenario data to editor model. Ensure scenario is saved with latest version of the game and there are no custom "
+                     + "terrains, water types, etc.");
+      }
    }
    
    public static void main(String[] args) {

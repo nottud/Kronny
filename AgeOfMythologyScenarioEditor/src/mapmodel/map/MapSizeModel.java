@@ -11,6 +11,7 @@ import datahandler.converter.HalfStringConverter;
 import datahandler.converter.IntegerConverter;
 import datahandler.location.AfterKnownLocationFinder;
 import datahandler.location.AfterSimpleListLocationFinder;
+import datahandler.location.LocationNotFoundException;
 import datahandler.location.NextSequenceLocationFinder;
 import datahandler.location.RelativeLocationFinder;
 import javafx.scene.paint.Color;
@@ -39,30 +40,30 @@ public class MapSizeModel extends BranchModel {
       terrainGroup = children.add("TerrainGroup",
             new ListModel<DataModel<Byte>>(this, new AfterKnownLocationFinder(mapSizeZ, IntegerConverter.BYTES_IN_INT * 4 + 2),
                   new RelativeLocationFinder(1),
-                  foundParent -> new DataModel<Byte>(foundParent, new RelativeLocationFinder(0), new ByteConverter())));
+                  foundParent -> new DataModel<>(foundParent, new RelativeLocationFinder(0), new ByteConverter())));
       terrainData = children.add("TerrainData",
             new ListModel<DataModel<Byte>>(this, new AfterSimpleListLocationFinder(terrainGroup, IntegerConverter.BYTES_IN_INT * 2 + 2),
                   new RelativeLocationFinder(1),
-                  foundParent -> new DataModel<Byte>(foundParent, new RelativeLocationFinder(0), new ByteConverter())));
+                  foundParent -> new DataModel<>(foundParent, new RelativeLocationFinder(0), new ByteConverter())));
       unknown = children.add("Unknown",
             new ListModel<DataModel<Byte>>(this, new AfterSimpleListLocationFinder(terrainData, IntegerConverter.BYTES_IN_INT * 2 + 2),
                   new RelativeLocationFinder(1),
-                  foundParent -> new DataModel<Byte>(foundParent, new RelativeLocationFinder(0), new ByteConverter())));
+                  foundParent -> new DataModel<>(foundParent, new RelativeLocationFinder(0), new ByteConverter())));
       waterColour = children.add("WaterColour",
             new ListModel<DataModel<Color>>(this, new AfterSimpleListLocationFinder(unknown, IntegerConverter.BYTES_IN_INT * 2 + 2),
                   new RelativeLocationFinder(ColourConverter.BYTES_IN_COLOUR),
-                  foundParent -> new DataModel<Color>(foundParent, new RelativeLocationFinder(0), new ColourConverter())));
+                  foundParent -> new DataModel<>(foundParent, new RelativeLocationFinder(0), new ColourConverter())));
       List<Byte> mapSequence2 = new HalfStringConverter().toBytes("South Sea");
       waterType = children.add("WaterType", new ListModel<DataModel<Byte>>(this, NextSequenceLocationFinder.afterSequence(mapSequence2, 10),
-            new RelativeLocationFinder(1), foundParent -> new DataModel<Byte>(foundParent, new RelativeLocationFinder(0), new ByteConverter())));
+            new RelativeLocationFinder(1), foundParent -> new DataModel<>(foundParent, new RelativeLocationFinder(0), new ByteConverter())));
       terrainHeight = children.add("TerrainHeight",
             new ListModel<DataModel<Float>>(this, new AfterSimpleListLocationFinder(waterType, 0),
                   new RelativeLocationFinder(FloatConverter.BYTES_IN_FLOAT),
-                  foundParent -> new DataModel<Float>(foundParent, new RelativeLocationFinder(0), new FloatConverter())));
+                  foundParent -> new DataModel<>(foundParent, new RelativeLocationFinder(0), new FloatConverter())));
       waterHeight = children.add("WaterHeight",
             new ListModel<DataModel<Float>>(this, new AfterSimpleListLocationFinder(terrainHeight, 0),
                   new RelativeLocationFinder(FloatConverter.BYTES_IN_FLOAT),
-                  foundParent -> new DataModel<Float>(foundParent, new RelativeLocationFinder(0), new FloatConverter())));
+                  foundParent -> new DataModel<>(foundParent, new RelativeLocationFinder(0), new FloatConverter())));
    }
    
    public DataModel<Integer> getMapSizeX() {
@@ -102,7 +103,7 @@ public class MapSizeModel extends BranchModel {
    }
    
    @Override
-   public void readAllModels(List<Byte> data, int offsetHint) {
+   public void readAllModels(List<Byte> data, int offsetHint) throws LocationNotFoundException {
       mapSizeX.readAllModels(data, offsetHint);
       mapSizeZ.readAllModels(data, offsetHint);
       
@@ -153,7 +154,8 @@ public class MapSizeModel extends BranchModel {
       waterHeight.readAllModels(data, offsetHint);
    }
    
-   public void writeAllModels(List<Byte> data, int offsetHint) {
+   @Override
+   public void writeAllModels(List<Byte> data, int offsetHint) throws LocationNotFoundException {
       waterHeight.writeAllModels(data, offsetHint);
       terrainHeight.writeAllModels(data, offsetHint);
       waterType.writeAllModels(data, offsetHint);

@@ -23,7 +23,7 @@ public class TerrainGroup {
       return groupName;
    }
    
-   public List<TerrainEntry> getTerrainEntry() {
+   public List<TerrainEntry> getTerrainEntries() {
       return terrainEntries;
    }
    

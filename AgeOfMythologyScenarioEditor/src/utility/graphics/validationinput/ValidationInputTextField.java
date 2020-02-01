@@ -60,7 +60,7 @@ public class ValidationInputTextField<T> implements Observable {
          Optional<T> conversionAttempt = parser.parse(textField.getText());
          if (conversionAttempt.isPresent() || (textField.getText().equals(NO_INPUT_STRING))) {
             textField.setStyle(VALID_INPUT_STYLE);
-            if (!Objects.equals(conversionAttempt.get(), lastValidValue)) {
+            if (!Objects.equals(conversionAttempt.orElse(null), lastValidValue)) {
                updateValueAndNotify(conversionAttempt.orElse(null));
             }
          } else {

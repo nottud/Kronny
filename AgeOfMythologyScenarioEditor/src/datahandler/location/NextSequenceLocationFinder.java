@@ -25,7 +25,7 @@ public class NextSequenceLocationFinder implements DataLocationFinder {
    }
    
    @Override
-   public int findLocation(List<Byte> data, int offsetHint) {
+   public int findLocation(List<Byte> data, int offsetHint) throws LocationNotFoundException {
       OptionalInt matchLocation = OptionalInt.empty();
       for (int i = offsetHint; i < data.size(); i++) {
          boolean match = evaluateLocation(data, i);
@@ -35,7 +35,7 @@ public class NextSequenceLocationFinder implements DataLocationFinder {
          }
       }
       if (!matchLocation.isPresent()) {
-         throw new IllegalStateException("Location could not be determined.");
+         throw new LocationNotFoundException("Location could not be determined.");
       }
       if (after) {
          return matchLocation.getAsInt() + byteSequence.size() + additionalOffset;

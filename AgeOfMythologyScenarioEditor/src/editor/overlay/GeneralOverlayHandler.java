@@ -11,6 +11,7 @@ import datahandler.DataModel;
 import editor.EditorContext;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.paint.Color;
+import mapmodel.RootModel;
 import mapmodel.map.MapSizeModel;
 import utility.observable.Observer;
 
@@ -21,6 +22,7 @@ public class GeneralOverlayHandler<T> {
    private List<DataModel<T>> dataModelList;
    private Function<T, Color> valueToColour;
    
+   private Observer<Void> mapSizeObserver;
    private Map<DataModel<T>, Observer<T>> observers;
    
    public GeneralOverlayHandler(EditorContext editorContext, OverlayView overlayView, List<DataModel<T>> dataModelList,
@@ -32,28 +34,17 @@ public class GeneralOverlayHandler<T> {
       
       observers = new LinkedHashMap<>();
       
-      MapSizeModel mapSizeModel = editorContext.getRootModel().getMapSizeModel();
-      int index = 0;
-      int width = mapSizeModel.getMapSizeX().getValue();
-      int height = mapSizeModel.getMapSizeZ().getValue();
-      if (width <= 0 || height <= 0) {
-         return;
-      }
-      if (overlayView.isVertices()) {
-         width++;
-         height++;
-      }
-      for (int x = 0; x < width; x++) {
-         for (int y = 0; y < height; y++) {
-            final int posX = x;
-            final int posY = y;
-            DataModel<T> dataModel = dataModelList.get(index);
-            observers.put(dataModel, dataModel.addValueObserverAndImmediatelyNotify(foundValue -> updatePreview(posX, posY, foundValue)));
-            index++;
-         }
-      }
+      addObservers();
       
       overlayView.requestRedraw();
+      
+      mapSizeObserver = value -> readdObservers();
+      editorContext.getRootModel().getObservableManager().addObserver(RootModel.MODEL_READ, mapSizeObserver);
+   }
+   
+   private void readdObservers() {
+      observers.clear();
+      addObservers();
    }
    
    private void updatePreview(int x, int y, T value) {
@@ -87,6 +78,29 @@ public class GeneralOverlayHandler<T> {
       }
    }
    
+   private void addObservers() {
+      MapSizeModel mapSizeModel = editorContext.getRootModel().getMapSizeModel();
+      int index = 0;
+      int width = mapSizeModel.getMapSizeX().getValue();
+      int height = mapSizeModel.getMapSizeZ().getValue();
+      if (width <= 0 || height <= 0) {
+         return;
+      }
+      if (overlayView.isVertices()) {
+         width++;
+         height++;
+      }
+      for (int x = 0; x < width; x++) {
+         for (int y = 0; y < height; y++) {
+            final int posX = x;
+            final int posY = y;
+            DataModel<T> dataModel = dataModelList.get(index);
+            observers.put(dataModel, dataModel.addValueObserverAndImmediatelyNotify(foundValue -> updatePreview(posX, posY, foundValue)));
+            index++;
+         }
+      }
+   }
+   
    public void destroy() {
       overlayView.destroy();
       editorContext.getMainView().getStackPane().getChildren().remove(overlayView.getNode());
@@ -95,6 +109,8 @@ public class GeneralOverlayHandler<T> {
          entry.getKey().getObservableManager().removeObserver(entry.getKey().getValueChangedObserverType(), entry.getValue());
       }
       observers.clear();
+      
+      editorContext.getRootModel().getObservableManager().removeObserver(RootModel.MODEL_READ, mapSizeObserver);
    }
    
 }

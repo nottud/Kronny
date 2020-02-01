@@ -5,6 +5,7 @@ import java.util.List;
 
 import datahandler.DataModel;
 import datahandler.converter.IntegerConverter;
+import datahandler.location.LocationNotFoundException;
 import datahandler.location.RelativeLocationFinder;
 import datahandler.path.PathElement;
 import datahandler.path.PathNameLookup;
@@ -48,14 +49,15 @@ public class RootModel implements ParentModel, Observable {
    }
    
    @Override
-   public void readAllModels(List<Byte> data, int offsetHint) {
+   public void readAllModels(List<Byte> data, int offsetHint) throws LocationNotFoundException {
       lengthModel.readAllModels(data, offsetHint);
       mapSizeModel.readAllModels(data, offsetHint);
       allPlayersModel.readAllModels(data, offsetHint);
       observableManager.notifyObservers(MODEL_READ, null);
    }
    
-   public void writeAllModels(List<Byte> data, int offsetHint) {
+   @Override
+   public void writeAllModels(List<Byte> data, int offsetHint) throws LocationNotFoundException {
       mapSizeModel.writeAllModels(data, offsetHint);
       allPlayersModel.writeAllModels(data, offsetHint);
       lengthModel.writeAllModels(data, offsetHint); //Length change not allowed TODO

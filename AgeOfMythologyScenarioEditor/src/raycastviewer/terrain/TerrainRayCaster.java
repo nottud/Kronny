@@ -58,7 +58,7 @@ public class TerrainRayCaster implements RayCaster {
       int index = tileX * mapSizeModel.getMapSizeZ().getValue() + tileZ;
       Byte groupType = mapSizeModel.getTerrainGroup().getChildModels().get(index).getValue();
       Byte terrainType = mapSizeModel.getTerrainData().getChildModels().get(index).getValue();
-      TerrainEntry terrainEntry = TERRAINS.get(groupType).getTerrainEntry().get(terrainType);
+      TerrainEntry terrainEntry = TERRAINS.get(groupType).getTerrainEntries().get(terrainType);
       TerrainRayCastingCache terrainRayCastingCache = currentCacheHolder.getCacheForImage(terrainEntry);
       return terrainRayCastingCache.getColour(
             (int) Doubles.positiveModulo(worldX * WORLD_TO_IMAGE, terrainRayCastingCache.getWidth()),

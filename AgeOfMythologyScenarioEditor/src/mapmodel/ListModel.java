@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.function.Function;
 
 import datahandler.location.DataLocationFinder;
+import datahandler.location.LocationNotFoundException;
 import datahandler.path.PathElement;
 import datahandler.path.PathIndexLookup;
 
@@ -36,7 +37,7 @@ public class ListModel<T extends ChildModel> implements ParentModel, ChildModel 
    }
    
    @Override
-   public void readAllModels(List<Byte> data, int offsetHint) {
+   public void readAllModels(List<Byte> data, int offsetHint) throws LocationNotFoundException {
       int offset = baseLocationFinder.findLocation(data, offsetHint);
       Iterator<T> iterator = childModels.iterator();
       while (iterator.hasNext()) {
@@ -49,7 +50,7 @@ public class ListModel<T extends ChildModel> implements ParentModel, ChildModel 
    }
    
    @Override
-   public void writeAllModels(List<Byte> data, int offsetHint) {
+   public void writeAllModels(List<Byte> data, int offsetHint) throws LocationNotFoundException {
       int offset = baseLocationFinder.findLocation(data, offsetHint);
       Iterator<T> iterator = childModels.iterator();
       while (iterator.hasNext()) {

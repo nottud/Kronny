@@ -11,6 +11,7 @@ import editor.EditorContext;
 import editor.overlay.OverlayView;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.paint.Color;
+import mapmodel.RootModel;
 import mapmodel.map.MapSizeModel;
 import utility.observable.Observer;
 
@@ -23,6 +24,8 @@ public class WaterOverlayCreator {
    private Map<DataModel<Byte>, Observer<Byte>> typeObservers;
    private OverlayView overlayView;
    
+   private Observer<Void> mapSizeObserver;
+   
    public WaterOverlayCreator(EditorContext editorContext) {
       this.editorContext = editorContext;
       colourObservers = new LinkedHashMap<>();
@@ -30,6 +33,21 @@ public class WaterOverlayCreator {
       overlayView = OverlayView.verticesTileOverlayView(editorContext, editorContext.getMainView().getCameraConverter(), 2);
       editorContext.getMainView().getStackPane().getChildren().add(overlayView.getNode());
       
+      addObservers();
+      
+      mapSizeObserver = value -> readdObservers();
+      editorContext.getRootModel().getObservableManager().addObserver(RootModel.MODEL_READ, mapSizeObserver);
+      
+      overlayView.requestRedraw();
+   }
+   
+   private void readdObservers() {
+      colourObservers.clear();
+      typeObservers.clear();
+      addObservers();
+   }
+   
+   private void addObservers() {
       MapSizeModel mapSizeModel = editorContext.getRootModel().getMapSizeModel();
       int width = mapSizeModel.getMapSizeX().getValue();
       int height = mapSizeModel.getMapSizeZ().getValue();
@@ -62,7 +80,6 @@ public class WaterOverlayCreator {
             index++;
          }
       }
-      overlayView.requestRedraw();
    }
    
    private void updatePreview(int x, int y, int width, int height, List<DataModel<Byte>> waterType, Color colour) {
@@ -131,6 +148,8 @@ public class WaterOverlayCreator {
          entry.getKey().getObservableManager().removeObserver(entry.getKey().getValueChangedObserverType(), entry.getValue());
       }
       typeObservers.clear();
+      
+      editorContext.getRootModel().getObservableManager().removeObserver(RootModel.MODEL_READ, mapSizeObserver);
    }
    
 }

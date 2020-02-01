@@ -2,6 +2,7 @@
 package editor.tool.paintwater;
 
 import java.util.List;
+import java.util.OptionalInt;
 
 import command.CommandExecutor;
 import command.SetValueCommand;
@@ -11,15 +12,20 @@ import editor.brush.BrushModel;
 import editor.brush.BrushModelHolder;
 import editor.brush.BrushMouseStateModel;
 import editor.brush.view.BrushView;
+import editor.sample.SampleFinder;
 import editor.tool.EditorTool;
 import editor.tool.EditorToolType;
 import editor.waterchooser.WaterSelectionModel;
 import editor.waterchooser.WaterViewer;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import mapmodel.map.MapSizeModel;
 import utility.observable.Observer;
 import water.WaterEntry;
+import water.WaterType;
 
 public class PaintWaterTool implements EditorTool {
    
@@ -38,17 +44,20 @@ public class PaintWaterTool implements EditorTool {
    private Observer<Object> paintWaterObserver;
    private Observer<Object> stopPaintWaterObserver;
    
+   private SampleFinder sampleFinder;
+   private EventHandler<MouseEvent> mouseClickedHandler;
+   
    public PaintWaterTool(EditorContext editorContext) {
       this.editorContext = editorContext;
       
-      brushModelHolder = new BrushModelHolder();
+      brushModelHolder = editorContext.getToolModels().getBrushModelHolder();
       
       overlayViewCreator = new WaterOverlayCreator(editorContext);
       
       brushView = BrushView.tilesBrushView(editorContext.getMainView(), brushModelHolder);
       editorContext.getMainView().getStackPane().getChildren().add(brushView.getNode());
       
-      waterSelectionModel = new WaterSelectionModel();
+      waterSelectionModel = editorContext.getToolModels().getWaterModels().getWaterSelectionModel();
       waterViewer = new WaterViewer(waterSelectionModel);
       
       paintWaterObserver = value -> handleTerrainPaint();
@@ -56,6 +65,26 @@ public class PaintWaterTool implements EditorTool {
       brushModelHolder.getBrushMouseStateModel().getObservableManager().addObserver(BrushMouseStateModel.BRUSH_DRAGGED, paintWaterObserver);
       stopPaintWaterObserver = value -> handleStopPaint();
       brushModelHolder.getBrushMouseStateModel().getObservableManager().addObserver(BrushMouseStateModel.BRUSH_UP, stopPaintWaterObserver);
+      
+      sampleFinder = new SampleFinder(editorContext);
+      mouseClickedHandler = this::handleMouseClicked;
+      editorContext.getMainView().getStackPane().addEventFilter(MouseEvent.MOUSE_CLICKED, mouseClickedHandler);
+   }
+   
+   private void handleMouseClicked(MouseEvent mouseEvent) {
+      if (MouseButton.SECONDARY.equals(mouseEvent.getButton())) {
+         OptionalInt index = sampleFinder.findValue(mouseEvent.getX(), mouseEvent.getY(), false);
+         if (!index.isPresent()) {
+            return;
+         }
+         
+         MapSizeModel mapSizeModel = editorContext.getRootModel().getMapSizeModel();
+         List<DataModel<Byte>> groupModels = mapSizeModel.getWaterType().getChildModels();
+         
+         List<WaterEntry> waterEntries = WaterType.getInstance().getWaters();
+         waterSelectionModel.setSelectedTerrainType(waterEntries.get(
+               Math.min(waterEntries.size() - 1, Byte.toUnsignedInt(groupModels.get(index.getAsInt()).getValue()))));
+      }
    }
    
    @Override
@@ -106,6 +135,12 @@ public class PaintWaterTool implements EditorTool {
       editorContext.getMainView().getStackPane().getChildren().remove(brushView.getNode());
       
       overlayViewCreator.destroy();
+      
+      brushModelHolder.getBrushMouseStateModel().getObservableManager().removeObserver(BrushMouseStateModel.BRUSH_DOWN, paintWaterObserver);
+      brushModelHolder.getBrushMouseStateModel().getObservableManager().removeObserver(BrushMouseStateModel.BRUSH_DRAGGED, paintWaterObserver);
+      brushModelHolder.getBrushMouseStateModel().getObservableManager().removeObserver(BrushMouseStateModel.BRUSH_UP, stopPaintWaterObserver);
+      
+      editorContext.getMainView().getStackPane().removeEventFilter(MouseEvent.MOUSE_CLICKED, mouseClickedHandler);
    }
    
 }

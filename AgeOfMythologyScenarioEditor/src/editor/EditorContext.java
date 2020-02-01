@@ -4,6 +4,7 @@ package editor;
 import command.CommandExecutor;
 import editor.messagedisplay.MessageDisplay;
 import editor.tool.EditorToolManager;
+import editor.tool.models.ToolModels;
 import javafx.stage.Stage;
 import mapmodel.RootModel;
 
@@ -16,6 +17,7 @@ public class EditorContext {
    private CommandExecutor commandExecutor;
    private GraphicsRedrawHander redrawTerrainHander;
    private EditorToolManager editorToolManager;
+   private ToolModels toolModels;
    private MainView mainView;
    
    public EditorContext(Stage stage) {
@@ -26,6 +28,7 @@ public class EditorContext {
       commandExecutor = new CommandExecutor(this);
       redrawTerrainHander = new GraphicsRedrawHander();
       editorToolManager = new EditorToolManager(this);
+      toolModels = new ToolModels();
       mainView = new MainView();
    }
    
@@ -55,6 +58,10 @@ public class EditorContext {
    
    public EditorToolManager getEditorToolManager() {
       return editorToolManager;
+   }
+   
+   public ToolModels getToolModels() {
+      return toolModels;
    }
    
    public MainView getMainView() {
