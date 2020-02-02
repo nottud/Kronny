@@ -20,6 +20,7 @@ public class DataModel<T> implements Observable, ChildModel {
    
    private DataConverter<T> dataConverter;
    private DataHandler<T> dataHandler;
+   private ObserverType<T> valueAboutToChangeObserverType;
    private ObserverType<T> valueChangedObserverType;
    private ObservableManager observableManager;
    
@@ -29,6 +30,7 @@ public class DataModel<T> implements Observable, ChildModel {
       this.parent = parent;
       this.dataConverter = dataConverter;
       dataHandler = new DataHandler<>(dataLocationFinder, dataConverter);
+      valueAboutToChangeObserverType = new ObserverType<>();
       valueChangedObserverType = new ObserverType<>();
       observableManager = new ObservableManagerImpl();
       value = dataConverter.createDefaultValue();
@@ -49,9 +51,16 @@ public class DataModel<T> implements Observable, ChildModel {
       return value;
    }
    
-   public void setValue(T value) {
+   public T setValue(T value) {
+      T oldValue = this.value;
+      observableManager.notifyObservers(valueAboutToChangeObserverType, value);
       this.value = value;
       observableManager.notifyObservers(valueChangedObserverType, value);
+      return oldValue;
+   }
+   
+   public ObserverType<T> getValueAboutToChangeObserverType() {
+      return valueAboutToChangeObserverType;
    }
    
    public ObserverType<T> getValueChangedObserverType() {

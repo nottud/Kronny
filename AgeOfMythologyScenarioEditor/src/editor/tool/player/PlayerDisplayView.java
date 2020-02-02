@@ -1,15 +1,18 @@
 
 package editor.tool.player;
 
+import java.util.Arrays;
+
 import datahandler.editor.DataModelEditorHolder;
-import datahandler.editor.IntegerModelEditor;
 import datahandler.editor.StringModelEditor;
 import editor.EditorContext;
 import editor.tool.EditorTool;
 import editor.tool.EditorToolType;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.scene.Node;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.GridPane;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.layout.Region;
 import mapmodel.ListModel;
 import mapmodel.RootModel;
 import mapmodel.player.AllPlayersModel;
@@ -24,8 +27,7 @@ public class PlayerDisplayView implements EditorTool {
    
    private DataModelEditorHolder editorHolder;
    
-   private GridPane gridPane;
-   private ScrollPane scrollPane;
+   private TableView<PlayerModel> tableView;
    
    private Observer<Void> modelReadObserver;
    
@@ -34,8 +36,17 @@ public class PlayerDisplayView implements EditorTool {
       
       editorHolder = new DataModelEditorHolder();
       
-      gridPane = new GridPane();
-      scrollPane = new ScrollPane(gridPane);
+      tableView = new TableView<>();
+      
+      TableColumn<PlayerModel, Integer> idColumn = new TableColumn<>("Id");
+      idColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().getPlayerId().getValue()));
+      idColumn.setSortable(true);
+      
+      TableColumn<PlayerModel, Region> nameColumn = new TableColumn<>("Name");
+      nameColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(
+            editorHolder.add(new StringModelEditor(editorContext.getCommandExecutor(), cellData.getValue().getPlayerName())).getEditor()));
+      
+      tableView.getColumns().setAll(Arrays.asList(idColumn, nameColumn));
       
       modelReadObserver = value -> createGraphics();
       editorContext.getRootModel().getObservableManager().addObserver(RootModel.MODEL_READ, modelReadObserver);
@@ -44,29 +55,15 @@ public class PlayerDisplayView implements EditorTool {
    
    private void createGraphics() {
       editorHolder.destroyAllEditors();
-      gridPane.getChildren().clear();
       AllPlayersModel allPlayersModel = editorContext.getRootModel().getAllPlayersModel();
       ListModel<PlayerModel> listModel = allPlayersModel.getPlayerModels();
-      for (int i = 0; i < listModel.getChildModels().size(); i++) {
-         createRow(listModel.getChildModels().get(i), i);
-      }
-   }
-   
-   private void createRow(PlayerModel playerModel, int index) {
-      gridPane.addRow(index,
-            editorHolder.add(new IntegerModelEditor(editorContext.getCommandExecutor(), playerModel.getUnknown1())).getEditor(),
-            editorHolder.add(new IntegerModelEditor(editorContext.getCommandExecutor(), playerModel.getUnknown2())).getEditor(),
-            editorHolder.add(new IntegerModelEditor(editorContext.getCommandExecutor(), playerModel.getPlayerId())).getEditor(),
-            editorHolder.add(new StringModelEditor(editorContext.getCommandExecutor(), playerModel.getPlayerName())).getEditor(),
-            editorHolder.add(new IntegerModelEditor(editorContext.getCommandExecutor(), playerModel.getUnknown3())).getEditor(),
-            editorHolder.add(new IntegerModelEditor(editorContext.getCommandExecutor(), playerModel.getUnknown4())).getEditor(),
-            editorHolder.add(new IntegerModelEditor(editorContext.getCommandExecutor(), playerModel.getUnknown5())).getEditor(),
-            editorHolder.add(new IntegerModelEditor(editorContext.getCommandExecutor(), playerModel.getUnknown6())).getEditor());
+      
+      tableView.getItems().setAll(listModel.getChildModels());
    }
    
    @Override
    public Node getBottomGraphics() {
-      return scrollPane;
+      return tableView;
    }
    
    @Override

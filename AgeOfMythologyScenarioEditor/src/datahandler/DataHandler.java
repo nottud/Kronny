@@ -2,7 +2,6 @@
 package datahandler;
 
 import java.util.List;
-import java.util.function.Predicate;
 
 import datahandler.converter.DataConverter;
 import datahandler.location.DataLocationFinder;
@@ -33,28 +32,9 @@ public class DataHandler<T> {
             data.set(i + location, newBytes.get(i));
          }
       } else {
-         
-         for (int i = 0; i < bytesToRemoveLength; i++) {
-            data.remove(location);
-         }
-         //		removeItemsAtIndex(data, location, bytesToRemoveLength);
+         data.subList(location, location + bytesToRemoveLength).clear();
          data.addAll(location, dataConverter.toBytes(value));
       }
-   }
-   
-   private void removeItemsAtIndex(List<Byte> items, int index, int count) {
-      items.removeIf(new Predicate<Byte>() {
-         
-         private int currentIndex = 0;
-         private int stopIndex = index + count;
-         
-         @Override
-         public boolean test(Byte byteToTest) {
-            boolean result = currentIndex >= index && currentIndex < stopIndex;
-            currentIndex++;
-            return result;
-         }
-      });
    }
    
    public DataLocationFinder getDataLocationFinder() {

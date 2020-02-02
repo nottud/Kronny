@@ -9,6 +9,7 @@ import editor.tool.elevation.WaterElevationTool;
 import editor.tool.paintterrain.TerrainTool;
 import editor.tool.paintwater.PaintWaterColourTool;
 import editor.tool.paintwater.PaintWaterTool;
+import editor.tool.player.PlayerDisplayView;
 import io.ConversionHandler;
 import io.IoHandler;
 import javafx.scene.control.Menu;
@@ -74,8 +75,8 @@ public class EditorMenuBar {
       MenuItem closeActiveTool = new MenuItem("Close active tool");
       closeActiveTool.setOnAction(event -> editorToolManager.closeActiveTool());
       
-      //      MenuItem playerData = new MenuItem("Player data");
-      //      playerData.setOnAction(event -> editorToolManager.startTool(PlayerDisplayView.TOOL_TYPE));
+      MenuItem playerData = new MenuItem("Player data");
+      playerData.setOnAction(event -> editorToolManager.startTool(PlayerDisplayView.TOOL_TYPE));
       
       MenuItem coverTerrain = new MenuItem("Cover terrain");
       coverTerrain.setOnAction(event -> editorToolManager.startTool(CoverMapTerrainTool.TOOL_TYPE));
@@ -96,7 +97,7 @@ public class EditorMenuBar {
       paintWaterElevation.setOnAction(event -> editorToolManager.startTool(WaterElevationTool.TOOL_TYPE));
       
       Menu menu = new Menu("Tools");
-      menu.getItems().setAll(closeActiveTool, /* playerData, */ coverTerrain, paintTerrain, colourWater, paintWater, paintTerrainElevation,
+      menu.getItems().setAll(closeActiveTool, playerData, coverTerrain, paintTerrain, colourWater, paintWater, paintTerrainElevation,
             paintWaterElevation);
       return menu;
    }

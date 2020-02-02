@@ -6,6 +6,7 @@ import java.util.List;
 import datahandler.DataModel;
 import datahandler.converter.FullStringConverter;
 import datahandler.converter.IntegerConverter;
+import datahandler.lengthdependency.LengthDependency;
 import datahandler.location.AfterKnownLocationFinder;
 import datahandler.location.LocationNotFoundException;
 import datahandler.location.RelativeLocationFinder;
@@ -14,7 +15,7 @@ import mapmodel.ParentModel;
 
 public class PlayerModel extends BranchModel {
    
-   private DataModel<Integer> unknown1;
+   private DataModel<Integer> lengthFlag;
    private DataModel<Integer> unknown2;
    private DataModel<Integer> playerId;
    private DataModel<String> playerName;
@@ -23,20 +24,24 @@ public class PlayerModel extends BranchModel {
    private DataModel<Integer> unknown5;
    private DataModel<Integer> unknown6;
    
+   private LengthDependency<String> nameLengthDependency;
+   
    public PlayerModel(ParentModel parentModel) {
       super(parentModel);
-      unknown1 = children.add("unknown1", new DataModel<>(this, new RelativeLocationFinder(0), new IntegerConverter()));
-      unknown2 = children.add("unknown2", new DataModel<>(this, new AfterKnownLocationFinder(unknown1, 0), new IntegerConverter()));
+      lengthFlag = children.add("DataLength", new DataModel<>(this, new RelativeLocationFinder(0), new IntegerConverter()));
+      unknown2 = children.add("unknown2", new DataModel<>(this, new AfterKnownLocationFinder(lengthFlag, 0), new IntegerConverter()));
       playerId = children.add("Id", new DataModel<>(this, new AfterKnownLocationFinder(unknown2, 0), new IntegerConverter()));
       playerName = children.add("Name", new DataModel<>(this, new AfterKnownLocationFinder(playerId, 0), new FullStringConverter()));
       unknown3 = children.add("unknown3", new DataModel<>(this, new AfterKnownLocationFinder(playerName, 0), new IntegerConverter()));
       unknown4 = children.add("unknown4", new DataModel<>(this, new AfterKnownLocationFinder(unknown3, 0), new IntegerConverter()));
       unknown5 = children.add("unknown5", new DataModel<>(this, new AfterKnownLocationFinder(unknown4, 0), new IntegerConverter()));
       unknown6 = children.add("unknown6", new DataModel<>(this, new AfterKnownLocationFinder(unknown5, 0), new IntegerConverter()));
+      
+      nameLengthDependency = new LengthDependency<>(lengthFlag, playerName);
    }
    
-   public DataModel<Integer> getUnknown1() {
-      return unknown1;
+   public DataModel<Integer> getLengthFlag() {
+      return lengthFlag;
    }
    
    public DataModel<Integer> getUnknown2() {
@@ -69,7 +74,9 @@ public class PlayerModel extends BranchModel {
    
    @Override
    public void readAllModels(List<Byte> data, int offsetHint) throws LocationNotFoundException {
-      unknown1.readAllModels(data, offsetHint);
+      nameLengthDependency.setActive(false);
+      
+      lengthFlag.readAllModels(data, offsetHint);
       unknown2.readAllModels(data, offsetHint);
       playerId.readAllModels(data, offsetHint);
       playerName.readAllModels(data, offsetHint);
@@ -77,6 +84,8 @@ public class PlayerModel extends BranchModel {
       unknown4.readAllModels(data, offsetHint);
       unknown5.readAllModels(data, offsetHint);
       unknown6.readAllModels(data, offsetHint);
+      
+      nameLengthDependency.setActive(true);
    }
    
    @Override
@@ -88,7 +97,7 @@ public class PlayerModel extends BranchModel {
       playerName.writeAllModels(data, offsetHint);
       playerId.writeAllModels(data, offsetHint);
       unknown2.writeAllModels(data, offsetHint);
-      unknown1.writeAllModels(data, offsetHint);
+      lengthFlag.writeAllModels(data, offsetHint);
    }
    
 }
