@@ -21,6 +21,7 @@ public class PlayerModel extends BranchModel {
    private DataModel<Integer> playerId;
    private DataModel<String> playerName;
    private DataModel<Integer> playerGod;
+   private DataModel<Integer> playerPop;
    private DataModel<Integer> playerColour;
    private DataModel<Float> playerGold;
    private DataModel<Float> playerWood;
@@ -36,7 +37,8 @@ public class PlayerModel extends BranchModel {
       playerId = children.add("Id", new DataModel<>(this, new AfterKnownLocationFinder(unknown2, 0), new IntegerConverter()));
       playerName = children.add("Name", new DataModel<>(this, new AfterKnownLocationFinder(playerId, 0), new FullStringConverter()));
       playerGod = children.add("God", new DataModel<>(this, new AfterKnownLocationFinder(playerName, 18), new IntegerConverter()));
-      playerColour = children.add("PlayerColour", new DataModel<>(this, new AfterKnownLocationFinder(playerGod, 8), new IntegerConverter()));
+      playerPop = children.add("PlayerPop", new DataModel<>(this, new AfterKnownLocationFinder(playerGod, 4), new IntegerConverter()));
+      playerColour = children.add("PlayerColour", new DataModel<>(this, new AfterKnownLocationFinder(playerPop, 0), new IntegerConverter()));
       playerGold = children.add("PlayerGold", new DataModel<>(this, new AfterKnownLocationFinder(playerColour, 92), new FloatConverter()));
       playerWood = children.add("PlayerWood", new DataModel<>(this, new AfterKnownLocationFinder(playerGold, 0), new FloatConverter()));
       playerFood = children.add("PlayerFood", new DataModel<>(this, new AfterKnownLocationFinder(playerWood, 0), new FloatConverter()));
@@ -63,6 +65,10 @@ public class PlayerModel extends BranchModel {
    
    public DataModel<Integer> getPlayerGod() {
       return playerGod;
+   }
+   
+   public DataModel<Integer> getPlayerPop() {
+      return playerPop;
    }
    
    public DataModel<Integer> getPlayerColour() {
@@ -94,6 +100,7 @@ public class PlayerModel extends BranchModel {
       playerId.readAllModels(data, offsetHint);
       playerName.readAllModels(data, offsetHint);
       playerGod.readAllModels(data, offsetHint);
+      playerPop.readAllModels(data, offsetHint);
       playerColour.readAllModels(data, offsetHint);
       playerGold.readAllModels(data, offsetHint);
       playerWood.readAllModels(data, offsetHint);
@@ -110,6 +117,7 @@ public class PlayerModel extends BranchModel {
       playerWood.writeAllModels(data, offsetHint);
       playerGold.writeAllModels(data, offsetHint);
       playerColour.writeAllModels(data, offsetHint);
+      playerPop.writeAllModels(data, offsetHint);
       playerGod.writeAllModels(data, offsetHint);
       playerName.writeAllModels(data, offsetHint);
       playerId.writeAllModels(data, offsetHint);

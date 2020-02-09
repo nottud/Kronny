@@ -8,6 +8,7 @@ import java.util.List;
 import datahandler.editor.DataModelEditorHolder;
 import datahandler.editor.FilteredComboBoxModelEditor;
 import datahandler.editor.FloatModelEditor;
+import datahandler.editor.IntegerModelEditor;
 import datahandler.editor.StringModelEditor;
 import editor.EditorContext;
 import editor.tool.EditorTool;
@@ -80,7 +81,12 @@ public class PlayerTool implements EditorTool {
       favourColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(
             editorHolder.add(new FloatModelEditor(editorContext.getCommandExecutor(), cellData.getValue().getPlayerFavour())).getEditor()));
       
-      tableView.getColumns().setAll(Arrays.asList(idColumn, nameColumn, colourColumn, godColumn, foodColumn, woodColumn, goldColumn, favourColumn));
+      TableColumn<PlayerModel, Region> popColumn = new TableColumn<>("Population");
+      popColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(
+            editorHolder.add(new IntegerModelEditor(editorContext.getCommandExecutor(), cellData.getValue().getPlayerPop())).getEditor()));
+      
+      tableView.getColumns().setAll(Arrays.asList(
+            idColumn, nameColumn, colourColumn, godColumn, foodColumn, woodColumn, goldColumn, favourColumn, popColumn));
       
       modelReadObserver = value -> createGraphics();
       editorContext.getRootModel().getObservableManager().addObserver(RootModel.MODEL_READ, modelReadObserver);
