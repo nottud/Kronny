@@ -4,15 +4,15 @@ package editor.terrainchooser;
 import java.util.Arrays;
 import java.util.List;
 
+import gameenumeration.terrain.TerrainEntry;
+import gameenumeration.terrain.TerrainGroup;
+import gameenumeration.terrain.TerrainType;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.transformation.SortedList;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.image.ImageView;
-import terrain.TerrainEntry;
-import terrain.TerrainGroup;
-import terrain.TerrainType;
 import utility.graphics.BlockListener;
 import utility.graphics.table.ImageViewGenerator;
 import utility.image.ImageLoaderEntryType;

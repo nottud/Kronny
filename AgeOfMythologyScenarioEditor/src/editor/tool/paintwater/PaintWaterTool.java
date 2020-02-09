@@ -17,6 +17,8 @@ import editor.tool.EditorTool;
 import editor.tool.EditorToolType;
 import editor.waterchooser.WaterSelectionModel;
 import editor.waterchooser.WaterViewer;
+import gameenumeration.water.WaterEntry;
+import gameenumeration.water.WaterType;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.input.MouseButton;
@@ -24,8 +26,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import mapmodel.map.MapSizeModel;
 import utility.observable.Observer;
-import water.WaterEntry;
-import water.WaterType;
 
 public class PaintWaterTool implements EditorTool {
    

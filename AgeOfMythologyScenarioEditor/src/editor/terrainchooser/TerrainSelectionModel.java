@@ -1,7 +1,7 @@
 
 package editor.terrainchooser;
 
-import terrain.TerrainEntry;
+import gameenumeration.terrain.TerrainEntry;
 import utility.observable.Observable;
 import utility.observable.ObservableManager;
 import utility.observable.ObservableManagerImpl;

@@ -1,6 +1,7 @@
 
-package terrain;
+package gameenumeration.terrain;
 
+import terrain.TerrainRoot;
 import utility.image.ImageLoader;
 import utility.image.ImageLoaderEntry;
 

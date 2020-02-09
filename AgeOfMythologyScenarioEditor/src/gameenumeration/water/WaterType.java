@@ -1,5 +1,5 @@
 
-package water;
+package gameenumeration.water;
 
 import java.util.ArrayList;
 import java.util.Collections;

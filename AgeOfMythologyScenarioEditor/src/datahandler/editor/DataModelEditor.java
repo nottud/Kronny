@@ -39,6 +39,11 @@ public abstract class DataModelEditor<T> {
       commandExecutor.done();
    }
    
+   protected void notifyValueChangedAndDone(T value) {
+      notifyValueChanged(value);
+      doneEditing();
+   }
+   
    public abstract Region getEditor();
    
    public abstract void destroy();

@@ -1,11 +1,11 @@
 
 package editor.waterchooser;
 
+import gameenumeration.water.WaterEntry;
 import utility.observable.Observable;
 import utility.observable.ObservableManager;
 import utility.observable.ObservableManagerImpl;
 import utility.observable.ObserverType;
-import water.WaterEntry;
 
 public class WaterSelectionModel implements Observable {
    

@@ -4,10 +4,10 @@ package editor.tool.paintterrain;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import gameenumeration.terrain.TerrainEntry;
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelReader;
 import javafx.scene.paint.Color;
-import terrain.TerrainEntry;
 import utility.image.ImageLoaderEntryType;
 
 public class TerrainPreviewColourCache {

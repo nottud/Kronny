@@ -1,5 +1,5 @@
 
-package terrain;
+package gameenumeration.terrain;
 
 import java.util.List;
 

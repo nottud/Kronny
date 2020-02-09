@@ -1,9 +1,10 @@
 
-package water;
+package gameenumeration.water;
 
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import utility.image.ImageLoader;
+import water.WaterRoot;
 
 public class WaterEntry {
    

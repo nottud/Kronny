@@ -24,10 +24,7 @@ public class AllPlayersModel extends BranchModel {
       playerElementFinder = NextSequenceLocationFinder.afterSequence(Arrays.asList((byte) 0x42, (byte) 0x50), 0); //BP
       
       playerNumber = children.add("PlayerNumber", new DataModel<>(this, NextSequenceLocationFinder.atSequenceStart(Arrays.asList(
-            (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x01, (byte) 0x42, (byte) 0x50/*
-                                                                                         * , (byte) 0x61, (byte) 0x04, (byte) 0x00, (byte) 0x00,
-                                                                                         * (byte) 0x4e
-                                                                                         */), -1), new IntegerConverter()));
+            (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x01, (byte) 0x42, (byte) 0x50), -1), new IntegerConverter()));
       playerModels = children.add("Players", new ListModel<>(this, playerElementFinder, playerElementFinder, PlayerModel::new));
    }
    

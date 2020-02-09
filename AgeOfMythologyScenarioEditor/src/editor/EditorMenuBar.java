@@ -9,7 +9,7 @@ import editor.tool.elevation.WaterElevationTool;
 import editor.tool.paintterrain.TerrainTool;
 import editor.tool.paintwater.PaintWaterColourTool;
 import editor.tool.paintwater.PaintWaterTool;
-import editor.tool.player.PlayerDisplayView;
+import editor.tool.player.PlayerTool;
 import io.ConversionHandler;
 import io.IoHandler;
 import javafx.scene.control.Menu;
@@ -54,14 +54,12 @@ public class EditorMenuBar {
       
       MenuItem undoItem = new MenuItem("Undo");
       undoItem.setOnAction(event -> commandExecutor.undo());
-      commandExecutor.getObservableManager().addObserver(CommandExecutor.CAN_UNDO, value -> undoItem.setDisable(false));
-      commandExecutor.getObservableManager().addObserver(CommandExecutor.CANNOT_UNDO, value -> undoItem.setDisable(true));
+      commandExecutor.getObservableManager().addObserver(CommandExecutor.UNDO_AVAILABILITY_CHANGED, value -> undoItem.setDisable(!value));
       undoItem.setDisable(!commandExecutor.canUndo());
       
       MenuItem redoItem = new MenuItem("Redo");
       redoItem.setOnAction(event -> commandExecutor.redo());
-      commandExecutor.getObservableManager().addObserver(CommandExecutor.CAN_REDO, value -> redoItem.setDisable(false));
-      commandExecutor.getObservableManager().addObserver(CommandExecutor.CANNOT_REDO, value -> redoItem.setDisable(true));
+      commandExecutor.getObservableManager().addObserver(CommandExecutor.REDO_AVAILABILITY_CHANGED, value -> redoItem.setDisable(!value));
       redoItem.setDisable(!commandExecutor.canRedo());
       
       Menu menu = new Menu("Edit");
@@ -76,7 +74,7 @@ public class EditorMenuBar {
       closeActiveTool.setOnAction(event -> editorToolManager.closeActiveTool());
       
       MenuItem playerData = new MenuItem("Player data");
-      playerData.setOnAction(event -> editorToolManager.startTool(PlayerDisplayView.TOOL_TYPE));
+      playerData.setOnAction(event -> editorToolManager.startTool(PlayerTool.TOOL_TYPE));
       
       MenuItem coverTerrain = new MenuItem("Cover terrain");
       coverTerrain.setOnAction(event -> editorToolManager.startTool(CoverMapTerrainTool.TOOL_TYPE));

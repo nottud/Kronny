@@ -4,7 +4,7 @@ package raycastviewer.terrain.cache;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import terrain.TerrainEntry;
+import gameenumeration.terrain.TerrainEntry;
 import utility.image.ImageLoaderEntryType;
 
 public class TerrainRayCastingCacheHolder {

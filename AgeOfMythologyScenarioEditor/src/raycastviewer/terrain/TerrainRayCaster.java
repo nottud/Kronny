@@ -5,14 +5,14 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
+import gameenumeration.terrain.TerrainEntry;
+import gameenumeration.terrain.TerrainGroup;
+import gameenumeration.terrain.TerrainType;
 import javafx.scene.paint.Color;
 import mapmodel.map.MapSizeModel;
 import raycastviewer.RayCaster;
 import raycastviewer.terrain.cache.TerrainRayCastingCache;
 import raycastviewer.terrain.cache.TerrainRayCastingCacheHolder;
-import terrain.TerrainEntry;
-import terrain.TerrainGroup;
-import terrain.TerrainType;
 import utility.graphics.colour.ColourToArgb;
 import utility.image.ImageLoaderEntryType;
 import utility.math.Doubles;

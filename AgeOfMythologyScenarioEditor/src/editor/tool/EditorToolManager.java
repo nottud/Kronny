@@ -12,7 +12,7 @@ import editor.tool.elevation.WaterElevationTool;
 import editor.tool.paintterrain.TerrainTool;
 import editor.tool.paintwater.PaintWaterColourTool;
 import editor.tool.paintwater.PaintWaterTool;
-import editor.tool.player.PlayerDisplayView;
+import editor.tool.player.PlayerTool;
 import utility.observable.Observable;
 import utility.observable.ObservableManager;
 import utility.observable.ObservableManagerImpl;
@@ -37,7 +37,7 @@ public class EditorToolManager implements Observable {
       
       editorToolTypeToFactory = new LinkedHashMap<>();
       editorToolTypeToFactory.put(NullEditorTool.TOOL_TYPE, foundContext -> new NullEditorTool());
-      editorToolTypeToFactory.put(PlayerDisplayView.TOOL_TYPE, PlayerDisplayView::new);
+      editorToolTypeToFactory.put(PlayerTool.TOOL_TYPE, PlayerTool::new);
       editorToolTypeToFactory.put(CoverMapTerrainTool.TOOL_TYPE, CoverMapTerrainTool::new);
       editorToolTypeToFactory.put(TerrainTool.TOOL_TYPE, TerrainTool::new);
       editorToolTypeToFactory.put(PaintWaterColourTool.TOOL_TYPE, PaintWaterColourTool::new);

@@ -4,6 +4,7 @@ package mapmodel.player;
 import java.util.List;
 
 import datahandler.DataModel;
+import datahandler.converter.FloatConverter;
 import datahandler.converter.FullStringConverter;
 import datahandler.converter.IntegerConverter;
 import datahandler.lengthdependency.LengthDependency;
@@ -19,10 +20,12 @@ public class PlayerModel extends BranchModel {
    private DataModel<Integer> unknown2;
    private DataModel<Integer> playerId;
    private DataModel<String> playerName;
-   private DataModel<Integer> unknown3;
-   private DataModel<Integer> unknown4;
-   private DataModel<Integer> unknown5;
-   private DataModel<Integer> unknown6;
+   private DataModel<Integer> playerGod;
+   private DataModel<Integer> playerColour;
+   private DataModel<Float> playerGold;
+   private DataModel<Float> playerWood;
+   private DataModel<Float> playerFood;
+   private DataModel<Float> playerPop;
    
    private LengthDependency<String> nameLengthDependency;
    
@@ -32,10 +35,12 @@ public class PlayerModel extends BranchModel {
       unknown2 = children.add("unknown2", new DataModel<>(this, new AfterKnownLocationFinder(lengthFlag, 0), new IntegerConverter()));
       playerId = children.add("Id", new DataModel<>(this, new AfterKnownLocationFinder(unknown2, 0), new IntegerConverter()));
       playerName = children.add("Name", new DataModel<>(this, new AfterKnownLocationFinder(playerId, 0), new FullStringConverter()));
-      unknown3 = children.add("unknown3", new DataModel<>(this, new AfterKnownLocationFinder(playerName, 0), new IntegerConverter()));
-      unknown4 = children.add("unknown4", new DataModel<>(this, new AfterKnownLocationFinder(unknown3, 0), new IntegerConverter()));
-      unknown5 = children.add("unknown5", new DataModel<>(this, new AfterKnownLocationFinder(unknown4, 0), new IntegerConverter()));
-      unknown6 = children.add("unknown6", new DataModel<>(this, new AfterKnownLocationFinder(unknown5, 0), new IntegerConverter()));
+      playerGod = children.add("God", new DataModel<>(this, new AfterKnownLocationFinder(playerName, 18), new IntegerConverter()));
+      playerColour = children.add("PlayerColour", new DataModel<>(this, new AfterKnownLocationFinder(playerGod, 8), new IntegerConverter()));
+      playerGold = children.add("PlayerGold", new DataModel<>(this, new AfterKnownLocationFinder(playerColour, 92), new FloatConverter()));
+      playerWood = children.add("PlayerWood", new DataModel<>(this, new AfterKnownLocationFinder(playerGold, 0), new FloatConverter()));
+      playerFood = children.add("PlayerFood", new DataModel<>(this, new AfterKnownLocationFinder(playerWood, 0), new FloatConverter()));
+      playerPop = children.add("PlayerPop", new DataModel<>(this, new AfterKnownLocationFinder(playerFood, 0), new FloatConverter()));
       
       nameLengthDependency = new LengthDependency<>(lengthFlag, playerName);
    }
@@ -56,20 +61,28 @@ public class PlayerModel extends BranchModel {
       return playerName;
    }
    
-   public DataModel<Integer> getUnknown3() {
-      return unknown3;
+   public DataModel<Integer> getPlayerGod() {
+      return playerGod;
    }
    
-   public DataModel<Integer> getUnknown4() {
-      return unknown4;
+   public DataModel<Integer> getPlayerColour() {
+      return playerColour;
    }
    
-   public DataModel<Integer> getUnknown5() {
-      return unknown5;
+   public DataModel<Float> getPlayerGold() {
+      return playerGold;
    }
    
-   public DataModel<Integer> getUnknown6() {
-      return unknown6;
+   public DataModel<Float> getPlayerWood() {
+      return playerWood;
+   }
+   
+   public DataModel<Float> getPlayerFood() {
+      return playerFood;
+   }
+   
+   public DataModel<Float> getPlayerPop() {
+      return playerPop;
    }
    
    @Override
@@ -80,20 +93,24 @@ public class PlayerModel extends BranchModel {
       unknown2.readAllModels(data, offsetHint);
       playerId.readAllModels(data, offsetHint);
       playerName.readAllModels(data, offsetHint);
-      unknown3.readAllModels(data, offsetHint);
-      unknown4.readAllModels(data, offsetHint);
-      unknown5.readAllModels(data, offsetHint);
-      unknown6.readAllModels(data, offsetHint);
+      playerGod.readAllModels(data, offsetHint);
+      playerColour.readAllModels(data, offsetHint);
+      playerGold.readAllModels(data, offsetHint);
+      playerWood.readAllModels(data, offsetHint);
+      playerFood.readAllModels(data, offsetHint);
+      playerPop.readAllModels(data, offsetHint);
       
       nameLengthDependency.setActive(true);
    }
    
    @Override
    public void writeAllModels(List<Byte> data, int offsetHint) throws LocationNotFoundException {
-      unknown6.writeAllModels(data, offsetHint);
-      unknown5.writeAllModels(data, offsetHint);
-      unknown4.writeAllModels(data, offsetHint);
-      unknown3.writeAllModels(data, offsetHint);
+      playerPop.writeAllModels(data, offsetHint);
+      playerFood.writeAllModels(data, offsetHint);
+      playerWood.writeAllModels(data, offsetHint);
+      playerGold.writeAllModels(data, offsetHint);
+      playerColour.writeAllModels(data, offsetHint);
+      playerGod.writeAllModels(data, offsetHint);
       playerName.writeAllModels(data, offsetHint);
       playerId.writeAllModels(data, offsetHint);
       unknown2.writeAllModels(data, offsetHint);

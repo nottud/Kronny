@@ -21,6 +21,8 @@ import editor.terrainchooser.TerrainSelectionModel;
 import editor.terrainchooser.TerrainViewer;
 import editor.tool.EditorTool;
 import editor.tool.EditorToolType;
+import gameenumeration.terrain.TerrainEntry;
+import gameenumeration.terrain.TerrainType;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -29,8 +31,6 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import mapmodel.map.MapSizeModel;
-import terrain.TerrainEntry;
-import terrain.TerrainType;
 import utility.observable.Observer;
 
 public class TerrainTool implements EditorTool {

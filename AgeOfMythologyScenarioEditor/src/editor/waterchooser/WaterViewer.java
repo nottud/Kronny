@@ -3,6 +3,8 @@ package editor.waterchooser;
 
 import java.util.Arrays;
 
+import gameenumeration.water.WaterEntry;
+import gameenumeration.water.WaterType;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.transformation.SortedList;
@@ -11,8 +13,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.image.ImageView;
 import utility.graphics.BlockListener;
 import utility.graphics.table.ImageViewGenerator;
-import water.WaterEntry;
-import water.WaterType;
 
 public class WaterViewer {
    

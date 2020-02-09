@@ -10,10 +10,10 @@ import editor.terrainchooser.TerrainSelectionModel;
 import editor.terrainchooser.TerrainViewer;
 import editor.tool.EditorTool;
 import editor.tool.EditorToolType;
+import gameenumeration.terrain.TerrainEntry;
 import javafx.application.Platform;
 import javafx.scene.Node;
 import mapmodel.map.MapSizeModel;
-import terrain.TerrainEntry;
 
 public class CoverMapTerrainTool implements EditorTool {
    
