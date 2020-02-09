@@ -76,11 +76,11 @@ public class PlayerTool implements EditorTool {
       goldColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(
             editorHolder.add(new FloatModelEditor(editorContext.getCommandExecutor(), cellData.getValue().getPlayerGold())).getEditor()));
       
-      TableColumn<PlayerModel, Region> popColumn = new TableColumn<>("Population");
-      popColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(
-            editorHolder.add(new FloatModelEditor(editorContext.getCommandExecutor(), cellData.getValue().getPlayerPop())).getEditor()));
+      TableColumn<PlayerModel, Region> favourColumn = new TableColumn<>("Favour");
+      favourColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(
+            editorHolder.add(new FloatModelEditor(editorContext.getCommandExecutor(), cellData.getValue().getPlayerFavour())).getEditor()));
       
-      tableView.getColumns().setAll(Arrays.asList(idColumn, nameColumn, colourColumn, godColumn, foodColumn, woodColumn, goldColumn, popColumn));
+      tableView.getColumns().setAll(Arrays.asList(idColumn, nameColumn, colourColumn, godColumn, foodColumn, woodColumn, goldColumn, favourColumn));
       
       modelReadObserver = value -> createGraphics();
       editorContext.getRootModel().getObservableManager().addObserver(RootModel.MODEL_READ, modelReadObserver);

@@ -25,7 +25,7 @@ public class PlayerModel extends BranchModel {
    private DataModel<Float> playerGold;
    private DataModel<Float> playerWood;
    private DataModel<Float> playerFood;
-   private DataModel<Float> playerPop;
+   private DataModel<Float> playerFavour;
    
    private LengthDependency<String> nameLengthDependency;
    
@@ -40,7 +40,7 @@ public class PlayerModel extends BranchModel {
       playerGold = children.add("PlayerGold", new DataModel<>(this, new AfterKnownLocationFinder(playerColour, 92), new FloatConverter()));
       playerWood = children.add("PlayerWood", new DataModel<>(this, new AfterKnownLocationFinder(playerGold, 0), new FloatConverter()));
       playerFood = children.add("PlayerFood", new DataModel<>(this, new AfterKnownLocationFinder(playerWood, 0), new FloatConverter()));
-      playerPop = children.add("PlayerPop", new DataModel<>(this, new AfterKnownLocationFinder(playerFood, 0), new FloatConverter()));
+      playerFavour = children.add("PlayerFavour", new DataModel<>(this, new AfterKnownLocationFinder(playerFood, 0), new FloatConverter()));
       
       nameLengthDependency = new LengthDependency<>(lengthFlag, playerName);
    }
@@ -81,8 +81,8 @@ public class PlayerModel extends BranchModel {
       return playerFood;
    }
    
-   public DataModel<Float> getPlayerPop() {
-      return playerPop;
+   public DataModel<Float> getPlayerFavour() {
+      return playerFavour;
    }
    
    @Override
@@ -98,14 +98,14 @@ public class PlayerModel extends BranchModel {
       playerGold.readAllModels(data, offsetHint);
       playerWood.readAllModels(data, offsetHint);
       playerFood.readAllModels(data, offsetHint);
-      playerPop.readAllModels(data, offsetHint);
+      playerFavour.readAllModels(data, offsetHint);
       
       nameLengthDependency.setActive(true);
    }
    
    @Override
    public void writeAllModels(List<Byte> data, int offsetHint) throws LocationNotFoundException {
-      playerPop.writeAllModels(data, offsetHint);
+      playerFavour.writeAllModels(data, offsetHint);
       playerFood.writeAllModels(data, offsetHint);
       playerWood.writeAllModels(data, offsetHint);
       playerGold.writeAllModels(data, offsetHint);
