@@ -10,6 +10,9 @@ public class ValidationInputParserDouble implements ValidationInputParser<Double
    
    @Override
    public Optional<Double> parse(String value) {
+      if (value.isEmpty()) {
+         return Optional.of(0.0);
+      }
       try {
          return Optional.of(Double.parseDouble(value));
       } catch (NumberFormatException exception) {

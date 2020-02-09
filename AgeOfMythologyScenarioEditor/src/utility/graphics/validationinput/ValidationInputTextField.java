@@ -19,9 +19,8 @@ import utility.observable.ObserverType;
  */
 public class ValidationInputTextField<T> implements Observable {
    
-   protected static final String NO_INPUT_STRING = "";
    protected static final String INVALID_INPUT_STYLE = "-fx-background-color: rgb(255, 150, 150);";
-   protected static final String VALID_INPUT_STYLE = NO_INPUT_STRING;
+   protected static final String VALID_INPUT_STYLE = "";
    private ValidationInputParser<T> parser;
    private TextField textField;
    private ObservableManager observableManager;
@@ -58,10 +57,10 @@ public class ValidationInputTextField<T> implements Observable {
    private void handleTextChanged() {
       if (!blockListener.isBlocked()) {
          Optional<T> conversionAttempt = parser.parse(textField.getText());
-         if (conversionAttempt.isPresent() || (textField.getText().equals(NO_INPUT_STRING))) {
+         if (conversionAttempt.isPresent()) {
             textField.setStyle(VALID_INPUT_STYLE);
-            if (!Objects.equals(conversionAttempt.orElse(null), lastValidValue)) {
-               updateValueAndNotify(conversionAttempt.orElse(null));
+            if (!Objects.equals(conversionAttempt.orElse(lastValidValue), lastValidValue)) {
+               updateValueAndNotify(conversionAttempt.orElse(lastValidValue));
             }
          } else {
             if (!textField.getStyle().equals(INVALID_INPUT_STYLE)) {

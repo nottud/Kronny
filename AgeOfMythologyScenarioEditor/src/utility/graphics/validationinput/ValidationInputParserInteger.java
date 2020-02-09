@@ -10,6 +10,9 @@ public class ValidationInputParserInteger implements ValidationInputParser<Integ
    
    @Override
    public Optional<Integer> parse(String value) {
+      if (value.isEmpty()) {
+         return Optional.of(0);
+      }
       try {
          return Optional.of(Integer.parseInt(value));
       } catch (NumberFormatException exception) {

@@ -10,6 +10,9 @@ public class ValidationInputParserFloat implements ValidationInputParser<Float> 
    
    @Override
    public Optional<Float> parse(String value) {
+      if (value.isEmpty()) {
+         return Optional.of(0F);
+      }
       try {
          return Optional.of(Float.parseFloat(value));
       } catch (NumberFormatException exception) {
