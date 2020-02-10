@@ -22,15 +22,15 @@ public class WaterType {
    private WaterType() {
       waters = new ArrayList<>();
       
-      addEntry("Greek River", "GRiver64.bmp", Color.rgb(0, 50, 170), 3.0);
-      addEntry("Norse River", "NRiver64.bmp", Color.rgb(0, 50, 170), 3.0);
-      addEntry("Tundra Pool", "NRiver64.bmp", Color.rgb(0, 50, 170), 3.0);
-      addEntry("Yellow River", "ERiver64.bmp", Color.rgb(166, 129, 2), 4.0);
-      addEntry("Yellow River Shallow", "EShallow64.bmp", Color.rgb(166, 129, 2), 1.24);
-      addEntry("Egyptian Nile", "ERiver64.bmp", Color.rgb(0, 175, 235), 3.0);
-      addEntry("Egyptian Nile Shallow", "EShallow64.bmp", Color.rgb(117, 168, 130), 1.24);
-      addEntry("Savannah Water Hole", "ERiver64.bmp", Color.rgb(0, 175, 235), 3.0);
-      addEntry("Styx River", "ERiver64.bmp", Color.rgb(2, 2, 2), 3.0);
+      addEntry("Greek River", "griver64.bmp", Color.rgb(0, 50, 170), 3.0);
+      addEntry("Norse River", "nriver64.bmp", Color.rgb(0, 50, 170), 3.0);
+      addEntry("Tundra Pool", "nriver64.bmp", Color.rgb(0, 50, 170), 3.0);
+      addEntry("Yellow River", "eriver64.bmp", Color.rgb(166, 129, 2), 4.0);
+      addEntry("Yellow River Shallow", "eshallow64.bmp", Color.rgb(166, 129, 2), 1.24);
+      addEntry("Egyptian Nile", "eriver64.bmp", Color.rgb(0, 175, 235), 3.0);
+      addEntry("Egyptian Nile Shallow", "eshallow64.bmp", Color.rgb(117, 168, 130), 1.24);
+      addEntry("Savannah Water Hole", "eriver64.bmp", Color.rgb(0, 175, 235), 3.0);
+      addEntry("Styx River", "eriver64.bmp", Color.rgb(2, 2, 2), 3.0);
       addEntry("Mediterranean Sea", "mediteranean sea 64.bmp", Color.rgb(0, 50, 170), 4.0);
       addEntry("Aegean Sea", "aegean sea 64.bmp", Color.rgb(0, 125, 225), 4.0);
       addEntry("Red Sea", "red sea 64.bmp", Color.rgb(25, 80, 170), 4.0);
