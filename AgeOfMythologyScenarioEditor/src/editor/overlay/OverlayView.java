@@ -26,11 +26,10 @@ public class OverlayView {
    private int pixelsPerTile;
    private boolean vertices;
    
-   private ResizeableCanvas canvas;
-   
    private GraphicsRedrawHander graphicsRedrawHander;
-   
    private Observer<Object> requestRedrawObserver;
+   
+   private ResizeableCanvas canvas;
    
    private Observer<Object> mapSizeObserver;
    
@@ -42,14 +41,15 @@ public class OverlayView {
       this.pixelsPerTile = pixelsPerTile;
       this.vertices = vertices;
       
-      canvas = new ResizeableCanvas(1.0, 1.0);
-      canvas.setMouseTransparent(true);
-      canvas.getObservableManager().addObserver(ResizeableCanvas.RESIZED, value -> render());
-      
       graphicsRedrawHander = new GraphicsRedrawHander();
       graphicsRedrawHander.getObservableManager().addObserver(GraphicsRedrawHander.PERFORM_REDRAW, value -> render());
       
-      requestRedrawObserver = value -> render();
+      requestRedrawObserver = value -> graphicsRedrawHander.requestRedraw();
+      
+      canvas = new ResizeableCanvas(1.0, 1.0);
+      canvas.setMouseTransparent(true);
+      canvas.getObservableManager().addObserver(ResizeableCanvas.RESIZED, requestRedrawObserver);
+      
       cameraConverter.getObservableManager().addObserver(CameraConverter.VIEW_CHANGED, requestRedrawObserver);
       
       mapSizeObserver = value -> handleMapSizeChange();
