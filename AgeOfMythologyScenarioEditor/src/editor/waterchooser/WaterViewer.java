@@ -51,7 +51,7 @@ public class WaterViewer {
       tableView.getSelectionModel().select(waterSelectionModel.getSelectedWaterEntry());
       
       tableView.getSelectionModel().selectedItemProperty().addListener(
-            (source, oldValue, newValue) -> blockListener.attemptBlockAndDo(() -> waterSelectionModel.setSelectedTerrainType(newValue)));
+            (source, oldValue, newValue) -> blockListener.attemptBlockAndDo(() -> waterSelectionModel.setSelectedWaterType(newValue)));
       waterSelectionModel.getObservableManager().addObserver(WaterSelectionModel.SELECTION_CHANGE,
             value -> blockListener.attemptBlockAndDo(() -> tableView.getSelectionModel().select(value)));
    }

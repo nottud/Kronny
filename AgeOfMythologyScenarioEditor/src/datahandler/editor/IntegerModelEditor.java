@@ -2,7 +2,7 @@
 package datahandler.editor;
 
 import command.CommandExecutor;
-import datahandler.DataModel;
+import datahandler.DataModelHolder;
 import javafx.scene.layout.Region;
 import utility.graphics.validationinput.ValidationInputParserInteger;
 import utility.graphics.validationinput.ValidationInputTextField;
@@ -10,13 +10,13 @@ import utility.observable.Observer;
 
 public class IntegerModelEditor extends DataModelEditor<Integer> {
    
-   private DataModel<Integer> dataModel;
+   private DataModelHolder<Integer> dataModel;
    
    private ValidationInputTextField<Integer> editor;
    
    private Observer<Integer> observer;
    
-   public IntegerModelEditor(CommandExecutor commandExecutor, DataModel<Integer> dataModel) {
+   public IntegerModelEditor(CommandExecutor commandExecutor, DataModelHolder<Integer> dataModel) {
       super(commandExecutor, dataModel);
       this.dataModel = dataModel;
       editor = new ValidationInputTextField<>(0, new ValidationInputParserInteger());

@@ -22,7 +22,7 @@ public class ValidationInputParserDouble implements ValidationInputParser<Double
    
    @Override
    public String convertToString(Double value) {
-      return value.toString();
+      return value == null ? "" : value.toString();
    }
    
 }

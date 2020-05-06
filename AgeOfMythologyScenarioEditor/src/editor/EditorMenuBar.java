@@ -10,6 +10,7 @@ import editor.tool.paintterrain.TerrainTool;
 import editor.tool.paintwater.PaintWaterColourTool;
 import editor.tool.paintwater.PaintWaterTool;
 import editor.tool.player.PlayerTool;
+import editor.tool.unit.UnitTool;
 import io.ConversionHandler;
 import io.IoHandler;
 import javafx.scene.control.Menu;
@@ -94,9 +95,12 @@ public class EditorMenuBar {
       MenuItem paintWaterElevation = new MenuItem("Paint water elevation");
       paintWaterElevation.setOnAction(event -> editorToolManager.startTool(WaterElevationTool.TOOL_TYPE));
       
+      MenuItem unitTool = new MenuItem("Unit tool");
+      unitTool.setOnAction(event -> editorToolManager.startTool(UnitTool.TOOL_TYPE));
+      
       Menu menu = new Menu("Tools");
       menu.getItems().setAll(closeActiveTool, playerData, coverTerrain, paintTerrain, colourWater, paintWater, paintTerrainElevation,
-            paintWaterElevation);
+            paintWaterElevation, unitTool);
       return menu;
    }
    

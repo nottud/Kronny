@@ -22,7 +22,7 @@ public class ValidationInputParserFloat implements ValidationInputParser<Float> 
    
    @Override
    public String convertToString(Float value) {
-      return value.toString();
+      return value == null ? "" : value.toString();
    }
    
 }

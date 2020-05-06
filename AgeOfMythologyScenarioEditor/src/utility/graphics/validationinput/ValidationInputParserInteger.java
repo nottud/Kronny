@@ -22,7 +22,7 @@ public class ValidationInputParserInteger implements ValidationInputParser<Integ
    
    @Override
    public String convertToString(Integer value) {
-      return value.toString();
+      return value == null ? "" : value.toString();
    }
    
 }

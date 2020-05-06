@@ -28,7 +28,7 @@ public class WaterSelectionModel implements Observable {
       return selectedWaterEntry;
    }
    
-   public void setSelectedTerrainType(WaterEntry selectedWaterEntry) {
+   public void setSelectedWaterType(WaterEntry selectedWaterEntry) {
       this.selectedWaterEntry = selectedWaterEntry;
       observableManager.notifyObservers(SELECTION_CHANGE, selectedWaterEntry);
    }

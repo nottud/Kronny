@@ -13,6 +13,7 @@ import editor.tool.paintterrain.TerrainTool;
 import editor.tool.paintwater.PaintWaterColourTool;
 import editor.tool.paintwater.PaintWaterTool;
 import editor.tool.player.PlayerTool;
+import editor.tool.unit.UnitTool;
 import utility.observable.Observable;
 import utility.observable.ObservableManager;
 import utility.observable.ObservableManagerImpl;
@@ -44,6 +45,7 @@ public class EditorToolManager implements Observable {
       editorToolTypeToFactory.put(PaintWaterTool.TOOL_TYPE, PaintWaterTool::new);
       editorToolTypeToFactory.put(TerrainElevationTool.TOOL_TYPE, TerrainElevationTool::new);
       editorToolTypeToFactory.put(WaterElevationTool.TOOL_TYPE, WaterElevationTool::new);
+      editorToolTypeToFactory.put(UnitTool.TOOL_TYPE, UnitTool::new);
    }
    
    @Override

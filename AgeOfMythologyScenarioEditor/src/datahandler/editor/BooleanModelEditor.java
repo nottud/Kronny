@@ -2,7 +2,7 @@
 package datahandler.editor;
 
 import command.CommandExecutor;
-import datahandler.DataModel;
+import datahandler.DataModelHolder;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.Region;
 import utility.observable.Observer;
@@ -10,13 +10,13 @@ import utility.observable.Observer;
 public class BooleanModelEditor extends DataModelEditor<Boolean> {
    
    private CommandExecutor commandExecutor;
-   private DataModel<Boolean> dataModel;
+   private DataModelHolder<Boolean> dataModel;
    
    private ToggleButton toggleButton;
    
    private Observer<Boolean> observer;
    
-   public BooleanModelEditor(CommandExecutor commandExecutor, DataModel<Boolean> dataModel) {
+   public BooleanModelEditor(CommandExecutor commandExecutor, DataModelHolder<Boolean> dataModel) {
       super(commandExecutor, dataModel);
       this.commandExecutor = commandExecutor;
       this.dataModel = dataModel;

@@ -8,6 +8,7 @@ import editor.tool.elevation.WaterElevationTool;
 import editor.tool.paintterrain.TerrainTool;
 import editor.tool.paintwater.PaintWaterColourTool;
 import editor.tool.paintwater.PaintWaterTool;
+import editor.tool.unit.UnitTool;
 import icon.IconType;
 import io.IoHandler;
 import javafx.event.ActionEvent;
@@ -41,7 +42,9 @@ public class EditorIconBar {
             createButton(IconType.PAINT_ELEVATION, event -> toolManager.startTool(TerrainElevationTool.TOOL_TYPE)),
             createButton(IconType.PAINT_WATER, event -> toolManager.startTool(PaintWaterTool.TOOL_TYPE)),
             createButton(IconType.PAINT_WATER_COLOUR, event -> toolManager.startTool(PaintWaterColourTool.TOOL_TYPE)),
-            createButton(IconType.PAINT_WATER_HEIGHT, event -> toolManager.startTool(WaterElevationTool.TOOL_TYPE)));
+            createButton(IconType.PAINT_WATER_HEIGHT, event -> toolManager.startTool(WaterElevationTool.TOOL_TYPE)),
+            new Separator(),
+            createButton(IconType.EDIT_UNITS, event -> toolManager.startTool(UnitTool.TOOL_TYPE)));
    }
    
    public HBox getNode() {

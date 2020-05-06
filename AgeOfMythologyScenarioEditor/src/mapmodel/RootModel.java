@@ -13,6 +13,7 @@ import datahandler.path.PathElement;
 import datahandler.path.PathNameLookup;
 import mapmodel.map.MapSizeModel;
 import mapmodel.player.AllPlayersModel;
+import mapmodel.unit.AllUnitsModel;
 import utility.observable.Observable;
 import utility.observable.ObservableManager;
 import utility.observable.ObservableManagerImpl;
@@ -39,6 +40,7 @@ public class RootModel implements ParentModel, Observable {
    
    private MapSizeModel mapSizeModel;
    private AllPlayersModel allPlayersModel;
+   private AllUnitsModel allUnitsModel;
    
    private int oldLength;
    
@@ -53,6 +55,7 @@ public class RootModel implements ParentModel, Observable {
       
       mapSizeModel = children.add("MapSize", new MapSizeModel(this));
       allPlayersModel = children.add("Players", new AllPlayersModel(this));
+      allUnitsModel = children.add("Units", new AllUnitsModel(this));
    }
    
    public MapSizeModel getMapSizeModel() {
@@ -63,6 +66,10 @@ public class RootModel implements ParentModel, Observable {
       return allPlayersModel;
    }
    
+   public AllUnitsModel getAllUnitsModel() {
+      return allUnitsModel;
+   }
+   
    @Override
    public void readAllModels(List<Byte> data, int offsetHint) throws LocationNotFoundException {
       oldLength = data.size();
@@ -70,13 +77,15 @@ public class RootModel implements ParentModel, Observable {
       otherLengthModel.readAllModels(data, offsetHint);
       mapSizeModel.readAllModels(data, offsetHint);
       allPlayersModel.readAllModels(data, offsetHint);
+      allUnitsModel.readAllModels(data, offsetHint);
       observableManager.notifyObservers(MODEL_READ, null);
    }
    
    @Override
    public void writeAllModels(List<Byte> data, int offsetHint) throws LocationNotFoundException {
-      mapSizeModel.writeAllModels(data, offsetHint);
+      allUnitsModel.writeAllModels(data, offsetHint);
       allPlayersModel.writeAllModels(data, offsetHint);
+      mapSizeModel.writeAllModels(data, offsetHint);
       
       //Write out length with diff between original current and set back after
       int newLength = data.size();

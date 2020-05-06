@@ -14,7 +14,8 @@ public enum IconType {
    PAINT_ELEVATION("Paint Elevation", "editor raiselowerterrain.bmp"),
    PAINT_WATER("Paint Terrain", "editor river.bmp"),
    PAINT_WATER_COLOUR("Paint Terrain", "editor edit water.bmp"),
-   PAINT_WATER_HEIGHT("Paint Water Elevation", "editor raiselowerwater.bmp");
+   PAINT_WATER_HEIGHT("Paint Water Elevation", "editor raiselowerwater.bmp"),
+   EDIT_UNITS("Edit Units", "editor placeunit.bmp");
    
    private String name;
    private String file;

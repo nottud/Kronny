@@ -53,6 +53,7 @@ public class CameraConverter implements Observable {
    }
    
    public double vectorToScreenY(double vectorWorldZ) {
+      //This should negate - TODO fix
       return vectorWorldZ / zoom;
    }
    

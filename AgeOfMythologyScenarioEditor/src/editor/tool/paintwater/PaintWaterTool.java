@@ -82,7 +82,7 @@ public class PaintWaterTool implements EditorTool {
          List<DataModel<Byte>> groupModels = mapSizeModel.getWaterType().getChildModels();
          
          List<WaterEntry> waterEntries = WaterType.getInstance().getWaters();
-         waterSelectionModel.setSelectedTerrainType(waterEntries.get(
+         waterSelectionModel.setSelectedWaterType(waterEntries.get(
                Math.min(waterEntries.size() - 1, Byte.toUnsignedInt(groupModels.get(index.getAsInt()).getValue()))));
       }
    }

@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import datahandler.DataModelHolder;
 import datahandler.editor.DataModelEditorHolder;
 import datahandler.editor.FilteredComboBoxModelEditor;
 import datahandler.editor.FloatModelEditor;
@@ -54,36 +55,45 @@ public class PlayerTool implements EditorTool {
       
       TableColumn<PlayerModel, Region> nameColumn = new TableColumn<>("Name");
       nameColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(
-            editorHolder.add(new StringModelEditor(editorContext.getCommandExecutor(), cellData.getValue().getPlayerName())).getEditor()));
+            editorHolder.add(new StringModelEditor(editorContext.getCommandExecutor(), new DataModelHolder<>(cellData.getValue().getPlayerName())))
+                  .getEditor()));
       
       TableColumn<PlayerModel, Region> colourColumn = new TableColumn<>("Colour");
       colourColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(
-            editorHolder.add(new PlayerColourEditor(editorContext.getCommandExecutor(), cellData.getValue().getPlayerColour())).getEditor()));
+            editorHolder.add(new PlayerColourEditor(editorContext.getCommandExecutor(), new DataModelHolder<>(cellData.getValue().getPlayerColour())))
+                  .getEditor()));
       
       TableColumn<PlayerModel, Region> godColumn = new TableColumn<>("Major God");
       godColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(
-            editorHolder.add(new FilteredComboBoxModelEditor<>(editorContext.getCommandExecutor(), cellData.getValue().getPlayerGod(),
-                  () -> MAJOR_GOD_INDICES, index -> MAJOR_GODS.get(index).getName())).getEditor()));
+            editorHolder.add(
+                  new FilteredComboBoxModelEditor<>(editorContext.getCommandExecutor(), new DataModelHolder<>(cellData.getValue().getPlayerGod()),
+                        () -> MAJOR_GOD_INDICES, index -> MAJOR_GODS.get(index).getName()))
+                  .getEditor()));
       
       TableColumn<PlayerModel, Region> foodColumn = new TableColumn<>("Food");
       foodColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(
-            editorHolder.add(new FloatModelEditor(editorContext.getCommandExecutor(), cellData.getValue().getPlayerFood())).getEditor()));
+            editorHolder.add(new FloatModelEditor(editorContext.getCommandExecutor(), new DataModelHolder<>(cellData.getValue().getPlayerFood())))
+                  .getEditor()));
       
       TableColumn<PlayerModel, Region> woodColumn = new TableColumn<>("Wood");
       woodColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(
-            editorHolder.add(new FloatModelEditor(editorContext.getCommandExecutor(), cellData.getValue().getPlayerWood())).getEditor()));
+            editorHolder.add(new FloatModelEditor(editorContext.getCommandExecutor(), new DataModelHolder<>(cellData.getValue().getPlayerWood())))
+                  .getEditor()));
       
       TableColumn<PlayerModel, Region> goldColumn = new TableColumn<>("Gold");
       goldColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(
-            editorHolder.add(new FloatModelEditor(editorContext.getCommandExecutor(), cellData.getValue().getPlayerGold())).getEditor()));
+            editorHolder.add(new FloatModelEditor(editorContext.getCommandExecutor(), new DataModelHolder<>(cellData.getValue().getPlayerGold())))
+                  .getEditor()));
       
       TableColumn<PlayerModel, Region> favourColumn = new TableColumn<>("Favour");
       favourColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(
-            editorHolder.add(new FloatModelEditor(editorContext.getCommandExecutor(), cellData.getValue().getPlayerFavour())).getEditor()));
+            editorHolder.add(new FloatModelEditor(editorContext.getCommandExecutor(), new DataModelHolder<>(cellData.getValue().getPlayerFavour())))
+                  .getEditor()));
       
       TableColumn<PlayerModel, Region> popColumn = new TableColumn<>("Population");
       popColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(
-            editorHolder.add(new IntegerModelEditor(editorContext.getCommandExecutor(), cellData.getValue().getPlayerPop())).getEditor()));
+            editorHolder.add(new IntegerModelEditor(editorContext.getCommandExecutor(), new DataModelHolder<>(cellData.getValue().getPlayerPop())))
+                  .getEditor()));
       
       tableView.getColumns().setAll(Arrays.asList(
             idColumn, nameColumn, colourColumn, godColumn, foodColumn, woodColumn, goldColumn, favourColumn, popColumn));

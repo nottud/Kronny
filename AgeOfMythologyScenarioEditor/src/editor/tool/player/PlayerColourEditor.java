@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.function.Supplier;
 
 import command.CommandExecutor;
-import datahandler.DataModel;
+import datahandler.DataModelHolder;
 import datahandler.editor.DataModelEditor;
 import javafx.collections.FXCollections;
 import javafx.scene.control.ComboBox;
@@ -21,7 +21,7 @@ import utility.observable.Observer;
 
 public class PlayerColourEditor extends DataModelEditor<Integer> {
    
-   private static final List<Integer> PLAYER_NUMBERS = Collections.unmodifiableList(IntegerListFactory.generate(13));
+   private static final List<Integer> PLAYER_NUMBERS = Collections.unmodifiableList(IntegerListFactory.generate(14));
    
    private static final double COLOUR_PREF_WIDTH = 30.0;
    private static final double COLOUR_PREF_HEIGHT = 20.0;
@@ -39,13 +39,14 @@ public class PlayerColourEditor extends DataModelEditor<Integer> {
          Color.rgb(50, 255, 50),
          Color.rgb(179, 251, 186),
          Color.rgb(80, 80, 80),
-         Color.rgb(255, 0, 102));
+         Color.rgb(255, 0, 102),
+         Color.rgb(255, 255, 255));
    
-   private DataModel<Integer> dataModel;
+   private DataModelHolder<Integer> dataModel;
    private ComboBox<Integer> comboBox;
    private Observer<Integer> observer;
    
-   public PlayerColourEditor(CommandExecutor commandExecutor, DataModel<Integer> dataModel) {
+   public PlayerColourEditor(CommandExecutor commandExecutor, DataModelHolder<Integer> dataModel) {
       super(commandExecutor, dataModel);
       this.dataModel = dataModel;
       comboBox = new ComboBox<>(FXCollections.observableArrayList(PLAYER_NUMBERS));

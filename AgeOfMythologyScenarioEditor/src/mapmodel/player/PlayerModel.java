@@ -37,12 +37,12 @@ public class PlayerModel extends BranchModel {
       playerId = children.add("Id", new DataModel<>(this, new AfterKnownLocationFinder(unknown2, 0), new IntegerConverter()));
       playerName = children.add("Name", new DataModel<>(this, new AfterKnownLocationFinder(playerId, 0), new FullStringConverter()));
       playerGod = children.add("God", new DataModel<>(this, new AfterKnownLocationFinder(playerName, 18), new IntegerConverter()));
-      playerPop = children.add("PlayerPop", new DataModel<>(this, new AfterKnownLocationFinder(playerGod, 4), new IntegerConverter()));
-      playerColour = children.add("PlayerColour", new DataModel<>(this, new AfterKnownLocationFinder(playerPop, 0), new IntegerConverter()));
-      playerGold = children.add("PlayerGold", new DataModel<>(this, new AfterKnownLocationFinder(playerColour, 92), new FloatConverter()));
-      playerWood = children.add("PlayerWood", new DataModel<>(this, new AfterKnownLocationFinder(playerGold, 0), new FloatConverter()));
-      playerFood = children.add("PlayerFood", new DataModel<>(this, new AfterKnownLocationFinder(playerWood, 0), new FloatConverter()));
-      playerFavour = children.add("PlayerFavour", new DataModel<>(this, new AfterKnownLocationFinder(playerFood, 0), new FloatConverter()));
+      playerPop = children.add("Pop", new DataModel<>(this, new AfterKnownLocationFinder(playerGod, 4), new IntegerConverter()));
+      playerColour = children.add("Colour", new DataModel<>(this, new AfterKnownLocationFinder(playerPop, 0), new IntegerConverter()));
+      playerGold = children.add("Gold", new DataModel<>(this, new AfterKnownLocationFinder(playerColour, 92), new FloatConverter()));
+      playerWood = children.add("Wood", new DataModel<>(this, new AfterKnownLocationFinder(playerGold, 0), new FloatConverter()));
+      playerFood = children.add("Food", new DataModel<>(this, new AfterKnownLocationFinder(playerWood, 0), new FloatConverter()));
+      playerFavour = children.add("Favour", new DataModel<>(this, new AfterKnownLocationFinder(playerFood, 0), new FloatConverter()));
       
       nameLengthDependency = new LengthDependency<>(lengthFlag, playerName);
    }

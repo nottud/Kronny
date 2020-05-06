@@ -8,11 +8,13 @@ public class ToolModels {
    private BrushModelHolder brushModelHolder;
    private TerrainModels terrainModels;
    private WaterModels waterModels;
+   private UnitModels unitModels;
    
    public ToolModels() {
       brushModelHolder = new BrushModelHolder();
       terrainModels = new TerrainModels();
       waterModels = new WaterModels();
+      unitModels = new UnitModels();
    }
    
    public BrushModelHolder getBrushModelHolder() {
@@ -25,6 +27,10 @@ public class ToolModels {
    
    public WaterModels getWaterModels() {
       return waterModels;
+   }
+   
+   public UnitModels getUnitModels() {
+      return unitModels;
    }
    
 }

@@ -5,7 +5,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 import command.CommandExecutor;
-import datahandler.DataModel;
+import datahandler.DataModelHolder;
 import javafx.scene.layout.Region;
 import utility.graphics.filteredcombobox.FilteredComboBoxProperties;
 import utility.graphics.filteredcombobox.SearchPerformer;
@@ -15,13 +15,14 @@ import utility.observable.Observer;
 
 public class FilteredComboBoxModelEditor<T> extends DataModelEditor<T> {
    
-   private DataModel<T> dataModel;
+   private DataModelHolder<T> dataModel;
    
    private FilteredComboBox<T> editor;
    
    private Observer<T> observer;
    
-   public FilteredComboBoxModelEditor(CommandExecutor commandExecutor, DataModel<T> dataModel, Supplier<? extends Iterable<T>> possibleItemsSupplier,
+   public FilteredComboBoxModelEditor(CommandExecutor commandExecutor, DataModelHolder<T> dataModel,
+         Supplier<? extends Iterable<T>> possibleItemsSupplier,
          Function<T, String> itemToSearchText) {
       super(commandExecutor, dataModel);
       this.dataModel = dataModel;

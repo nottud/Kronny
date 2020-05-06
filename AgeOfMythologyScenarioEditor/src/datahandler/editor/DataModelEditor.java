@@ -4,25 +4,26 @@ package datahandler.editor;
 import command.CommandExecutor;
 import command.SetValueCommand;
 import datahandler.DataModel;
+import datahandler.DataModelHolder;
 import javafx.scene.layout.Region;
 import utility.graphics.BlockListener;
 
 public abstract class DataModelEditor<T> {
    
    private CommandExecutor commandExecutor;
-   private DataModel<T> dataModel;
+   private DataModelHolder<T> dataModelHolder;
    
    private BlockListener blockListener;
    
-   public DataModelEditor(CommandExecutor commandExecutor, DataModel<T> dataModel) {
+   public DataModelEditor(CommandExecutor commandExecutor, DataModelHolder<T> dataModelHolder) {
       this.commandExecutor = commandExecutor;
-      this.dataModel = dataModel;
+      this.dataModelHolder = dataModelHolder;
       
       blockListener = new BlockListener();
    }
    
    protected void updateFromModel() {
-      updateValue(dataModel.getValue());
+      updateValue(dataModelHolder.getValue());
    }
    
    public void updateValue(T newValue) {
@@ -32,7 +33,11 @@ public abstract class DataModelEditor<T> {
    protected abstract void updateValueInternal(T newValue);
    
    protected void notifyValueChanged(T value) {
-      blockListener.attemptBlockAndDo(() -> commandExecutor.addPart(new SetValueCommand<>(dataModel, value)));
+      blockListener.attemptBlockAndDo(() -> {
+         for (DataModel<T> dataModel : dataModelHolder.getDataModels()) {
+            commandExecutor.addPart(new SetValueCommand<>(dataModel, value));
+         }
+      });
    }
    
    protected void doneEditing() {
