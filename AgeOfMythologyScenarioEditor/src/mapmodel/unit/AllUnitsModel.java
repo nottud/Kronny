@@ -14,12 +14,9 @@ import mapmodel.ParentModel;
 
 public class AllUnitsModel extends BranchModel {
    
-   private NextSequenceLocationFinder unitsFinder = NextSequenceLocationFinder.afterSequence(Arrays.asList((byte) 0x80, (byte) 0xbf,
-         (byte) 0x00, (byte) 0x00, (byte) 0x80, (byte) 0xbf, (byte) 0x00, (byte) 0x00, (byte) 0x80, (byte) 0xbf, (byte) 0x01, (byte) 0x00,
-         (byte) 0x00, (byte) 0x00, (byte) 0x01, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x01, (byte) 0x00, (byte) 0x00,
-         (byte) 0x00, (byte) 0x01, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00,
-         (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x01, (byte) 0x00, (byte) 0x34, (byte) 0x33,
-         (byte) 0x33, (byte) 0x3f, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x5a, (byte) 0x31), IntegerConverter.BYTES_IN_INT);
+   private NextSequenceLocationFinder unitsFinder = NextSequenceLocationFinder.afterSequence(
+         Arrays.asList((byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x5a, (byte) 0x31),
+         IntegerConverter.BYTES_IN_INT);
    
    private NextSequenceLocationFinder unitElementFinder =
          NextSequenceLocationFinder.afterSequence(Arrays.asList((byte) 0x45, (byte) 0x4e, (byte) 0x50), 0); //ENP
