@@ -41,6 +41,8 @@ public class UnitView {
       
       for (UnitModel unitModel : editorContext.getRootModel().getAllUnitsModel().getUnitModels().getChildModels()) {
          unitModel.getUnitType().getObservableManager().addObserver(unitModel.getUnitType().getValueChangedObserverType(), requestRedrawObserver);
+         unitModel.getPosX().getObservableManager().addObserver(unitModel.getPosX().getValueChangedObserverType(), requestRedrawObserver);
+         unitModel.getPosZ().getObservableManager().addObserver(unitModel.getPosZ().getValueChangedObserverType(), requestRedrawObserver);
       }
    }
    
@@ -71,6 +73,8 @@ public class UnitView {
       
       for (UnitModel unitModel : editorContext.getRootModel().getAllUnitsModel().getUnitModels().getChildModels()) {
          unitModel.getUnitType().getObservableManager().removeObserver(unitModel.getUnitType().getValueChangedObserverType(), requestRedrawObserver);
+         unitModel.getPosX().getObservableManager().removeObserver(unitModel.getPosX().getValueChangedObserverType(), requestRedrawObserver);
+         unitModel.getPosZ().getObservableManager().removeObserver(unitModel.getPosZ().getValueChangedObserverType(), requestRedrawObserver);
       }
    }
    

@@ -54,6 +54,11 @@ public class UnitSelectionView {
       
       selectedUnitsModel.getObservableManager().addObserver(SelectedUnitsModel.SELECTION_CHANGED, requestRedrawObserver);
       boxSelectionModel.getObservableManager().addObserver(BoxSelectionModel.UPDATED, requestRedrawObserver);
+      
+      for (UnitModel unitModel : editorContext.getRootModel().getAllUnitsModel().getUnitModels().getChildModels()) {
+         unitModel.getPosX().getObservableManager().addObserver(unitModel.getPosX().getValueChangedObserverType(), requestRedrawObserver);
+         unitModel.getPosZ().getObservableManager().addObserver(unitModel.getPosZ().getValueChangedObserverType(), requestRedrawObserver);
+      }
    }
    
    private void render() {
@@ -94,6 +99,11 @@ public class UnitSelectionView {
       cameraConverter.getObservableManager().removeObserver(CameraConverter.VIEW_CHANGED, requestRedrawObserver);
       selectedUnitsModel.getObservableManager().removeObserver(SelectedUnitsModel.SELECTION_CHANGED, requestRedrawObserver);
       boxSelectionModel.getObservableManager().removeObserver(BoxSelectionModel.UPDATED, requestRedrawObserver);
+      
+      for (UnitModel unitModel : editorContext.getRootModel().getAllUnitsModel().getUnitModels().getChildModels()) {
+         unitModel.getPosX().getObservableManager().removeObserver(unitModel.getPosX().getValueChangedObserverType(), requestRedrawObserver);
+         unitModel.getPosZ().getObservableManager().removeObserver(unitModel.getPosZ().getValueChangedObserverType(), requestRedrawObserver);
+      }
    }
    
 }
