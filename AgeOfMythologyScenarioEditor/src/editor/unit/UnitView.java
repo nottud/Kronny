@@ -38,6 +38,10 @@ public class UnitView {
       canvas = new ResizeableCanvas(1.0, 1.0);
       canvas.setMouseTransparent(true);
       canvas.getObservableManager().addObserver(ResizeableCanvas.RESIZED, requestRedrawObserver);
+      
+      for (UnitModel unitModel : editorContext.getRootModel().getAllUnitsModel().getUnitModels().getChildModels()) {
+         unitModel.getUnitType().getObservableManager().addObserver(unitModel.getUnitType().getValueChangedObserverType(), requestRedrawObserver);
+      }
    }
    
    private void render() {
@@ -64,6 +68,10 @@ public class UnitView {
    
    public void destroy() {
       cameraConverter.getObservableManager().removeObserver(CameraConverter.VIEW_CHANGED, requestRedrawObserver);
+      
+      for (UnitModel unitModel : editorContext.getRootModel().getAllUnitsModel().getUnitModels().getChildModels()) {
+         unitModel.getUnitType().getObservableManager().removeObserver(unitModel.getUnitType().getValueChangedObserverType(), requestRedrawObserver);
+      }
    }
    
 }

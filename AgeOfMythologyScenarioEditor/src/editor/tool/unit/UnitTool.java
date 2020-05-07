@@ -14,6 +14,8 @@ import editor.unit.selection.SelectedUnitsModel;
 import editor.unit.selection.view.UnitSelectionView;
 import editor.uniteditor.UnitEditor;
 import javafx.scene.Node;
+import mapmodel.RootModel;
+import utility.observable.Observer;
 
 public class UnitTool implements EditorTool {
    
@@ -30,6 +32,8 @@ public class UnitTool implements EditorTool {
    
    private ClickSelectionHandler clickSelectionHandler;
    private BoxSelectionHandler boxSelectionHandler;
+   
+   private Observer<Object> modelReadHandler;
    
    public UnitTool(EditorContext editorContext) {
       this.editorContext = editorContext;
@@ -49,6 +53,9 @@ public class UnitTool implements EditorTool {
       
       clickSelectionHandler = new ClickSelectionHandler(editorContext, unitBoundsFinder, selectedUnitsModel);
       boxSelectionHandler = new BoxSelectionHandler(editorContext, unitBoundsFinder, boxSelectionModel, selectedUnitsModel);
+      
+      modelReadHandler = value -> selectedUnitsModel.setSelectedUnit(null);
+      editorContext.getRootModel().getObservableManager().addObserver(RootModel.MODEL_READ, modelReadHandler);
    }
    
    @Override
@@ -68,6 +75,8 @@ public class UnitTool implements EditorTool {
       
       clickSelectionHandler.destroy();
       boxSelectionHandler.destroy();
+      
+      editorContext.getRootModel().getObservableManager().removeObserver(RootModel.MODEL_READ, modelReadHandler);
    }
    
 }
