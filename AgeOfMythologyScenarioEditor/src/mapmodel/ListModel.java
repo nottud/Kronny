@@ -51,6 +51,9 @@ public class ListModel<T extends ChildModel> implements ParentModel, ChildModel 
    
    @Override
    public void writeAllModels(List<Byte> data, int offsetHint) throws LocationNotFoundException {
+      if (childModels.isEmpty()) {
+         return;
+      }
       int offset = baseLocationFinder.findLocation(data, offsetHint);
       Iterator<T> iterator = childModels.iterator();
       while (iterator.hasNext()) {
