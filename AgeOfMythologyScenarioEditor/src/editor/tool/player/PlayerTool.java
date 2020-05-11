@@ -10,6 +10,7 @@ import datahandler.editor.DataModelEditorHolder;
 import datahandler.editor.FilteredComboBoxModelEditor;
 import datahandler.editor.FloatModelEditor;
 import datahandler.editor.IntegerModelEditor;
+import datahandler.editor.NamedCheckboxBooleanModelEditor;
 import datahandler.editor.StringModelEditor;
 import editor.EditorContext;
 import editor.tool.EditorTool;
@@ -19,6 +20,7 @@ import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.scene.Node;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Region;
 import mapmodel.ListModel;
 import mapmodel.RootModel;
@@ -38,14 +40,22 @@ public class PlayerTool implements EditorTool {
    
    private DataModelEditorHolder editorHolder;
    
+   private NamedCheckboxBooleanModelEditor overrideEditor;
+   
    private TableView<PlayerModel> tableView;
    
    private Observer<Void> modelReadObserver;
+   
+   private BorderPane borderPane;
    
    public PlayerTool(EditorContext editorContext) {
       this.editorContext = editorContext;
       
       editorHolder = new DataModelEditorHolder();
+      
+      overrideEditor = new NamedCheckboxBooleanModelEditor(editorContext.getCommandExecutor(),
+            new DataModelHolder<>(editorContext.getRootModel().getMultiplayerOverrideModel().getShouldOverride()),
+            "Force override multiplayer names and civ choices (Override lost if map saved by ingame editor again)");
       
       tableView = new TableView<>();
       
@@ -101,6 +111,10 @@ public class PlayerTool implements EditorTool {
       modelReadObserver = value -> createGraphics();
       editorContext.getRootModel().getObservableManager().addObserver(RootModel.MODEL_READ, modelReadObserver);
       createGraphics();
+      
+      borderPane = new BorderPane();
+      borderPane.setTop(overrideEditor.getEditor());
+      borderPane.setCenter(tableView);
    }
    
    private void createGraphics() {
@@ -113,12 +127,13 @@ public class PlayerTool implements EditorTool {
    
    @Override
    public Node getBottomGraphics() {
-      return tableView;
+      return borderPane;
    }
    
    @Override
    public void destroy() {
       editorContext.getRootModel().getObservableManager().removeObserver(RootModel.MODEL_READ, modelReadObserver);
+      overrideEditor.destroy();
       editorHolder.destroyAllEditors();
    }
    

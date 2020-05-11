@@ -2,7 +2,9 @@
 package mapmodel;
 
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import datahandler.DataModel;
 import datahandler.converter.IntegerConverter;
@@ -12,6 +14,7 @@ import datahandler.location.RelativeLocationFinder;
 import datahandler.path.PathElement;
 import datahandler.path.PathNameLookup;
 import mapmodel.map.MapSizeModel;
+import mapmodel.multiplayeroverride.MultiplayerOverrideModel;
 import mapmodel.player.AllPlayersModel;
 import mapmodel.unit.AllUnitsModel;
 import utility.observable.Observable;
@@ -32,30 +35,52 @@ public class RootModel implements ParentModel, Observable {
          (byte) 0x03, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x48, (byte) 0x33, (byte) 0x04, (byte) 0x00, (byte) 0x00, (byte) 0x00,
          (byte) 0x01, (byte) 0x00, (byte) 0x00, (byte) 0x00);
    
+   private static final List<Byte> YET_ANOTHER_LENGTH = Arrays.asList((byte) 0x84, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x48, (byte) 0x36,
+         (byte) 0x04, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x08, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x4b, (byte) 0x37,
+         (byte) 0x04, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x04, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x4b, (byte) 0x39,
+         (byte) 0x04, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x03, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x48, (byte) 0x34,
+         (byte) 0x04, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x01, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x48, (byte) 0x34,
+         (byte) 0x04, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x03, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x48, (byte) 0x33,
+         (byte) 0x04, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x01, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x47, (byte) 0x41,
+         (byte) 0x04, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x03, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x46, (byte) 0x52,
+         (byte) 0x04, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x04, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x46, (byte) 0x50,
+         (byte) 0x04, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x03, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x46, (byte) 0x4e,
+         (byte) 0x04, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x03, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x46, (byte) 0x4c,
+         (byte) 0x04, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x04, (byte) 0x00, (byte) 0x00, (byte) 0x00);
+   
    private ObservableManager observableManager;
+   private Map<DataModel<Integer>, Integer> pointerToEndDistance;
    private NamedChildStorage children;
    
    private DataModel<Integer> mainLengthModel;
    private DataModel<Integer> otherLengthModel;
+   private DataModel<Integer> yetAnotherLength;
    
+   private MultiplayerOverrideModel multiplayerOverrideModel;
    private MapSizeModel mapSizeModel;
    private AllPlayersModel allPlayersModel;
    private AllUnitsModel allUnitsModel;
    
-   private int oldLength;
-   
    public RootModel() {
       observableManager = new ObservableManagerImpl();
+      pointerToEndDistance = new LinkedHashMap<>();
       children = new NamedChildStorage();
       
       mainLengthModel = children.add("Length",
             new DataModel<>(this, new RelativeLocationFinder(2), new IntegerConverter()));
       otherLengthModel = children.add("OtherLength",
             new DataModel<>(this, NextSequenceLocationFinder.atSequenceStart(OTHER_LENGTH_SEQUENCE, -8), new IntegerConverter()));
+      yetAnotherLength = children.add("YetAnotherLength", new DataModel<>(this,
+            NextSequenceLocationFinder.atSequenceStart(YET_ANOTHER_LENGTH, -IntegerConverter.BYTES_IN_INT), new IntegerConverter()));
       
+      multiplayerOverrideModel = children.add("MultiplayerOverride", new MultiplayerOverrideModel(this));
       mapSizeModel = children.add("MapSize", new MapSizeModel(this));
       allPlayersModel = children.add("Players", new AllPlayersModel(this));
       allUnitsModel = children.add("Units", new AllUnitsModel(this));
+   }
+   
+   public MultiplayerOverrideModel getMultiplayerOverrideModel() {
+      return multiplayerOverrideModel;
    }
    
    public MapSizeModel getMapSizeModel() {
@@ -72,9 +97,12 @@ public class RootModel implements ParentModel, Observable {
    
    @Override
    public void readAllModels(List<Byte> data, int offsetHint) throws LocationNotFoundException {
-      oldLength = data.size();
-      mainLengthModel.readAllModels(data, offsetHint);
-      otherLengthModel.readAllModels(data, offsetHint);
+      int fileLength = data.size();
+      readPointer(data, offsetHint, fileLength, mainLengthModel);
+      readPointer(data, offsetHint, fileLength, otherLengthModel);
+      readPointer(data, offsetHint, fileLength, yetAnotherLength);
+      
+      multiplayerOverrideModel.readAllModels(data, offsetHint);
       mapSizeModel.readAllModels(data, offsetHint);
       allPlayersModel.readAllModels(data, offsetHint);
       allUnitsModel.readAllModels(data, offsetHint);
@@ -86,15 +114,12 @@ public class RootModel implements ParentModel, Observable {
       allUnitsModel.writeAllModels(data, offsetHint);
       allPlayersModel.writeAllModels(data, offsetHint);
       mapSizeModel.writeAllModels(data, offsetHint);
+      multiplayerOverrideModel.writeAllModels(data, offsetHint);
       
-      //Write out length with diff between original current and set back after
-      int newLength = data.size();
-      int oldOtherLength = otherLengthModel.setValue(otherLengthModel.getValue() + newLength - oldLength);
-      otherLengthModel.writeAllModels(data, offsetHint);
-      otherLengthModel.setValue(oldOtherLength);
-      int oldMainLength = mainLengthModel.setValue(mainLengthModel.getValue() + newLength - oldLength);
-      mainLengthModel.writeAllModels(data, offsetHint);
-      mainLengthModel.setValue(oldMainLength);
+      int fileLength = data.size();
+      writePointer(data, offsetHint, fileLength, yetAnotherLength);
+      writePointer(data, offsetHint, fileLength, otherLengthModel);
+      writePointer(data, offsetHint, fileLength, mainLengthModel);
       
       observableManager.notifyObservers(MODEL_WRITTEN, null);
    }
@@ -111,6 +136,22 @@ public class RootModel implements ParentModel, Observable {
    @Override
    public ObservableManager getObservableManager() {
       return observableManager;
+   }
+   
+   private void readPointer(List<Byte> data, int offsetHint, int fileLength, DataModel<Integer> pointer) throws LocationNotFoundException {
+      int location = pointer.getDataLocationFinder().findLocation(data, offsetHint);
+      pointer.readAllModels(data, offsetHint);
+      pointerToEndDistance.put(pointer, fileLength - location);
+   }
+   
+   private void writePointer(List<Byte> data, int offsetHint, int fileLength, DataModel<Integer> pointer) throws LocationNotFoundException {
+      int location = pointer.getDataLocationFinder().findLocation(data, offsetHint);
+      int newDiff = fileLength - location;
+      int value = pointer.getValue() + newDiff - pointerToEndDistance.get(pointer);
+      
+      pointer.setValue(value);
+      pointer.writeAllModels(data, offsetHint);
+      pointerToEndDistance.put(pointer, newDiff);
    }
    
 }
