@@ -21,11 +21,19 @@ public class MultiplayerOverrideModel extends BranchModel {
    public MultiplayerOverrideModel(RootModel parent) {
       super(parent);
       
-      multiplayerOverrideDataModel = new MultiplayerOverrideDataModel(this, parent);
+      multiplayerOverrideDataModel = children.add("OverrideData", new MultiplayerOverrideDataModel(this, parent));
       
       playerNumber = children.add("playerNumber", new DataModel<>(this, new RelativeLocationFinder(172), new IntegerConverter()));
       shouldOverride = children.add("shouldOverride", new DataModel<>(this, new AfterKnownLocationFinder(playerNumber, 21),
-            new MultiplayerOverrideDataConverter(multiplayerOverrideDataModel::getLength)));
+            new MultiplayerOverrideDataConverter(multiplayerOverrideDataModel::getInitialLength)));
+   }
+   
+   public MultiplayerOverrideDataModel getMultiplayerOverrideDataModel() {
+      return multiplayerOverrideDataModel;
+   }
+   
+   public DataModel<Integer> getPlayerNumber() {
+      return playerNumber;
    }
    
    public DataModel<Boolean> getShouldOverride() {

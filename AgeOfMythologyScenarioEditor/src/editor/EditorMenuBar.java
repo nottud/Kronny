@@ -6,6 +6,7 @@ import editor.tool.EditorToolManager;
 import editor.tool.covermap.CoverMapTerrainTool;
 import editor.tool.elevation.TerrainElevationTool;
 import editor.tool.elevation.WaterElevationTool;
+import editor.tool.multiplayeroverride.MultiplayerOverrideTool;
 import editor.tool.paintterrain.TerrainTool;
 import editor.tool.paintwater.PaintWaterColourTool;
 import editor.tool.paintwater.PaintWaterTool;
@@ -77,6 +78,9 @@ public class EditorMenuBar {
       MenuItem playerData = new MenuItem("Player data");
       playerData.setOnAction(event -> editorToolManager.startTool(PlayerTool.TOOL_TYPE));
       
+      MenuItem multiplayerOverride = new MenuItem("Multiplayer override tool");
+      multiplayerOverride.setOnAction(event -> editorToolManager.startTool(MultiplayerOverrideTool.TOOL_TYPE));
+      
       MenuItem coverTerrain = new MenuItem("Cover terrain");
       coverTerrain.setOnAction(event -> editorToolManager.startTool(CoverMapTerrainTool.TOOL_TYPE));
       
@@ -99,7 +103,8 @@ public class EditorMenuBar {
       unitTool.setOnAction(event -> editorToolManager.startTool(UnitTool.TOOL_TYPE));
       
       Menu menu = new Menu("Tools");
-      menu.getItems().setAll(closeActiveTool, playerData, coverTerrain, paintTerrain, colourWater, paintWater, paintTerrainElevation,
+      menu.getItems().setAll(closeActiveTool, playerData, multiplayerOverride, coverTerrain, paintTerrain, colourWater, paintWater,
+            paintTerrainElevation,
             paintWaterElevation, unitTool);
       return menu;
    }

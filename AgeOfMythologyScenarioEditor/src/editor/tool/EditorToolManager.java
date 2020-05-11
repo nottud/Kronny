@@ -9,6 +9,7 @@ import editor.EditorContext;
 import editor.tool.covermap.CoverMapTerrainTool;
 import editor.tool.elevation.TerrainElevationTool;
 import editor.tool.elevation.WaterElevationTool;
+import editor.tool.multiplayeroverride.MultiplayerOverrideTool;
 import editor.tool.paintterrain.TerrainTool;
 import editor.tool.paintwater.PaintWaterColourTool;
 import editor.tool.paintwater.PaintWaterTool;
@@ -39,6 +40,7 @@ public class EditorToolManager implements Observable {
       editorToolTypeToFactory = new LinkedHashMap<>();
       editorToolTypeToFactory.put(NullEditorTool.TOOL_TYPE, foundContext -> new NullEditorTool());
       editorToolTypeToFactory.put(PlayerTool.TOOL_TYPE, PlayerTool::new);
+      editorToolTypeToFactory.put(MultiplayerOverrideTool.TOOL_TYPE, MultiplayerOverrideTool::new);
       editorToolTypeToFactory.put(CoverMapTerrainTool.TOOL_TYPE, CoverMapTerrainTool::new);
       editorToolTypeToFactory.put(TerrainTool.TOOL_TYPE, TerrainTool::new);
       editorToolTypeToFactory.put(PaintWaterColourTool.TOOL_TYPE, PaintWaterColourTool::new);
