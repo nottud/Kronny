@@ -106,7 +106,7 @@ public class MultiplayerOverrideToolPlayerData {
       associatedPlayerColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(
             editorHolder.add(
                   new FilteredComboBoxModelEditor<>(editorContext.getCommandExecutor(),
-                        new DataModelHolder<>(dataModel.getPlayerTeams().get(cellData.getValue())),
+                        new DataModelHolder<>(dataModel.getPlayerIds().get(cellData.getValue())),
                         () -> possibleAssociations, Object::toString))
                   .getEditor()));
       
