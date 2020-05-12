@@ -38,8 +38,6 @@ public class MultiplayerOverrideDataModel extends BranchModel {
    
    private static final List<Byte> NEAR_FINAL_FIXED_DATA = Arrays.asList((byte) 0x00, (byte) 0x00, (byte) 0x00);
    
-   private static final List<Byte> FINAL_FIXED_DATA = Arrays.asList((byte) 0x01, (byte) 0x00, (byte) 0x00);
-   
    private RootModel rootModel;
    
    private DataModel<List<Byte>> initialFixedData;
@@ -69,7 +67,9 @@ public class MultiplayerOverrideDataModel extends BranchModel {
    private DataModel<Byte> pauseLimit;
    private DataModel<Byte> unknownGlobal1;
    private DataModel<Byte> mapVisibility;
-   private DataModel<List<Byte>> finalFixedData;
+   private DataModel<Byte> unknownGlobal2;
+   private DataModel<Byte> difficulty;
+   private DataModel<Byte> unknownGlobal4;
    
    public MultiplayerOverrideDataModel(ParentModel parent, RootModel rootModel) {
       super(parent);
@@ -152,7 +152,9 @@ public class MultiplayerOverrideDataModel extends BranchModel {
       pauseLimit = children.add("pauseLimit", new DataModel<>(this, new AfterKnownLocationFinder(nearFinalFixedData, 0), new ByteConverter()));
       unknownGlobal1 = children.add("unknownGlobal1", new DataModel<>(this, new AfterKnownLocationFinder(pauseLimit, 0), new ByteConverter()));
       mapVisibility = children.add("mapVisibility", new DataModel<>(this, new AfterKnownLocationFinder(unknownGlobal1, 0), new ByteConverter()));
-      finalFixedData = new DataModel<>(this, new AfterKnownLocationFinder(mapVisibility, 0), new FixedDataChunkConverter(FINAL_FIXED_DATA));
+      unknownGlobal2 = children.add("unknownGlobal2", new DataModel<>(this, new AfterKnownLocationFinder(mapVisibility, 0), new ByteConverter()));
+      difficulty = children.add("difficulty", new DataModel<>(this, new AfterKnownLocationFinder(unknownGlobal2, 0), new ByteConverter()));
+      unknownGlobal4 = children.add("unknownGlobal4", new DataModel<>(this, new AfterKnownLocationFinder(difficulty, 0), new ByteConverter()));
    }
    
    public List<DataModel<Byte>> getPlayerTypes() {
@@ -215,6 +217,10 @@ public class MultiplayerOverrideDataModel extends BranchModel {
       return mapVisibility;
    }
    
+   public DataModel<Byte> getDifficulty() {
+      return difficulty;
+   }
+   
    @Override
    public void readAllModels(List<Byte> data, int offsetHint) throws LocationNotFoundException {
       for (int i = 0; i < STORED_PLAYERS; i++) {
@@ -241,6 +247,39 @@ public class MultiplayerOverrideDataModel extends BranchModel {
       pauseLimit.readAllModels(data, offsetHint);
       unknownGlobal1.readAllModels(data, offsetHint);
       mapVisibility.readAllModels(data, offsetHint);
+      unknownGlobal2.readAllModels(data, offsetHint);
+      difficulty.readAllModels(data, offsetHint);
+      unknownGlobal4.readAllModels(data, offsetHint);
+   }
+   
+   public void fillDefaultValues() {
+      for (int i = 0; i < STORED_PLAYERS; i++) {
+         playerTypes.get(i).setValue((byte) 0x00); //Player
+         unknowns1.get(i).setValue((byte) 0x00);
+         unknowns2.get(i).setValue((byte) 0x00);
+         playerGods.get(i).setValue((byte) 0x00); //Zeus
+      }
+      
+      gameType.setValue((byte) 0x06); //Scenario
+      
+      for (int i = 0; i < STORED_NON_GAIA_PLAYERS; i++) {
+         playerNames.get(i).setValue("");
+         playerRatings.get(i).setValue(0.0F);
+         playerHandicaps.get(i).setValue(0.0F);
+         playerIds.get(i).setValue((byte) (i + 1));
+         playerTeams.get(i).setValue((byte) i);
+      }
+      
+      lobbyName.setValue("");
+      unknownGlobal0.setValue((byte) 0x00);
+      flags.setValue((byte) 0x04); //Locked teams
+      
+      pauseLimit.setValue((byte) 0x00);
+      unknownGlobal1.setValue((byte) 0x00);
+      mapVisibility.setValue((byte) 0x00);
+      unknownGlobal2.setValue((byte) 0x00);
+      difficulty.setValue((byte) 0x00);
+      unknownGlobal4.setValue((byte) 0x00);
    }
    
    @Override
@@ -277,7 +316,9 @@ public class MultiplayerOverrideDataModel extends BranchModel {
       pauseLimit.writeAllModels(data, offsetHint);
       unknownGlobal1.writeAllModels(data, offsetHint);
       mapVisibility.writeAllModels(data, offsetHint);
-      finalFixedData.writeAllModels(data, offsetHint);
+      unknownGlobal2.writeAllModels(data, offsetHint);
+      difficulty.writeAllModels(data, offsetHint);
+      unknownGlobal4.writeAllModels(data, offsetHint);
    }
    
    public int getInitialLength() {

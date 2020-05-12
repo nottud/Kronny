@@ -17,6 +17,7 @@ import io.IoHandler;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.SeparatorMenuItem;
 
 public class EditorMenuBar {
    
@@ -103,9 +104,9 @@ public class EditorMenuBar {
       unitTool.setOnAction(event -> editorToolManager.startTool(UnitTool.TOOL_TYPE));
       
       Menu menu = new Menu("Tools");
-      menu.getItems().setAll(closeActiveTool, playerData, multiplayerOverride, coverTerrain, paintTerrain, colourWater, paintWater,
-            paintTerrainElevation,
-            paintWaterElevation, unitTool);
+      menu.getItems().setAll(closeActiveTool, new SeparatorMenuItem(), playerData, multiplayerOverride, new SeparatorMenuItem(), coverTerrain,
+            paintTerrain, colourWater, paintWater,
+            paintTerrainElevation, paintWaterElevation, new SeparatorMenuItem(), unitTool);
       return menu;
    }
    
