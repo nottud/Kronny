@@ -37,6 +37,8 @@ public class WaterType {
       addEntry("North Atlantic Ocean", "north atlantic ocean 64.bmp", Color.rgb(0, 75, 255), 4.0);
       addEntry("Norwegian Sea", "norweigen sea 64.bmp", Color.rgb(0, 100, 220), 4.0);
       addEntry("Tundra", "tundra sea 64.bmp", Color.rgb(0, 100, 220), 4.0);
+      addEntry("Watering Hole", "eriver64.bmp", Color.rgb(0, 175, 235), 3.0);
+      addEntry("Marsh Pool", "eriver64.bmp", Color.rgb(115, 162, 119), 2.0);
       addEntry("Old Atlantis Outter Sea", "aegean sea 64.bmp", Color.rgb(0, 50, 170), 4.0);
       addEntry("Old Atlantis Inner Sea", "aegean sea 64.bmp", Color.rgb(0, 125, 225), 4.0);
       addEntry("Yellow Sea", "tundra sea 64.bmp", Color.rgb(166, 129, 2), 4.0);
