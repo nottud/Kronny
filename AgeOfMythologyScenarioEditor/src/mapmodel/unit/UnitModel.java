@@ -94,7 +94,7 @@ public class UnitModel extends BranchModel {
       mYZ.writeAllModels(data, offsetHint);
       mYY.writeAllModels(data, offsetHint);
       mYX.writeAllModels(data, offsetHint);
-      mZZ.writeAllModels(data, offsetHint);
+      mXZ.writeAllModels(data, offsetHint);
       mXY.writeAllModels(data, offsetHint);
       mXX.writeAllModels(data, offsetHint);
       posZ.writeAllModels(data, offsetHint);
