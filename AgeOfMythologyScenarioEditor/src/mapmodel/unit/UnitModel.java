@@ -67,7 +67,7 @@ public class UnitModel extends BranchModel {
       posZ.readAllModels(data, offsetHint);
       mXX.readAllModels(data, offsetHint);
       mXY.readAllModels(data, offsetHint);
-      mZZ.readAllModels(data, offsetHint);
+      mXZ.readAllModels(data, offsetHint);
       mYX.readAllModels(data, offsetHint);
       mYY.readAllModels(data, offsetHint);
       mYZ.readAllModels(data, offsetHint);
