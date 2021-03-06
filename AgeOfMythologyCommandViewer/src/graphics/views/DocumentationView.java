@@ -1,5 +1,5 @@
 
-package graphics.documentation;
+package graphics.views;
 
 import graphics.SelectedMethodModel;
 import javafx.scene.control.TextArea;
