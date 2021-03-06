@@ -1,3 +1,4 @@
+
 package handler.io.load;
 
 import java.io.File;
@@ -22,25 +23,25 @@ import model.xml.Parameter;
 import model.xml.SchemaRoot;
 
 public class LoadFromXml {
-
-	public void load(CommandModel commandModel, File chosenFile) throws JAXBException, SAXException {
-		JAXBContext context = JAXBContext.newInstance(Model.class);
-		Unmarshaller unmarshaller = context.createUnmarshaller();
-		SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-		unmarshaller.setSchema(schemaFactory.newSchema(SchemaRoot.class.getResource("schema.xsd")));
-		Object object = unmarshaller.unmarshal(chosenFile);
-		
-		Model model = (Model) object;
-		for(Method xmlMethod : model.getMethod()) {
-			DataType returnType = DataType.fromType(xmlMethod.getReturn());
-			String name = xmlMethod.getName();
-			List<AomParameter> parameters = new ArrayList<>();
-			for (Parameter xmlParameter : xmlMethod.getParameters()) {
-				parameters.add(new AomParameter(DataType.fromType(xmlParameter.getType()), xmlMethod.getName()));
-			}
-			String javadoc = xmlMethod.getJavadoc();
-			commandModel.add(new AomMethod(returnType, name, parameters, javadoc));
-		}
-	}
-
+   
+   public void load(CommandModel commandModel, File chosenFile) throws JAXBException, SAXException {
+      JAXBContext context = JAXBContext.newInstance(Model.class);
+      Unmarshaller unmarshaller = context.createUnmarshaller();
+      SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+      unmarshaller.setSchema(schemaFactory.newSchema(SchemaRoot.class.getResource("schema.xsd")));
+      Object object = unmarshaller.unmarshal(chosenFile);
+      
+      Model model = (Model) object;
+      for (Method xmlMethod : model.getMethod()) {
+         DataType returnType = DataType.fromType(xmlMethod.getReturn());
+         String name = xmlMethod.getName();
+         List<AomParameter> parameters = new ArrayList<>();
+         for (Parameter xmlParameter : xmlMethod.getParameters()) {
+            parameters.add(new AomParameter(DataType.fromType(xmlParameter.getType()), xmlParameter.getName()));
+         }
+         String javadoc = xmlMethod.getJavadoc();
+         commandModel.add(new AomMethod(returnType, name, parameters, javadoc));
+      }
+   }
+   
 }
