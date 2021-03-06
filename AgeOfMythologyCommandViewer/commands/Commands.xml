@@ -7325,4 +7325,12 @@ Indicates that the delete units button has gone up/down.</javadoc>
         <parameters type="string" name="scenario"/>
 		<javadoc>Retrives the provided value for the index with the provided scenario or current scenario if not provided. Index can range from 0-15.</javadoc>
 	</method>
+	<method return="void" name="trPaintWaterColor">
+        <parameters type="vector" name="color"/>
+        <parameters type="int" name="fromX"/>
+        <parameters type="int" name="fromZ"/>
+        <parameters type="int" name="toX"/>
+        <parameters type="int" name="toZ"/>
+		<javadoc>Paints the water color for the provided rectangle. Note that the toX and toZ values are NOT inclusive. Color values are from 0.0 to 1.0.</javadoc>
+	</method>
 </model>
