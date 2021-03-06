@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="model">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0" maxOccurs="unbounded" name="method">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:sequence minOccurs="0" maxOccurs="unbounded">
+								<xs:element name="parameters" type="parameter" />
+							</xs:sequence>
+							<xs:sequence minOccurs="0" maxOccurs="1">
+								<xs:element name="javadoc" type="xs:string" />
+							</xs:sequence>
+						</xs:sequence>
+						<xs:attribute name="return" type="type" use="required" />
+						<xs:attribute name="name" type="xs:string" use="required" />
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:simpleType name="type" final="restriction">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="void" />
+			<xs:enumeration value="bool" />
+			<xs:enumeration value="int" />
+			<xs:enumeration value="float" />
+			<xs:enumeration value="string" />
+			<xs:enumeration value="vector" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="parameter">
+		<xs:attribute name="type" type="type" use="required" />
+		<xs:attribute name="name" type="xs:string" use="required" />
+	</xs:complexType>
+</xs:schema>
