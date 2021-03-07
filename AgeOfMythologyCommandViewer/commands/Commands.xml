@@ -7104,17 +7104,551 @@ Indicates that the delete units button has gone up/down.</javadoc>
         <parameters type="int" name="type"/>
         <parameters type="int" name="subType"/>
         <parameters type="bool" name="updateObstruction"/>
-		<javadoc>Paint the provided rectangle terrain type for the provided type and sub type. Coordinates are inclusive.</javadoc>
+		<javadoc>Paint the provided rectangle terrain type for the provided type and sub type. Coordinates are inclusive. Look up table is below:
+Black: major=5; minor=4;
+BlackRock: major=2; minor=13;
+CityTileA: major=0; minor=70;
+CityTileAtlantis: major=0; minor=71;
+CityTileAtlantisCoral: major=0; minor=72;
+CityTileWaterCornerA: major=0; minor=80;
+CityTileWaterCornerB: major=0; minor=81;
+CityTileWaterCornerC: major=0; minor=82;
+CityTileWaterCornerD: major=0; minor=83;
+CityTileWaterEdgeA: major=0; minor=74;
+CityTileWaterEdgeB: major=0; minor=75;
+CityTileWaterEdgeEndA: major=0; minor=76;
+CityTileWaterEdgeEndB: major=0; minor=77;
+CityTileWaterEdgeEndC: major=0; minor=78;
+CityTileWaterEdgeEndD: major=0; minor=79;
+CityTileWaterPool: major=0; minor=73;
+CliffA: major=2; minor=0;
+CliffEgyptianA: major=2; minor=2;
+CliffEgyptianB: major=0; minor=38;
+CliffGreekA: major=2; minor=1;
+CliffGreekB: major=0; minor=5;
+CliffJungleA: major=2; minor=4;
+CliffJungleB: major=0; minor=24;
+CliffNorseA: major=2; minor=3;
+CliffNorseB: major=0; minor=49;
+CliffPlainA: major=2; minor=5;
+CliffPlainB: major=0; minor=30;
+CoralA: major=3; minor=9;
+CoralB: major=3; minor=10;
+CoralC: major=3; minor=11;
+CoralC2: major=3; minor=12;
+CoralD: major=3; minor=13;
+CoralE: major=3; minor=14;
+CoralF: major=3; minor=15;
+Dam: major=2; minor=6;
+DirtA: major=0; minor=31;
+DirtB: major=0; minor=32;
+DirtC: major=0; minor=33;
+EgyptianRoadA: major=0; minor=64;
+ForestFloorDeadPine: major=0; minor=92;
+ForestFloorGaia: major=0; minor=90;
+ForestFloorJungle: major=0; minor=95;
+ForestFloorMarsh: major=0; minor=94;
+ForestFloorOak: major=0; minor=89;
+ForestFloorPalm: major=0; minor=86;
+ForestFloorPine: major=0; minor=87;
+ForestFloorPineSnow: major=0; minor=88;
+ForestFloorSavannah: major=0; minor=91;
+ForestFloorTundra: major=0; minor=93;
+GaiaCreepA: major=0; minor=8;
+GaiaCreepASand: major=0; minor=10;
+GaiaCreepASnow: major=0; minor=9;
+GaiaCreepB: major=0; minor=11;
+GaiaCreepBorder: major=0; minor=12;
+GaiaCreepBorderSand: major=0; minor=14;
+GaiaCreepBorderSnow: major=0; minor=13;
+GrassA: major=0; minor=0;
+GrassB: major=0; minor=1;
+GrassDirt25: major=0; minor=2;
+GrassDirt50: major=0; minor=3;
+GrassDirt75: major=0; minor=4;
+GreekRoad Burnt: major=0; minor=6;
+GreekRoad BurntB: major=0; minor=7;
+GreekRoadA: major=0; minor=65;
+Hades1: major=5; minor=5;
+Hades2: major=5; minor=6;
+Hades3: major=2; minor=7;
+Hades4: major=2; minor=12;
+Hades4Passable: major=5; minor=7;
+Hades5: major=2; minor=8;
+Hades6: major=2; minor=9;
+Hades7: major=2; minor=10;
+Hades8: major=5; minor=8;
+Hades9: major=5; minor=9;
+HadesBuildable1: major=0; minor=84;
+HadesBuildable2: major=0; minor=85;
+HadesCliff: major=2; minor=11;
+IceA: major=5; minor=0;
+IceB: major=5; minor=1;
+IceC: major=5; minor=2;
+JungleA: major=0; minor=19;
+JungleB: major=0; minor=20;
+JungleDirt25: major=0; minor=21;
+JungleDirt50: major=0; minor=22;
+JungleDirt75: major=0; minor=23;
+JungleRoadA: major=0; minor=67;
+MarshA: major=0; minor=58;
+MarshB: major=0; minor=59;
+MarshC: major=0; minor=60;
+MarshD: major=0; minor=61;
+MarshE: major=0; minor=62;
+MarshF: major=0; minor=63;
+MiningGround: major=5; minor=3;
+NorseRoadA: major=0; minor=66;
+OlympusA: major=0; minor=50;
+OlympusB: major=0; minor=51;
+OlympusC: major=0; minor=52;
+OlympusTile: major=0; minor=53;
+PlainA: major=0; minor=25;
+PlainB: major=0; minor=26;
+PlainDirt25: major=0; minor=27;
+PlainDirt50: major=0; minor=28;
+PlainDirt75: major=0; minor=29;
+PlainRoadA: major=0; minor=68;
+RiverGrassyA: major=4; minor=32;
+RiverGrassyB: major=4; minor=33;
+RiverGrassyC: major=4; minor=34;
+RiverIcyA: major=4; minor=35;
+RiverIcyB: major=4; minor=36;
+RiverIcyC: major=4; minor=37;
+RiverMarshA: major=4; minor=38;
+RiverMarshB: major=4; minor=39;
+RiverMarshC: major=4; minor=40;
+RiverSandyA: major=4; minor=28;
+RiverSandyB: major=4; minor=29;
+RiverSandyC: major=4; minor=30;
+RiverSandyShallowA: major=4; minor=31;
+SandA: major=0; minor=34;
+SandB: major=0; minor=35;
+SandC: major=0; minor=36;
+SandD: major=0; minor=37;
+SandDirt50: major=0; minor=39;
+SandDirt50b: major=0; minor=40;
+SavannahA: major=0; minor=15;
+SavannahB: major=0; minor=16;
+SavannahC: major=0; minor=17;
+SavannahD: major=0; minor=18;
+ShorelineAegeanA: major=4; minor=1;
+ShorelineAegeanB: major=4; minor=2;
+ShorelineAegeanC: major=4; minor=3;
+ShorelineAtlanticA: major=4; minor=14;
+ShorelineAtlanticB: major=4; minor=15;
+ShorelineAtlanticC: major=4; minor=16;
+ShorelineJungleA: major=4; minor=21;
+ShorelineJungleB: major=4; minor=22;
+ShorelineJungleC: major=4; minor=23;
+ShorelineMediterraneanA: major=4; minor=10;
+ShorelineMediterraneanB: major=4; minor=11;
+ShorelineMediterraneanC: major=4; minor=12;
+ShorelineMediterraneanD: major=4; minor=13;
+ShorelineNorwegianA: major=4; minor=7;
+ShorelineNorwegianB: major=4; minor=8;
+ShorelineNorwegianC: major=4; minor=9;
+ShorelinePlainA: major=4; minor=24;
+ShorelinePlainB: major=4; minor=25;
+ShorelinePlainC: major=4; minor=26;
+ShorelinePlainD: major=4; minor=27;
+ShorelineRedSeaA: major=4; minor=4;
+ShorelineRedSeaB: major=4; minor=5;
+ShorelineRedSeaC: major=4; minor=6;
+ShorelineSandA: major=4; minor=0;
+ShorelineTundraA: major=4; minor=17;
+ShorelineTundraB: major=4; minor=18;
+ShorelineTundraC: major=4; minor=19;
+ShorelineTundraD: major=4; minor=20;
+SnowA: major=0; minor=41;
+SnowB: major=0; minor=42;
+SnowGrass25: major=0; minor=43;
+SnowGrass50: major=0; minor=44;
+SnowGrass75: major=0; minor=45;
+SnowSand25: major=0; minor=46;
+SnowSand50: major=0; minor=47;
+SnowSand75: major=0; minor=48;
+TundraGrassA: major=0; minor=54;
+TundraGrassB: major=0; minor=55;
+TundraRoadA: major=0; minor=69;
+TundraRockA: major=0; minor=56;
+TundraRockB: major=0; minor=57;
+UnderwaterIceA: major=3; minor=6;
+UnderwaterIceB: major=3; minor=7;
+UnderwaterIceC: major=3; minor=8;
+UnderwaterRockA: major=3; minor=0;
+UnderwaterRockB: major=3; minor=1;
+UnderwaterRockC: major=3; minor=2;
+UnderwaterRockD: major=3; minor=3;
+UnderwaterRockE: major=3; minor=4;
+UnderwaterRockF: major=3; minor=5;
+Water: major=1; minor=0;</javadoc>
     </method>
     <method return="int" name="trGetTerrainType">
         <parameters type="int" name="x"/>
         <parameters type="int" name="y"/>
-		<javadoc>Gets the terrain type at the provided location.</javadoc>
+		<javadoc>Gets the terrain type at the provided location. Look up table is below:
+Black: major=5; minor=4;
+BlackRock: major=2; minor=13;
+CityTileA: major=0; minor=70;
+CityTileAtlantis: major=0; minor=71;
+CityTileAtlantisCoral: major=0; minor=72;
+CityTileWaterCornerA: major=0; minor=80;
+CityTileWaterCornerB: major=0; minor=81;
+CityTileWaterCornerC: major=0; minor=82;
+CityTileWaterCornerD: major=0; minor=83;
+CityTileWaterEdgeA: major=0; minor=74;
+CityTileWaterEdgeB: major=0; minor=75;
+CityTileWaterEdgeEndA: major=0; minor=76;
+CityTileWaterEdgeEndB: major=0; minor=77;
+CityTileWaterEdgeEndC: major=0; minor=78;
+CityTileWaterEdgeEndD: major=0; minor=79;
+CityTileWaterPool: major=0; minor=73;
+CliffA: major=2; minor=0;
+CliffEgyptianA: major=2; minor=2;
+CliffEgyptianB: major=0; minor=38;
+CliffGreekA: major=2; minor=1;
+CliffGreekB: major=0; minor=5;
+CliffJungleA: major=2; minor=4;
+CliffJungleB: major=0; minor=24;
+CliffNorseA: major=2; minor=3;
+CliffNorseB: major=0; minor=49;
+CliffPlainA: major=2; minor=5;
+CliffPlainB: major=0; minor=30;
+CoralA: major=3; minor=9;
+CoralB: major=3; minor=10;
+CoralC: major=3; minor=11;
+CoralC2: major=3; minor=12;
+CoralD: major=3; minor=13;
+CoralE: major=3; minor=14;
+CoralF: major=3; minor=15;
+Dam: major=2; minor=6;
+DirtA: major=0; minor=31;
+DirtB: major=0; minor=32;
+DirtC: major=0; minor=33;
+EgyptianRoadA: major=0; minor=64;
+ForestFloorDeadPine: major=0; minor=92;
+ForestFloorGaia: major=0; minor=90;
+ForestFloorJungle: major=0; minor=95;
+ForestFloorMarsh: major=0; minor=94;
+ForestFloorOak: major=0; minor=89;
+ForestFloorPalm: major=0; minor=86;
+ForestFloorPine: major=0; minor=87;
+ForestFloorPineSnow: major=0; minor=88;
+ForestFloorSavannah: major=0; minor=91;
+ForestFloorTundra: major=0; minor=93;
+GaiaCreepA: major=0; minor=8;
+GaiaCreepASand: major=0; minor=10;
+GaiaCreepASnow: major=0; minor=9;
+GaiaCreepB: major=0; minor=11;
+GaiaCreepBorder: major=0; minor=12;
+GaiaCreepBorderSand: major=0; minor=14;
+GaiaCreepBorderSnow: major=0; minor=13;
+GrassA: major=0; minor=0;
+GrassB: major=0; minor=1;
+GrassDirt25: major=0; minor=2;
+GrassDirt50: major=0; minor=3;
+GrassDirt75: major=0; minor=4;
+GreekRoad Burnt: major=0; minor=6;
+GreekRoad BurntB: major=0; minor=7;
+GreekRoadA: major=0; minor=65;
+Hades1: major=5; minor=5;
+Hades2: major=5; minor=6;
+Hades3: major=2; minor=7;
+Hades4: major=2; minor=12;
+Hades4Passable: major=5; minor=7;
+Hades5: major=2; minor=8;
+Hades6: major=2; minor=9;
+Hades7: major=2; minor=10;
+Hades8: major=5; minor=8;
+Hades9: major=5; minor=9;
+HadesBuildable1: major=0; minor=84;
+HadesBuildable2: major=0; minor=85;
+HadesCliff: major=2; minor=11;
+IceA: major=5; minor=0;
+IceB: major=5; minor=1;
+IceC: major=5; minor=2;
+JungleA: major=0; minor=19;
+JungleB: major=0; minor=20;
+JungleDirt25: major=0; minor=21;
+JungleDirt50: major=0; minor=22;
+JungleDirt75: major=0; minor=23;
+JungleRoadA: major=0; minor=67;
+MarshA: major=0; minor=58;
+MarshB: major=0; minor=59;
+MarshC: major=0; minor=60;
+MarshD: major=0; minor=61;
+MarshE: major=0; minor=62;
+MarshF: major=0; minor=63;
+MiningGround: major=5; minor=3;
+NorseRoadA: major=0; minor=66;
+OlympusA: major=0; minor=50;
+OlympusB: major=0; minor=51;
+OlympusC: major=0; minor=52;
+OlympusTile: major=0; minor=53;
+PlainA: major=0; minor=25;
+PlainB: major=0; minor=26;
+PlainDirt25: major=0; minor=27;
+PlainDirt50: major=0; minor=28;
+PlainDirt75: major=0; minor=29;
+PlainRoadA: major=0; minor=68;
+RiverGrassyA: major=4; minor=32;
+RiverGrassyB: major=4; minor=33;
+RiverGrassyC: major=4; minor=34;
+RiverIcyA: major=4; minor=35;
+RiverIcyB: major=4; minor=36;
+RiverIcyC: major=4; minor=37;
+RiverMarshA: major=4; minor=38;
+RiverMarshB: major=4; minor=39;
+RiverMarshC: major=4; minor=40;
+RiverSandyA: major=4; minor=28;
+RiverSandyB: major=4; minor=29;
+RiverSandyC: major=4; minor=30;
+RiverSandyShallowA: major=4; minor=31;
+SandA: major=0; minor=34;
+SandB: major=0; minor=35;
+SandC: major=0; minor=36;
+SandD: major=0; minor=37;
+SandDirt50: major=0; minor=39;
+SandDirt50b: major=0; minor=40;
+SavannahA: major=0; minor=15;
+SavannahB: major=0; minor=16;
+SavannahC: major=0; minor=17;
+SavannahD: major=0; minor=18;
+ShorelineAegeanA: major=4; minor=1;
+ShorelineAegeanB: major=4; minor=2;
+ShorelineAegeanC: major=4; minor=3;
+ShorelineAtlanticA: major=4; minor=14;
+ShorelineAtlanticB: major=4; minor=15;
+ShorelineAtlanticC: major=4; minor=16;
+ShorelineJungleA: major=4; minor=21;
+ShorelineJungleB: major=4; minor=22;
+ShorelineJungleC: major=4; minor=23;
+ShorelineMediterraneanA: major=4; minor=10;
+ShorelineMediterraneanB: major=4; minor=11;
+ShorelineMediterraneanC: major=4; minor=12;
+ShorelineMediterraneanD: major=4; minor=13;
+ShorelineNorwegianA: major=4; minor=7;
+ShorelineNorwegianB: major=4; minor=8;
+ShorelineNorwegianC: major=4; minor=9;
+ShorelinePlainA: major=4; minor=24;
+ShorelinePlainB: major=4; minor=25;
+ShorelinePlainC: major=4; minor=26;
+ShorelinePlainD: major=4; minor=27;
+ShorelineRedSeaA: major=4; minor=4;
+ShorelineRedSeaB: major=4; minor=5;
+ShorelineRedSeaC: major=4; minor=6;
+ShorelineSandA: major=4; minor=0;
+ShorelineTundraA: major=4; minor=17;
+ShorelineTundraB: major=4; minor=18;
+ShorelineTundraC: major=4; minor=19;
+ShorelineTundraD: major=4; minor=20;
+SnowA: major=0; minor=41;
+SnowB: major=0; minor=42;
+SnowGrass25: major=0; minor=43;
+SnowGrass50: major=0; minor=44;
+SnowGrass75: major=0; minor=45;
+SnowSand25: major=0; minor=46;
+SnowSand50: major=0; minor=47;
+SnowSand75: major=0; minor=48;
+TundraGrassA: major=0; minor=54;
+TundraGrassB: major=0; minor=55;
+TundraRoadA: major=0; minor=69;
+TundraRockA: major=0; minor=56;
+TundraRockB: major=0; minor=57;
+UnderwaterIceA: major=3; minor=6;
+UnderwaterIceB: major=3; minor=7;
+UnderwaterIceC: major=3; minor=8;
+UnderwaterRockA: major=3; minor=0;
+UnderwaterRockB: major=3; minor=1;
+UnderwaterRockC: major=3; minor=2;
+UnderwaterRockD: major=3; minor=3;
+UnderwaterRockE: major=3; minor=4;
+UnderwaterRockF: major=3; minor=5;
+Water: major=1; minor=0;</javadoc>
     </method>
     <method return="int" name="trGetTerrainSubType">
         <parameters type="int" name="x"/>
         <parameters type="int" name="y"/>
-		<javadoc>Gets the terrain sub type at the provided location.</javadoc>
+		<javadoc>Gets the terrain sub type at the provided location. Look up table is below:
+Black: major=5; minor=4;
+BlackRock: major=2; minor=13;
+CityTileA: major=0; minor=70;
+CityTileAtlantis: major=0; minor=71;
+CityTileAtlantisCoral: major=0; minor=72;
+CityTileWaterCornerA: major=0; minor=80;
+CityTileWaterCornerB: major=0; minor=81;
+CityTileWaterCornerC: major=0; minor=82;
+CityTileWaterCornerD: major=0; minor=83;
+CityTileWaterEdgeA: major=0; minor=74;
+CityTileWaterEdgeB: major=0; minor=75;
+CityTileWaterEdgeEndA: major=0; minor=76;
+CityTileWaterEdgeEndB: major=0; minor=77;
+CityTileWaterEdgeEndC: major=0; minor=78;
+CityTileWaterEdgeEndD: major=0; minor=79;
+CityTileWaterPool: major=0; minor=73;
+CliffA: major=2; minor=0;
+CliffEgyptianA: major=2; minor=2;
+CliffEgyptianB: major=0; minor=38;
+CliffGreekA: major=2; minor=1;
+CliffGreekB: major=0; minor=5;
+CliffJungleA: major=2; minor=4;
+CliffJungleB: major=0; minor=24;
+CliffNorseA: major=2; minor=3;
+CliffNorseB: major=0; minor=49;
+CliffPlainA: major=2; minor=5;
+CliffPlainB: major=0; minor=30;
+CoralA: major=3; minor=9;
+CoralB: major=3; minor=10;
+CoralC: major=3; minor=11;
+CoralC2: major=3; minor=12;
+CoralD: major=3; minor=13;
+CoralE: major=3; minor=14;
+CoralF: major=3; minor=15;
+Dam: major=2; minor=6;
+DirtA: major=0; minor=31;
+DirtB: major=0; minor=32;
+DirtC: major=0; minor=33;
+EgyptianRoadA: major=0; minor=64;
+ForestFloorDeadPine: major=0; minor=92;
+ForestFloorGaia: major=0; minor=90;
+ForestFloorJungle: major=0; minor=95;
+ForestFloorMarsh: major=0; minor=94;
+ForestFloorOak: major=0; minor=89;
+ForestFloorPalm: major=0; minor=86;
+ForestFloorPine: major=0; minor=87;
+ForestFloorPineSnow: major=0; minor=88;
+ForestFloorSavannah: major=0; minor=91;
+ForestFloorTundra: major=0; minor=93;
+GaiaCreepA: major=0; minor=8;
+GaiaCreepASand: major=0; minor=10;
+GaiaCreepASnow: major=0; minor=9;
+GaiaCreepB: major=0; minor=11;
+GaiaCreepBorder: major=0; minor=12;
+GaiaCreepBorderSand: major=0; minor=14;
+GaiaCreepBorderSnow: major=0; minor=13;
+GrassA: major=0; minor=0;
+GrassB: major=0; minor=1;
+GrassDirt25: major=0; minor=2;
+GrassDirt50: major=0; minor=3;
+GrassDirt75: major=0; minor=4;
+GreekRoad Burnt: major=0; minor=6;
+GreekRoad BurntB: major=0; minor=7;
+GreekRoadA: major=0; minor=65;
+Hades1: major=5; minor=5;
+Hades2: major=5; minor=6;
+Hades3: major=2; minor=7;
+Hades4: major=2; minor=12;
+Hades4Passable: major=5; minor=7;
+Hades5: major=2; minor=8;
+Hades6: major=2; minor=9;
+Hades7: major=2; minor=10;
+Hades8: major=5; minor=8;
+Hades9: major=5; minor=9;
+HadesBuildable1: major=0; minor=84;
+HadesBuildable2: major=0; minor=85;
+HadesCliff: major=2; minor=11;
+IceA: major=5; minor=0;
+IceB: major=5; minor=1;
+IceC: major=5; minor=2;
+JungleA: major=0; minor=19;
+JungleB: major=0; minor=20;
+JungleDirt25: major=0; minor=21;
+JungleDirt50: major=0; minor=22;
+JungleDirt75: major=0; minor=23;
+JungleRoadA: major=0; minor=67;
+MarshA: major=0; minor=58;
+MarshB: major=0; minor=59;
+MarshC: major=0; minor=60;
+MarshD: major=0; minor=61;
+MarshE: major=0; minor=62;
+MarshF: major=0; minor=63;
+MiningGround: major=5; minor=3;
+NorseRoadA: major=0; minor=66;
+OlympusA: major=0; minor=50;
+OlympusB: major=0; minor=51;
+OlympusC: major=0; minor=52;
+OlympusTile: major=0; minor=53;
+PlainA: major=0; minor=25;
+PlainB: major=0; minor=26;
+PlainDirt25: major=0; minor=27;
+PlainDirt50: major=0; minor=28;
+PlainDirt75: major=0; minor=29;
+PlainRoadA: major=0; minor=68;
+RiverGrassyA: major=4; minor=32;
+RiverGrassyB: major=4; minor=33;
+RiverGrassyC: major=4; minor=34;
+RiverIcyA: major=4; minor=35;
+RiverIcyB: major=4; minor=36;
+RiverIcyC: major=4; minor=37;
+RiverMarshA: major=4; minor=38;
+RiverMarshB: major=4; minor=39;
+RiverMarshC: major=4; minor=40;
+RiverSandyA: major=4; minor=28;
+RiverSandyB: major=4; minor=29;
+RiverSandyC: major=4; minor=30;
+RiverSandyShallowA: major=4; minor=31;
+SandA: major=0; minor=34;
+SandB: major=0; minor=35;
+SandC: major=0; minor=36;
+SandD: major=0; minor=37;
+SandDirt50: major=0; minor=39;
+SandDirt50b: major=0; minor=40;
+SavannahA: major=0; minor=15;
+SavannahB: major=0; minor=16;
+SavannahC: major=0; minor=17;
+SavannahD: major=0; minor=18;
+ShorelineAegeanA: major=4; minor=1;
+ShorelineAegeanB: major=4; minor=2;
+ShorelineAegeanC: major=4; minor=3;
+ShorelineAtlanticA: major=4; minor=14;
+ShorelineAtlanticB: major=4; minor=15;
+ShorelineAtlanticC: major=4; minor=16;
+ShorelineJungleA: major=4; minor=21;
+ShorelineJungleB: major=4; minor=22;
+ShorelineJungleC: major=4; minor=23;
+ShorelineMediterraneanA: major=4; minor=10;
+ShorelineMediterraneanB: major=4; minor=11;
+ShorelineMediterraneanC: major=4; minor=12;
+ShorelineMediterraneanD: major=4; minor=13;
+ShorelineNorwegianA: major=4; minor=7;
+ShorelineNorwegianB: major=4; minor=8;
+ShorelineNorwegianC: major=4; minor=9;
+ShorelinePlainA: major=4; minor=24;
+ShorelinePlainB: major=4; minor=25;
+ShorelinePlainC: major=4; minor=26;
+ShorelinePlainD: major=4; minor=27;
+ShorelineRedSeaA: major=4; minor=4;
+ShorelineRedSeaB: major=4; minor=5;
+ShorelineRedSeaC: major=4; minor=6;
+ShorelineSandA: major=4; minor=0;
+ShorelineTundraA: major=4; minor=17;
+ShorelineTundraB: major=4; minor=18;
+ShorelineTundraC: major=4; minor=19;
+ShorelineTundraD: major=4; minor=20;
+SnowA: major=0; minor=41;
+SnowB: major=0; minor=42;
+SnowGrass25: major=0; minor=43;
+SnowGrass50: major=0; minor=44;
+SnowGrass75: major=0; minor=45;
+SnowSand25: major=0; minor=46;
+SnowSand50: major=0; minor=47;
+SnowSand75: major=0; minor=48;
+TundraGrassA: major=0; minor=54;
+TundraGrassB: major=0; minor=55;
+TundraRoadA: major=0; minor=69;
+TundraRockA: major=0; minor=56;
+TundraRockB: major=0; minor=57;
+UnderwaterIceA: major=3; minor=6;
+UnderwaterIceB: major=3; minor=7;
+UnderwaterIceC: major=3; minor=8;
+UnderwaterRockA: major=3; minor=0;
+UnderwaterRockB: major=3; minor=1;
+UnderwaterRockC: major=3; minor=2;
+UnderwaterRockD: major=3; minor=3;
+UnderwaterRockE: major=3; minor=4;
+UnderwaterRockF: major=3; minor=5;
+Water: major=1; minor=0;</javadoc>
     </method>
     <method return="void" name="trChangeTerrainHeight">
         <parameters type="int" name="x0"/>
@@ -7134,7 +7668,32 @@ Indicates that the delete units button has gone up/down.</javadoc>
         <parameters type="int" name="player"/>
         <parameters type="int" name="civ"/>
         <parameters type="int" name="culture"/>
-		<javadoc>Overrides the player civilisation and culture.</javadoc>
+		<javadoc>Overrides the player civilisation and culture.
+Known civs:
+Zeus = 0;
+Poseidon = 1;
+Hades = 2;
+Isis = 3;
+Ra = 4;
+Set = 5;
+Odin = 6;
+Thor = 7;
+Loki = 8;
+Kronos = 9;
+Oranos = 10;
+Gaia = 11;
+Fu Xi = 12;
+Nü Wa = 13;
+Shennong = 14;
+Nature = 22;
+
+Known cultures:
+Greek = 0;
+Egyptian  = 1;
+Norse = 2;
+Atlantean = 3;
+Chinese = 4;
+None = 5;</javadoc>
     </method>
     <method return="int" name="trGetUnitScenarioNameNumber">
         <parameters type="int" name="id"/>
@@ -7309,7 +7868,60 @@ Indicates that the delete units button has gone up/down.</javadoc>
         <parameters type="bool" name="freeOnDeath"/>
         <parameters type="int" name="eventID"/>
         <parameters type="int" name="extra"/>
-		<javadoc>Applies the provided animation to current selection.</javadoc>
+		<javadoc>Applies the provided animation to current selection. The following animation ids are known:
+Attack=1;
+BehindAttack=36;
+Birth=18;
+Bored=3;
+Build=4;
+Carry=5;
+CastAttack=22;
+Charging=19;
+Cinematic=25;
+Closed=42;
+Closing=44;
+Convert=37;
+Death=6;
+Decay=7;
+Dormant=20;
+Eat=46;
+Empower=33;
+Flail=24;
+FreezeAttack=40;
+GatherBush=45;
+GatherChop=8;
+GatherFarm=9;
+GatherFish=49;
+GatherHunt=10;
+GatherMine=11;
+Gore=26;
+Heal=50;
+Idle=2;
+JumpFly=28;
+JumpLand=29;
+JumpTakeoff=27;
+Kill=32;
+LeftAttack=34;
+MaxLOS=52;
+None=0;
+Opened=41;
+Opening=43;
+Pickup=30;
+PivotLeft=17;
+PivotRight=16;
+Pray=23;
+RangedAttack=12;
+RangedWalkAttack=38;
+Recover=51;
+RightAttack=35;
+Run=13;
+Talk=14;
+TeleportIn=47;
+TeleportOut=48;
+Throw=31;
+Walk=15;
+WalkAttack=21;
+WhirlwindAttack=39;</javadoc>
 	</method>
 	<method return="void" name="trUnitSetAnimationPath">
         <parameters type="string" name="value"/>
@@ -7332,5 +7944,497 @@ Indicates that the delete units button has gone up/down.</javadoc>
         <parameters type="int" name="toX"/>
         <parameters type="int" name="toZ"/>
 		<javadoc>Paints the water color for the provided rectangle. Note that the toX and toZ values are NOT inclusive. Color values are from 0.0 to 1.0.</javadoc>
+	</method>
+	<method return="int" name="kbUnitGetOwner">
+        <parameters type="int" name="unitid"/>
+		<javadoc>Gets the owner of the unit with the provided id. Does not require context player setting.</javadoc>
+	</method>
+	<method return="int" name="kbUnitGetProtoUnitID">
+        <parameters type="int" name="unitid"/>
+		<javadoc>Gets the protounit id of the unit with the provided index.</javadoc>
+	</method>
+	<method return="float" name="kbUnitGetResourceAmount">
+        <parameters type="int" name="unitid"/>
+		<javadoc>Unsure what resource refers to in this context. Currently been unable to return anything other than 0.000000 for a unit.</javadoc>
+	</method>
+	<method return="int" name="kbUnitGetResourceType ">
+        <parameters type="int" name="unitid"/>
+		<javadoc>Retrieves the resource type id the unit id currently contains. (0 gold, 1 wood, 2 food, 3 favor).</javadoc>
+	</method>
+	<method return="int" name="kbUnitGetSubResourceType ">
+        <parameters type="int" name="unitid"/>
+		<javadoc>Seems to return 0 for some objects containing resources. Otherwise unsure what it does.</javadoc>
+	</method>
+	<method return="int" name="kbUnitGetAnimationActionType ">
+        <parameters type="int" name="unitid"/>
+		<javadoc>Retrieves the animation action the unit is currently performing. Following action ids are known:
+Bored=0;
+Build=1;
+Convert=2;
+Death=3;
+Decay=4;
+Gather=5;
+HandAttack=6;
+Heal=7;
+Hunting=8;
+Idle=9;
+Move=10;
+MoveByGroup=11;
+RangedAttack=12;
+Repair=13;
+Research=14;
+Train=15;
+OverrideAnimation=16;
+Work=17;
+Attack=18;
+Unused0=19;
+Wander=20;
+Enter=21;
+AutoConvert=22;
+Birth=23;
+AreaAttack=24;
+Freeze=25;
+Dormant=26;
+GatherPoint=27;
+MoveAttack=28;
+Thrown=29;
+Lightning=30;
+Light=31;
+JumpAttack=32;
+Unused1=33;
+Meteor=34;
+Attach=35;
+Guide=36;
+JumpMove=37;
+Pickup=38;
+DiveBomb=39;
+Unused2=40;
+Regenerate=41;
+Use=42;
+Empower=43;
+AutoGather=44;
+Throw=45;
+Gore=46;
+Dropoff=47;
+WhirlwindAttack=48;
+ChargedRangedAttack=49;
+Eject=50;
+FreezeAttack=51;
+ConvertAttack=52;
+Trade=53;
+Guard=54;
+AutoMover=55;
+GetOnMover=56;
+Swallow=57;
+Gate=58;
+LightningAttack=59;
+Explore=60;
+Eat=61;
+Boost=62;
+CorpseDecay=63;
+Teleport=64;
+BuckAttack=65;
+TownBell=66;
+HeroDeath=67;
+Unbuild=68;
+AutoLOS=69;</javadoc>
+	</method>
+	<method return="bool" name="kbProtoUnitIsUnitType ">
+        <parameters type="int" name="protounitid"/>
+        <parameters type="int" name="typeid"/>
+		<javadoc>Returns if the protounit id is of the provided type id. The following values are known for the abstract types:
+AbstractArcher=956;
+AbstractArcheryRange=1019;
+AbstractArmory=1058;
+AbstractBarracks=1018;
+AbstractCart=1066;
+AbstractCavalry=955;
+AbstractDock=959;
+AbstractFarm=958;
+AbstractFortress=1017;
+AbstractInfantry=954;
+AbstractMonument=1010;
+AbstractPharaoh=1028;
+AbstractScout=1067;
+AbstractSettlement=991;
+AbstractSiegeWeapon=966;
+AbstractStable=1016;
+AbstractTemple=950;
+AbstractTitan=994;
+AbstractTradeUnit=995;
+AbstractVillager=957;
+AbstractWall=989;
+ActionAttack=985;
+ActionBuild=984;
+ActionGather=982;
+ActionTrain=983;
+ActionTrickle=986;
+Age1Building=1004;
+Age1Temple=999;
+Age2Building=997;
+Age3Building=998;
+All=981;
+AnimalPredator=1027;
+AnimalPrey=1025;
+AnimalReactive=1026;
+ArcherShip=1063;
+AutoupgradedUnit=1069;
+AverageSpeed=972;
+Building=937;
+BuildingClass=976;
+BuildingsThatShoot=992;
+ConvertableBuilding=1023;
+Crush=1013;
+Dropsite=940;
+E3Class=980;
+EarlyFoodDropsite=1021;
+EarlyGoldDropsite=1022;
+EarlyWoodDropsite=1020;
+Economic=969;
+EconomicBuilding=939;
+EmbellishmentClass=978;
+FastSpeed=971;
+Favor=1024;
+Fish=987;
+FlyingUnit=967;
+Food=1000;
+FoodDropsite=1005;
+Generic=974;
+Gold=1001;
+GoldDropsite=1007;
+Hack=1012;
+HammerShip=1064;
+Herdable=990;
+Hero=952;
+HumanSoldier=1008;
+Huntable=1009;
+HuntedResource=942;
+InventoryHolder=960;
+InventoryItem=961;
+LandResource=944;
+LogicalTypeAbstractVillNotHero=1126;
+LogicalTypeAffectedByChaos=1101;
+LogicalTypeAffectedByFrostGiant=1111;
+LogicalTypeAffectedByHealingSpring=1051;
+LogicalTypeAffectedByHeroize=1107;
+LogicalTypeAffectedByRestoration=1052;
+LogicalTypeAffectedByTownBell=1090;
+LogicalTypeAffectedByVortex=1105;
+LogicalTypeAutoattackTargetsBuildings=1086;
+LogicalTypeBuildingNotTitanGate=1119;
+LogicalTypeBuildingsNotHouses=1040;
+LogicalTypeBuildingsNotWalls=1120;
+LogicalTypeBuildingsThatTrainMilitary=1080;
+LogicalTypeCanBeHealed=1060;
+LogicalTypeCanBeStoned=1110;
+LogicalTypeCanBeThrown=1103;
+LogicalTypeCavalryAndScout=1054;
+LogicalTypeConvertsHerds=1076;
+LogicalTypeDangerousAnimals=1044;
+LogicalTypeDoesNotCreateLush=1106;
+LogicalTypeEarthquakeAttack=1057;
+LogicalTypeEasySelectAvoid=1118;
+LogicalTypeEscapesFrostOnTransform=1122;
+LogicalTypeFavoriteMythUnit=1075;
+LogicalTypeFavoriteUnit=1074;
+LogicalTypeFimbulWinterTCEvalType=1084;
+LogicalTypeGarrisonOnBoats=1053;
+LogicalTypeGates=1128;
+LogicalTypeGreekHeroes=1092;
+LogicalTypeHandUnitsAttack=1034;
+LogicalTypeHandUnitsAutoAttack=1037;
+LogicalTypeHouses=1127;
+LogicalTypeIdleCivilian=1045;
+LogicalTypeIdleHero=1049;
+LogicalTypeIdleMilitary=1046;
+LogicalTypeImplodeAttack=1109;
+LogicalTypeInvulnerableToGaia=1117;
+LogicalTypeLandMilitary=1088;
+LogicalTypeMeanPredatorsAutoAttack=1036;
+LogicalTypeMilitaryUnitsAndBuildings=1093;
+LogicalTypeMinimapFilterEconomic=1061;
+LogicalTypeMinimapFilterMilitary=1062;
+LogicalTypeMummyMinionTarget=1113;
+LogicalTypeMythUnitNotTitan=1124;
+LogicalTypeNavalMilitary=1070;
+LogicalTypeNeededForVictory=1048;
+LogicalTypeNoFlailOnThrow=1121;
+LogicalTypeNonGreekUnit=1055;
+LogicalTypeOdinRegenerates=1094;
+LogicalTypeParticipatesInBattlecries=1079;
+LogicalTypePerseusCanStone=1112;
+LogicalTypePredatorsAttack=1038;
+LogicalTypePredatorsAutoAttack=1035;
+LogicalTypeRamAttack=1081;
+LogicalTypeRangedUnitsAttack=1041;
+LogicalTypeRangedUnitsAutoAttack=1042;
+LogicalTypeScoutsRespondToAttack=1039;
+LogicalTypeScreamsOnSpiderPull=1115;
+LogicalTypeSeaSerpentAttack=1073;
+LogicalTypeShipNotFishinghip=1125;
+LogicalTypeSiegeAutoAttack=1059;
+LogicalTypeSuperPredatorsAttack=1096;
+LogicalTypeSuperPredatorsAutoAttack=1097;
+LogicalTypeTartarianGateValidOverlapPlacement=1104;
+LogicalTypeTimeshift=1116;
+LogicalTypeTornadoAttack=1047;
+LogicalTypeUnitsNotBuildings=1043;
+LogicalTypeValidBoltTarget=1050;
+LogicalTypeValidDeconstructionTarget=1099;
+LogicalTypeValidFlamingWeaponsTarget=1091;
+LogicalTypeValidForestFireTarget=1085;
+LogicalTypeValidFrostTarget=1071;
+LogicalTypeValidLocustSwarmTarget=1077;
+LogicalTypeValidMeteorTarget=1072;
+LogicalTypeValidReverseWonderTarget=1102;
+LogicalTypeValidShiftingSandsTarget=1078;
+LogicalTypeValidSPCUnitsDeadCondition=1089;
+LogicalTypeValidSpiderTarget=1108;
+LogicalTypeValidSpyTarget=1068;
+LogicalTypeValidTraitorsTarget=1095;
+LogicalTypeValidTremorAttack=1100;
+LogicalTypeVillagersAttack=1056;
+LogicalTypeVillagersRespondToAttack=1083;
+LogicalTypeVolcanoAttack=1098;
+LokiHero=996;
+Military=951;
+MilitaryBuilding=938;
+MinedResource=943;
+MythUnit=968;
+MythUnitArcher=1031;
+MythUnitCavalry=1030;
+MythUnitGodPower=993;
+MythUnitInfantry=1029;
+MythUnitSiege=1032;
+Nature=947;
+NatureClass=977;
+Pierce=1014;
+Projectile=946;
+Ranged=970;
+Resource=941;
+SetAnimal=1123;
+SettlementsThatTrainVillagers=1011;
+SharedBuilding=1015;
+Ship=936;
+SiegeShip=1065;
+SlowSpeed=973;
+SpecialPowers=948;
+StrengthBonus=963;
+Teleporter=1114;
+TestClass=979;
+TradeableFrom=965;
+TradeableTo=964;
+Transport=988;
+TransportShip=1082;
+Tree=953;
+Unattackable=949;
+Unit=935;
+UnitClass=975;
+UseableItem=962;
+UtilityShip=1033;
+WalkingWood=1087;
+WaterResource=945;
+WildCrops=1003;
+Wood=1002;
+WoodDropsite=1006;</javadoc>
+	</method>
+	<method return="float" name="kbProtoUnitGetTrainPoints">
+        <parameters type="int" name="protounitid"/>
+		<javadoc>Retrieves the number of train points required to make the provided protounit id.</javadoc>
+	</method>
+	<method return="float" name="kbProtoUnitGetMinimumRange">
+        <parameters type="int" name="protounitid"/>
+		<javadoc>Retrieves the minimum range of the protounit id.</javadoc>
+	</method>
+	<method return="float" name="kbProtoUnitGetMaximumRange">
+        <parameters type="int" name="protounitid"/>
+		<javadoc>Retrieves the maximum range of the protounit id.</javadoc>
+	</method>
+	<method return="float" name="kbProtoUnitGetDamage">
+        <parameters type="int" name="protounitid"/>
+        <parameters type="int" name="action"/>
+        <parameters type="int" name="againstplayer"/>
+        <parameters type="int" name="againstprotounitid"/>
+		<javadoc>Retrieves the unit bonus damage dealt with a given damage action. Known actions are below:
+Bored=0;
+Build=1;
+Convert=2;
+Death=3;
+Decay=4;
+Gather=5;
+HandAttack=6;
+Heal=7;
+Hunting=8;
+Idle=9;
+Move=10;
+MoveByGroup=11;
+RangedAttack=12;
+Repair=13;
+Research=14;
+Train=15;
+OverrideAnimation=16;
+Work=17;
+Attack=18;
+Unused0=19;
+Wander=20;
+Enter=21;
+AutoConvert=22;
+Birth=23;
+AreaAttack=24;
+Freeze=25;
+Dormant=26;
+GatherPoint=27;
+MoveAttack=28;
+Thrown=29;
+Lightning=30;
+Light=31;
+JumpAttack=32;
+Unused1=33;
+Meteor=34;
+Attach=35;
+Guide=36;
+JumpMove=37;
+Pickup=38;
+DiveBomb=39;
+Unused2=40;
+Regenerate=41;
+Use=42;
+Empower=43;
+AutoGather=44;
+Throw=45;
+Gore=46;
+Dropoff=47;
+WhirlwindAttack=48;
+ChargedRangedAttack=49;
+Eject=50;
+FreezeAttack=51;
+ConvertAttack=52;
+Trade=53;
+Guard=54;
+AutoMover=55;
+GetOnMover=56;
+Swallow=57;
+Gate=58;
+LightningAttack=59;
+Explore=60;
+Eat=61;
+Boost=62;
+CorpseDecay=63;
+Teleport=64;
+BuckAttack=65;
+TownBell=66;
+HeroDeath=67;
+Unbuild=68;
+AutoLOS=69;</javadoc>
+	</method>
+	<method return="float" name="kbProtoUnitGetDamageOfType">
+        <parameters type="int" name="protounitid"/>
+        <parameters type="int" name="action"/>
+        <parameters type="int" name="type"/>
+		<javadoc>Retrieves the unit damage for the provided action and damage type. Types: hack=2, pierce=3, crush=0. Known actions are below:
+Bored=0;
+Build=1;
+Convert=2;
+Death=3;
+Decay=4;
+Gather=5;
+HandAttack=6;
+Heal=7;
+Hunting=8;
+Idle=9;
+Move=10;
+MoveByGroup=11;
+RangedAttack=12;
+Repair=13;
+Research=14;
+Train=15;
+OverrideAnimation=16;
+Work=17;
+Attack=18;
+Unused0=19;
+Wander=20;
+Enter=21;
+AutoConvert=22;
+Birth=23;
+AreaAttack=24;
+Freeze=25;
+Dormant=26;
+GatherPoint=27;
+MoveAttack=28;
+Thrown=29;
+Lightning=30;
+Light=31;
+JumpAttack=32;
+Unused1=33;
+Meteor=34;
+Attach=35;
+Guide=36;
+JumpMove=37;
+Pickup=38;
+DiveBomb=39;
+Unused2=40;
+Regenerate=41;
+Use=42;
+Empower=43;
+AutoGather=44;
+Throw=45;
+Gore=46;
+Dropoff=47;
+WhirlwindAttack=48;
+ChargedRangedAttack=49;
+Eject=50;
+FreezeAttack=51;
+ConvertAttack=52;
+Trade=53;
+Guard=54;
+AutoMover=55;
+GetOnMover=56;
+Swallow=57;
+Gate=58;
+LightningAttack=59;
+Explore=60;
+Eat=61;
+Boost=62;
+CorpseDecay=63;
+Teleport=64;
+BuckAttack=65;
+TownBell=66;
+HeroDeath=67;
+Unbuild=68;
+AutoLOS=69;</javadoc>
+	</method>
+	<method return="float" name="kbProtoUnitGetArmorOfType">
+        <parameters type="int" name="protounitid"/>
+        <parameters type="int" name="type"/>
+		<javadoc>Retrieves the unit armour for the provided action and damage type. Types: hack=2, pierce=3, crush=0.</javadoc>
+	</method>
+	<method return="float" name="kbProtoUnitGetMaxHitPoints">
+        <parameters type="int" name="protounitid"/>
+		<javadoc>Retrieves the maximum hitpoints for the provided protounit id.</javadoc>
+	</method>
+	<method return="float" name="kbProtoUnitGetMaximumVelocity">
+        <parameters type="int" name="protounitid"/>
+		<javadoc>Retrieves the unit speed for the provided protounit id.</javadoc>
+	</method>
+	<method return="int" name="kbProtoUnitGetPopulationCount">
+        <parameters type="int" name="protounitid"/>
+		<javadoc>Retrieves the number of population slots the protovided protounit id currently uses.</javadoc>
+	</method>
+	<method return="int" name="kbBaseGetUnit">
+        <parameters type="int" name="player"/>
+        <parameters type="int" name="baseid"/>
+        <parameters type="int" name="index"/>
+		<javadoc>Retrieves the unit id in the defined base unit index.</javadoc>
+	</method>
+	<method return="int" name="kbNumberGodPowerActive">
+		<javadoc>Retrieves the total number of god powers that have ever been cast.</javadoc>
+	</method>
+	<method return="int" name="kbActiveGodPowerOwnerID">
+		<parameters type="int" name="index"/>
+		<javadoc>Retrieves the owner of god power cast with the provided cast index. Game seems to crash if calling with index after that god power is no longer active!</javadoc>
+	</method>
+	<method return="int" name="kbActiveGodPowerID">
+		<parameters type="int" name="index"/>
+		<javadoc>Retrieves the proto power id for the god power cast index. Game seems to crash if calling with index after that god power is no longer active!</javadoc>
 	</method>
 </model>
