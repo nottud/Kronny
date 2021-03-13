@@ -3652,7 +3652,73 @@ The player for which the modifications should occur.&#xD;
 @param	delta&#xD;
 The (relative) amount to change.&#xD;
 &#xD;
-@since AoT</javadoc>
+@since AoT
+
+The field ids are as follows:
+Hitpoints=0
+Speed=1
+LOS=2
+Train Points=3
+Build Points=4
+Max Contained=5
+Population Count=6
+Pop Cap Addition=7
+Lifespan=8
+Recharge Time=9
+Build Limit=10
+Range=11
+Minimum Range=12
+Num Projectiles=13
+Healing Rate=14
+Healing Range=15
+Cost Gold=16
+Cost Wood=17
+Cost Food=18
+Cost Favor=19
+Carry Capacity Gold=20
+Carry Capacity Wood=21
+Carry Capacity Food=22
+Carry Capacity Favor=23
+Armor Hack=24
+Armor Pierce=25
+Armor Crush=26
+Hand Attack Hack=27
+Hand Attack Pierce=28
+Hand Attack Crush=29
+Ranged Attack Hack=30
+Ranged Attack Pierce=31
+Ranged Attack Crush=32
+Hand Bonus v. Myth=33
+Hand Bonus v. Hero=34
+Hand Bonus v. Cavalry=35
+Hand Bonus v. Infantry=36
+Hand Bonus v. Archer=37
+Hand Bonus v. Siege=38
+Hand Bonus v. Tower=39
+Hand Bonus v. Ship=40
+Hand Bonus v. Building=41
+Hand Bonus v. Villagers=42
+Hand Bonus v. Huntable Animals=43
+Ranged Bonus v. Myth=44
+Ranged Bonus v. Hero=45
+Ranged Bonus v. Cavalry=46
+Ranged Bonus v. Infantry=47
+Ranged Bonus v. Archer=48
+Ranged Bonus v. Siege=49
+Ranged Bonus v. Tower=50
+Ranged Bonus v. Ship=51
+Ranged Bonus v. Building=52
+Ranged Bonus v. Villagers=53
+Ranged Bonus v. Huntable Animals=54
+Movement Type=55
+
+Movement types are set rather than delta values as follows:
+None=0
+Land=1
+Water=2
+Amphibious=3
+Air=4
+</javadoc>
     </method>
     <method return="void" name="trObjectiveSetID">
         <parameters type="int" name="missionNum"/>
@@ -8436,5 +8502,15 @@ AutoLOS=69;</javadoc>
 	<method return="int" name="kbActiveGodPowerID">
 		<parameters type="int" name="index"/>
 		<javadoc>Retrieves the proto power id for the god power cast index. Game seems to crash if calling with index after that god power is no longer active!</javadoc>
+	</method>
+	<method return="int" name="aiTaskUnitGarrison">
+		<parameters type="int" name="garrisonedUnitID"/>
+		<parameters type="int" name="containerUnitID"/>
+		<javadoc>AI task to perform a unit garrison.</javadoc>
+	</method>
+	<method return="int" name="aiTaskUnitEject">
+		<parameters type="int" name="containerUnitID"/>
+		<parameters type="int" name="ejectedUnitID"/>
+		<javadoc>AI task to ungarrison a unit.</javadoc>
 	</method>
 </model>
