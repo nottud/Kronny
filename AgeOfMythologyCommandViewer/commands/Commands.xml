@@ -2695,7 +2695,7 @@ Pass in -1 for the teamID to place all teams (or actually all players that haven
         <parameters type="int" name="areaID"/>
         <javadoc>Sets a player's 'official' area.*/</javadoc>
     </method>
-    <method return="void" name="rmSetPlayerLocation ">
+    <method return="void" name="rmSetPlayerLocation">
         <parameters type="int" name="playerID"/>
         <parameters type="float" name="xFraction"/>
         <parameters type="float" name="zFraction"/>
@@ -5511,7 +5511,7 @@ Removes any dangling child menus off of the given gadget.&#xD;
 &#xD;
 @local</javadoc>
     </method>
-    <method return="void" name="uiDumpKeyMappings ">
+    <method return="void" name="uiDumpKeyMappings">
         <parameters type="string" name="context"/>
         <javadoc>&#xD;
 Prints all key mappings out to the console.&#xD;
@@ -5528,7 +5528,7 @@ Prints all hotkey mappings that create units to the console.&#xD;
 &#xD;
 @local</javadoc>
     </method>
-    <method return="void" name="uiDumpUnmappedKeys ">
+    <method return="void" name="uiDumpUnmappedKeys">
         <parameters type="string" name="context"/>
         <javadoc>&#xD;
 Prints all empty keys out to the console.&#xD;
@@ -5537,7 +5537,7 @@ Prints all empty keys out to the console.&#xD;
 &#xD;
 @local</javadoc>
     </method>
-    <method return="void" name="uiFindKeyMapping ">
+    <method return="void" name="uiFindKeyMapping">
         <parameters type="string" name="keyname"/>
         <javadoc>&#xD;
 Finds all key mappings for a given key.&#xD;
@@ -5546,7 +5546,7 @@ Finds all key mappings for a given key.&#xD;
 &#xD;
 @local</javadoc>
     </method>
-    <method return="void" name="uiHandleUserTab ">
+    <method return="void" name="uiHandleUserTab">
         <parameters type="string" name="listSel"/>
         <parameters type="string" name="parent"/>
         <javadoc>&#xD;
@@ -8023,89 +8023,89 @@ WhirlwindAttack=39;</javadoc>
         <parameters type="int" name="unitid"/>
 		<javadoc>Unsure what resource refers to in this context. Currently been unable to return anything other than 0.000000 for a unit.</javadoc>
 	</method>
-	<method return="int" name="kbUnitGetResourceType ">
+	<method return="int" name="kbUnitGetResourceType">
         <parameters type="int" name="unitid"/>
 		<javadoc>Retrieves the resource type id the unit id currently contains. (0 gold, 1 wood, 2 food, 3 favor).</javadoc>
 	</method>
-	<method return="int" name="kbUnitGetSubResourceType ">
+	<method return="int" name="kbUnitGetSubResourceType">
         <parameters type="int" name="unitid"/>
 		<javadoc>Seems to return 0 for some objects containing resources. Otherwise unsure what it does.</javadoc>
 	</method>
-	<method return="int" name="kbUnitGetAnimationActionType ">
+	<method return="int" name="kbUnitGetAnimationActionType">
         <parameters type="int" name="unitid"/>
 		<javadoc>Retrieves the animation action the unit is currently performing. Following action ids are known:
+AreaAttack=24;
+Attach=35;
+Attack=18;
+AutoConvert=22;
+AutoGather=44;
+AutoLOS=69;
+AutoMover=55;
+Birth=23;
+Boost=62;
 Bored=0;
+BuckAttack=65;
 Build=1;
+ChargedRangedAttack=49;
 Convert=2;
+ConvertAttack=52;
+CorpseDecay=63;
 Death=3;
 Decay=4;
+DiveBomb=39;
+Dormant=26;
+Dropoff=47;
+Eat=61;
+Eject=50;
+Empower=43;
+Enter=21;
+Explore=60;
+Freeze=25;
+FreezeAttack=51;
+Gate=58;
 Gather=5;
+GatherPoint=27;
+GetOnMover=56;
+Gore=46;
+Guard=54;
+Guide=36;
 HandAttack=6;
 Heal=7;
+HeroDeath=67;
 Hunting=8;
 Idle=9;
+JumpAttack=32;
+JumpMove=37;
+Light=31;
+Lightning=30;
+LightningAttack=59;
+Meteor=34;
 Move=10;
+MoveAttack=28;
 MoveByGroup=11;
+OverrideAnimation=16;
+Pickup=38;
 RangedAttack=12;
+Regenerate=41;
 Repair=13;
 Research=14;
-Train=15;
-OverrideAnimation=16;
-Work=17;
-Attack=18;
-Unused0=19;
-Wander=20;
-Enter=21;
-AutoConvert=22;
-Birth=23;
-AreaAttack=24;
-Freeze=25;
-Dormant=26;
-GatherPoint=27;
-MoveAttack=28;
-Thrown=29;
-Lightning=30;
-Light=31;
-JumpAttack=32;
-Unused1=33;
-Meteor=34;
-Attach=35;
-Guide=36;
-JumpMove=37;
-Pickup=38;
-DiveBomb=39;
-Unused2=40;
-Regenerate=41;
-Use=42;
-Empower=43;
-AutoGather=44;
-Throw=45;
-Gore=46;
-Dropoff=47;
-WhirlwindAttack=48;
-ChargedRangedAttack=49;
-Eject=50;
-FreezeAttack=51;
-ConvertAttack=52;
-Trade=53;
-Guard=54;
-AutoMover=55;
-GetOnMover=56;
 Swallow=57;
-Gate=58;
-LightningAttack=59;
-Explore=60;
-Eat=61;
-Boost=62;
-CorpseDecay=63;
 Teleport=64;
-BuckAttack=65;
+Throw=45;
+Thrown=29;
 TownBell=66;
-HeroDeath=67;
+Trade=53;
+Train=15;
 Unbuild=68;
-AutoLOS=69;</javadoc>
+Unused0=19;
+Unused1=33;
+Unused2=40;
+Use=42;
+Wander=20;
+WhirlwindAttack=48;
+Work=17;</javadoc>
 	</method>
-	<method return="bool" name="kbProtoUnitIsUnitType ">
+	<method return="bool" name="kbProtoUnitIsUnitType">
         <parameters type="int" name="protounitid"/>
         <parameters type="int" name="typeid"/>
 		<javadoc>Returns if the protounit id is of the provided type id. The following values are known for the abstract types:
@@ -8512,5 +8512,19 @@ AutoLOS=69;</javadoc>
 		<parameters type="int" name="containerUnitID"/>
 		<parameters type="int" name="ejectedUnitID"/>
 		<javadoc>AI task to ungarrison a unit.</javadoc>
+	</method>
+	<method return="bool" name="aiTaskSetGatherPoint">
+		<parameters type="int" name="buildingUID"/>
+		<parameters type="vector" name="location"/>
+		<javadoc>Does a lightweight (no plan) move tasking to the given location for all units leaving the given unit. (Only does something for buildings with a gather point but is always true)</javadoc>
+	</method>
+	<method return="bool" name="aiTaskUnitMove">
+		<parameters type="int" name="unitID"/>
+		<parameters type="vector" name="position"/>
+		<javadoc>Does a lightweight (no plan) move tasking of the given unit to the given location. AND can be used instead of aiTaskSetGatherPoint when used with buildings.</javadoc>
+	</method>
+	<method return="bool" name="aiTaskSpeedUpConstruction">
+		<parameters type="int" name="buildingUID"/>
+		<javadoc>Does a lightweight (no plan) activation tasking of Fuxi's Blessed Construction for the given building. Works on all buildings not only Fuxi's! When used on a completed building the animation stays active till the building is destroyed without effecting the repair speed. When used on units the animation stay active even if the unit dies.</javadoc>
 	</method>
 </model>
