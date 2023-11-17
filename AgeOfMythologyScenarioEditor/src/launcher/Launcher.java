@@ -3,7 +3,7 @@ package launcher;
 
 import java.util.List;
 
-import io.TriggerWriter
+import io.TriggerWriter;
 import datahandler.location.LocationNotFoundException;
 import editor.EditorContext;
 import editor.EditorPane;

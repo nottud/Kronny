@@ -1,0 +1,15 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\command",
+    "\\src\\datahandler",
+    "\\src\\editor",
+    "\\src\\editor\\tool",
+    "\\src\\editor\\tool\\unit",
+    "\\src\\editor\\unit",
+    "\\src\\editor\\unit\\selection"
+  ],
+  "SelectedNode": "\\src\\mapmodel",
+  "PreviewInSolutionExplorer": false
+}
