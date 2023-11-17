@@ -3,6 +3,7 @@ package launcher;
 
 import java.util.List;
 
+import io.TriggerWriter
 import datahandler.location.LocationNotFoundException;
 import editor.EditorContext;
 import editor.EditorPane;
@@ -32,6 +33,8 @@ public class Launcher extends Application {
    private void readInData(EditorContext editorContext, List<Byte> bytesList) {
       try {
          editorContext.getRootModel().readAllModels(bytesList, 0);
+         TriggerWriter zenophobia = new TriggerWriter();
+         zenophobia.writeUnits(editorContext, "triggers.c");
       } catch (LocationNotFoundException ex) {
          editorContext.getMessageDisplay().showError(ex,
                "Failed to read in scenario data to editor model. Ensure scenario is saved with latest version of the game and there are no custom "
