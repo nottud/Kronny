@@ -1,14 +1,15 @@
 
 package launcher;
 
+import java.io.IOException;
 import java.util.List;
 
-import io.TriggerWriter;
 import datahandler.location.LocationNotFoundException;
 import editor.EditorContext;
 import editor.EditorPane;
 import editor.FileModel;
 import editor.StageTitleProvider;
+import io.TriggerWriter;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -34,8 +35,12 @@ public class Launcher extends Application {
       try {
          editorContext.getRootModel().readAllModels(bytesList, 0);
          TriggerWriter zenophobia = new TriggerWriter();
-         zenophobia.writeUnits(editorContext, "triggers.c");
+         zenophobia.writeUnits(editorContext, "triggers.txt");
       } catch (LocationNotFoundException ex) {
+         editorContext.getMessageDisplay().showError(ex,
+               "Failed to read in scenario data to editor model. Ensure scenario is saved with latest version of the game and there are no custom "
+                     + "terrains, water types, etc.");
+      } catch (IOException ex) {
          editorContext.getMessageDisplay().showError(ex,
                "Failed to read in scenario data to editor model. Ensure scenario is saved with latest version of the game and there are no custom "
                      + "terrains, water types, etc.");
